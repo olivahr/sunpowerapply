@@ -2,35 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Aplicación Corporativa – Paneles Solares</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-html, body{margin:0;padding:0;height:100%;font-family:'Inter',Arial,sans-serif;background:#f0f3f7;scroll-behavior:smooth;}
-*{box-sizing:border-box;}
-input, select, textarea { font-size:16px; }
-.lang-select{position:absolute;top:15px;left:50%;transform:translateX(-50%);z-index:1000;font-weight:600;padding:8px 16px;border-radius:16px;border:none;background:#1f8f4a;color:#fff;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
-.app-container{width:100%;min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding:80px 10px 20px 10px;}
-.form-wrapper{width:100%;max-width:1000px;background:#fff;border-radius:32px;box-shadow:0 20px 60px rgba(0,0,0,0.15);display:flex;flex-direction:column;padding:40px;overflow:hidden;position:relative;}
-.progress-bar{height:20px;background:#ddd;border-radius:10px;margin-bottom:20px;overflow:hidden;box-shadow:inset 0 2px 5px rgba(0,0,0,0.1);}
-.progress{height:100%;width:0%;background:linear-gradient(90deg,#1f8f4a,#45c16c);border-radius:10px;transition:width .6s ease-in-out;}
-.score-bar{position:relative;height:20px;background:#eee;border-radius:10px;margin:15px 0;overflow:hidden;}
-.score-fill{height:100%;width:0%;border-radius:10px;transition:width .4s ease-in-out;text-align:center;color:#fff;font-size:12px;font-weight:600;line-height:20px;}
-.form-step{min-height:75vh;display:flex;flex-direction:column;justify-content:flex-start;padding-bottom:40px;opacity:0;transform:translateX(50px);transition:all 0.6s ease;}
-.form-step.active{display:flex;opacity:1;transform:translateX(0);}
-h2{text-align:center;margin-bottom:20px;color:#1f8f4a;font-weight:700;font-size:28px;}
-label{display:block;margin-top:14px;font-weight:500;color:#333;font-size:16px;}
-input, select, textarea{width:100%;padding:16px;margin-top:8px;border:1px solid #ccc;border-radius:16px;font-size:16px;transition:.3s;outline:none;background:#f7f9fc;}
-input:focus, select:focus, textarea:focus{border-color:#1f8f4a;box-shadow:0 0 12px rgba(31,143,74,0.25);background:#fff;}
-textarea{resize:vertical;min-height:80px;}
-.btns{display:flex;justify-content:flex-end;margin-top:25px;gap:15px;}
-button{padding:16px 32px;border:none;border-radius:20px;background:linear-gradient(135deg,#1f8f4a,#45c16c);color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;box-shadow:0 8px 20px rgba(0,0,0,0.2);}
-button:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(0,0,0,0.3);}
-button:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
-@media(max-width:900px){.btns{flex-direction:column;} button{width:100%;}}
-.footer{margin-top:50px;text-align:center;font-size:13px;color:#666;}
-.footer span{display:block;margin-top:6px;}
-</style>
+<title>Aplicación Corporativa – SunPower</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -42,85 +16,86 @@ button:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 <div class="app-container">
 <div class="form-wrapper">
 <div class="progress-bar"><div class="progress" id="progress"></div></div>
+
 <form id="app">
 
 <!-- ================= STEP 1 ================= -->
 <div class="form-step active" id="step1">
-<h2 data-es="Información Personal" data-en="Personal Information">Información Personal</h2>
+<h2>Información Personal</h2>
 <div class="score-bar"><div class="score-fill" id="score1"></div></div>
+<p class="step-desc">Complete su información personal para validar identidad y preparar correctamente su contrato corporativo.</p>
 
-<label data-es="Nombre completo" data-en="Full Name">Nombre completo</label>
+<label>Nombre completo</label>
 <input type="text" name="fullName" placeholder="Ej: Juan Pérez" required>
 
-<label data-es="Fecha de nacimiento" data-en="Birthdate">Fecha de nacimiento</label>
+<label>Fecha de nacimiento</label>
 <input type="date" name="birthDate" required>
 
-<label data-es="Correo electrónico" data-en="Email">Correo electrónico</label>
+<label>Correo electrónico</label>
 <input type="email" name="email" placeholder="ejemplo@correo.com" required>
 
-<label data-es="Teléfono" data-en="Phone">Teléfono</label>
+<label>Teléfono</label>
 <input type="tel" name="phone" placeholder="+1 555 555 5555" required>
 
-<label data-es="País de residencia" data-en="Country of Residence">País de residencia</label>
+<label>País de residencia</label>
 <select name="country" required>
 <option value="">Seleccione un país</option>
-<option>Estados Unidos / United States</option>
-<option>Canadá / Canada</option>
-<option>México / Mexico</option>
-<option>Colombia / Colombia</option>
-<option>Chile / Chile</option>
-<option>Brasil / Brazil</option>
-<option>Argentina / Argentina</option>
-<option>Otro / Other</option>
+<option>Estados Unidos</option>
+<option>Canadá</option>
+<option>México</option>
+<option>Colombia</option>
+<option>Brasil</option>
+<option>Argentina</option>
+<option>Otro</option>
 </select>
 
-<label data-es="Estado / Provincia" data-en="State / Province">Estado / Provincia</label>
+<label>Estado / Provincia</label>
 <input type="text" name="state" placeholder="Ej: California" required>
 
-<label data-es="Ciudad" data-en="City">Ciudad</label>
+<label>Ciudad</label>
 <input type="text" name="city" placeholder="Ej: Los Angeles" required>
 
-<label data-es="Código postal" data-en="Postal Code">Código postal</label>
-<input type="text" name="postalCode" placeholder="Ej: 90001" required>
-
-<label data-es="Dirección" data-en="Address">Dirección</label>
+<label>Dirección completa</label>
 <input type="text" name="address" placeholder="Ej: Calle 123, Apt 4B" required>
 
-<label data-es="Estado civil" data-en="Marital Status">Estado civil</label>
+<label>Código postal</label>
+<input type="text" name="zipCode" placeholder="Ej: 90001" required>
+
+<label>Estado civil</label>
 <select name="maritalStatus" required>
 <option value="">Seleccione</option>
-<option>Soltero / Single</option>
-<option>Casado / Married</option>
-<option>Divorciado / Divorced</option>
-<option>Viudo / Widowed</option>
-<option>Otro / Other</option>
+<option>Soltero</option>
+<option>Casado</option>
+<option>Divorciado</option>
+<option>Viudo</option>
+<option>Otro</option>
 </select>
 
-<label data-es="Género" data-en="Gender">Género</label>
+<label>Género</label>
 <select name="gender" required>
 <option value="">Seleccione</option>
-<option>Masculino / Male</option>
-<option>Femenino / Female</option>
-<option>Otro / Other</option>
-<option>Prefiero no decir / Prefer not to say</option>
+<option>Masculino</option>
+<option>Femenino</option>
+<option>Otro</option>
+<option>Prefiero no decir</option>
 </select>
 
-<label data-es="Nivel de educación" data-en="Education Level">Nivel de educación</label>
+<label>Nivel de educación</label>
 <select name="education" required>
 <option value="">Seleccione</option>
-<option>Primaria completa / Primary School</option>
-<option>Secundaria completa / High School</option>
-<option>Técnico / Technical</option>
-<option>Universitario / University</option>
-<option>Postgrado / Postgraduate</option>
-<option>Otro / Other</option>
+<option>Primaria completa</option>
+<option>Secundaria completa</option>
+<option>Técnico</option>
+<option>Universitario</option>
+<option>Postgrado</option>
+<option>Otro</option>
 </select>
 
-<label data-es="Licencia de conducir" data-en="Driver License">Licencia de conducir</label>
+<label>Licencia de conducir</label>
 <select name="driverLicense" required>
 <option value="">Seleccione</option>
-<option>Sí / Yes</option>
-<option>No / No</option>
+<option>Sí</option>
+<option>No</option>
 </select>
 
 <div class="btns">
@@ -130,10 +105,11 @@ button:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 
 <!-- ================= STEP 2 ================= -->
 <div class="form-step" id="step2">
-<h2 data-es="Experiencia Laboral y Habilidades" data-en="Work Experience & Skills">Experiencia Laboral y Habilidades</h2>
+<h2>Experiencia Laboral y Habilidades</h2>
 <div class="score-bar"><div class="score-fill" id="score2"></div></div>
+<p class="step-desc">Detalle su experiencia laboral, habilidades técnicas y certificaciones relevantes para la posición. Sea lo más específico posible.</p>
 
-<label data-es="Años de experiencia" data-en="Years of Experience">Años de experiencia</label>
+<label>Años de experiencia</label>
 <select name="experienceYears" required>
 <option value="">Seleccione</option>
 <option>0</option>
@@ -144,28 +120,24 @@ button:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 <option>5+</option>
 </select>
 
-<label data-es="Tipo de experiencia laboral" data-en="Type of Work Experience">Tipo de experiencia laboral</label>
-<select name="workType" required>
-<option value="">Seleccione</option>
-<option>Construcción / Construction</option>
-<option>Electricidad / Electrical</option>
-<option>Paneles Solares / Solar Panels</option>
-<option>Mantenimiento / Maintenance</option>
-<option>Otro / Other</option>
-</select>
+<label>Habilidades técnicas</label>
+<textarea name="skills" placeholder="Ej: Instalación de paneles solares, manejo de herramientas eléctricas, seguridad industrial, soldadura" required></textarea>
 
-<label data-es="¿Puede levantar peso durante turnos?" data-en="Can lift weight during shifts?">¿Puede levantar peso durante turnos?</label>
+<label>Certificaciones</label>
+<textarea name="certifications" placeholder="Ej: OSHA, Electricista certificado, Manejo de montacargas"></textarea>
+
+<label>Capacidad para levantar peso durante turnos</label>
 <select name="canLift" required>
 <option value="">Seleccione</option>
-<option>Sí / Yes</option>
-<option>No / No</option>
+<option>Sí</option>
+<option>No</option>
 </select>
 
-<label data-es="Disponibilidad para contrato de 9 meses" data-en="Available for 9-month contract?">Disponibilidad para contrato de 9 meses</label>
+<label>Disponibilidad para contrato de 9 meses</label>
 <select name="availability" required>
 <option value="">Seleccione</option>
-<option>Sí / Yes</option>
-<option>No / No</option>
+<option>Sí</option>
+<option>No</option>
 </select>
 
 <div class="btns">
@@ -176,28 +148,28 @@ button:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 
 <!-- ================= STEP 3 ================= -->
 <div class="form-step" id="step3">
-<h2 data-es="Alojamiento Corporativo" data-en="Corporate Housing">Alojamiento Corporativo</h2>
+<h2>Alojamiento Corporativo</h2>
 <div class="score-bar"><div class="score-fill" id="score3"></div></div>
+<p class="step-desc">Seleccione la habitación que ocupará durante su contrato. Solo hay opciones de 1 cama individual o 2 camas. El pago se realiza en el portal corporativo después de la aprobación.</p>
 
-<label data-es="Tipo de habitación" data-en="Room Type">Tipo de habitación</label>
+<label>Tipo de habitación</label>
 <select name="housingType" required>
 <option value="">Seleccione</option>
-<option>1 cama individual – baño privado, Wi-Fi, TV, aire acondicionado / 1 Bed – Private bath, Wi-Fi, TV, AC</option>
-<option>2 camas – baño privado, Wi-Fi, TV, aire acondicionado / 2 Beds – Private bath, Wi-Fi, TV, AC</option>
+<option>1 cama individual – baño privado, Wi-Fi, TV, aire acondicionado</option>
+<option>2 camas – baño privado, Wi-Fi, TV, aire acondicionado</option>
 </select>
 
-<label data-es="Acepta reglas de la corporación" data-en="Agree with corporate rules?">Acepta reglas de la corporación durante la estadía del contrato</label>
+<label>Acepta reglas corporativas</label>
 <select name="housingAgree" required>
 <option value="">Seleccione</option>
-<option>Sí / Yes</option>
-<option>No / No</option>
+<option>Sí</option>
+<option>No</option>
 </select>
 
-<label data-es="Pago de primera semana" data-en="First week payment">Pago de la primera semana</label>
+<label>Pago de la primera semana</label>
 <select name="housingPayment" required>
 <option value="">Seleccione</option>
-<option>Realizar pago en el portal corporativo tras aprobación / Pay in corporate portal after approval</option>
-<option>No aplica / N/A</option>
+<option>Realizar pago en portal corporativo tras aprobación</option>
 </select>
 
 <div class="btns">
@@ -208,19 +180,20 @@ button:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 
 <!-- ================= STEP 4 ================= -->
 <div class="form-step" id="step4">
-<h2 data-es="Documentación" data-en="Documentation">Documentación</h2>
+<h2>Documentación</h2>
 <div class="score-bar"><div class="score-fill" id="score4"></div></div>
+<p class="step-desc">Ingrese su ciudadanía o residencia legal y prepare los documentos necesarios para verificación de identidad y HR.</p>
 
-<label data-es="Ciudadanía o residencia legal" data-en="Citizenship or Legal Residence">Ciudadanía o residencia legal</label>
+<label>Ciudadanía o residencia legal</label>
 <select name="docCitizenship" required>
 <option value="">Seleccione</option>
-<option>Ciudadano / Citizen</option>
-<option>Residente / Resident</option>
-<option>Otro / Other</option>
+<option>Ciudadano</option>
+<option>Residente</option>
+<option>Otro</option>
 </select>
 
-<label data-es="I-9 verificación en HR (traer 2 formas de ID)" data-en="I-9 verification at HR (bring 2 IDs)">I-9 verificación en HR (traer 2 formas de ID)</label>
-<input type="text" name="i9Info" placeholder="Ej: Pasaporte y Licencia" required>
+<label>Documentos para verificación</label>
+<textarea name="verificationDocs" placeholder="Ej: Pasaporte, licencia de conducir, ID nacional" required></textarea>
 
 <div class="btns">
 <button type="button" class="prev" data-step="3">Anterior</button>
@@ -230,171 +203,43 @@ button:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 
 <!-- ================= STEP 5 ================= -->
 <div class="form-step" id="step5">
-<h2 data-es="Condiciones Legales y Contrato" data-en="Legal Terms & Contract">Condiciones Legales y Contrato</h2>
+<h2>Condiciones Legales y Contrato</h2>
 <div class="score-bar"><div class="score-fill" id="score5"></div></div>
+<p class="step-desc">Revise y acepte las condiciones del contrato y políticas de la empresa. Obligatorio para continuar con los siguientes pasos.</p>
 
-<label data-es="Acepta contrato de 9 meses" data-en="Accept 9-month contract?">Acepta contrato de 9 meses</label>
+<label>Acepta contrato de 9 meses</label>
 <select name="contractAgree" required>
 <option value="">Seleccione</option>
-<option>Sí / Yes</option>
-<option>No / No</option>
+<option>Sí</option>
+<option>No</option>
 </select>
 
-<label data-es="Acepta políticas de la empresa y derechos" data-en="Accept company policies & rights?">Acepta políticas de la empresa y derechos</label>
+<label>Acepta políticas corporativas</label>
 <select name="policiesAgree" required>
 <option value="">Seleccione</option>
-<option>Sí / Yes</option>
-<option>No / No</option>
+<option>Sí</option>
+<option>No</option>
 </select>
 
 <div class="btns">
 <button type="button" class="prev" data-step="4">Anterior</button>
-<button type="button" class="next" data-step="6">Continuar</button>
-</div>
-</div>
-
-  <!-- ================= STEP 6 ================= -->
-<div class="form-step" id="step6">
-  <h2 data-es="Transporte y Llegada" data-en="Transportation & Arrival">Transporte y Llegada</h2>
-  <div class="score-bar"><div class="score-fill" id="score6"></div></div>
-  <p class="step-desc">Indique cómo planea llegar al sitio de trabajo y cualquier detalle necesario para coordinar su llegada de manera segura y organizada.</p>
-
-  <label data-es="Medio de transporte principal" data-en="Primary Transportation">Medio de transporte principal</label>
-  <select name="transportMode" required>
-    <option value="">Seleccione</option>
-    <option>Automóvil propio / Personal Car</option>
-    <option>Transporte corporativo / Corporate Transport</option>
-    <option>Taxi / Ride-share</option>
-    <option>Transporte público / Public Transport</option>
-    <option>Otro / Other</option>
-  </select>
-
-  <label data-es="Número de vuelo, tren o referencia" data-en="Flight / Train / Reference Number">Número de vuelo, tren o referencia</label>
-  <input type="text" name="transportRef" placeholder="Ej: AA123 / TR456" required>
-
-  <label data-es="Hora estimada de llegada" data-en="Estimated Arrival Time">Hora estimada de llegada al sitio de trabajo</label>
-  <input type="time" name="arrivalTime" required>
-
-  <label data-es="Notas adicionales sobre transporte" data-en="Additional Transportation Notes">Notas adicionales sobre transporte</label>
-  <textarea name="transportNotes" placeholder="Ej: Necesito transporte desde el aeropuerto, compartir auto con compañeros, accesibilidad especial, etc."></textarea>
-
-  <div class="btns">
-    <button type="button" class="prev" data-step="5">Anterior</button>
-    <button type="button" class="next" data-step="7">Continuar</button>
-  </div>
+<button type="button" id="finalStepBtn">Continuar</button>
 </div>
 
-<!-- ================= STEP 7 ================= -->
-<div class="form-step" id="step7">
-  <h2 data-es="Contactos de Emergencia" data-en="Emergency Contacts">Contactos de Emergencia</h2>
-  <div class="score-bar"><div class="score-fill" id="score7"></div></div>
-  <p class="step-desc">Proporcione información de personas que podamos contactar en caso de emergencia durante su contrato.</p>
-
-  <label data-es="Nombre completo del contacto" data-en="Full Name of Contact">Nombre completo del contacto</label>
-  <input type="text" name="emergencyName" placeholder="Ej: María López" required>
-
-  <label data-es="Teléfono de contacto" data-en="Contact Phone">Teléfono de contacto</label>
-  <input type="tel" name="emergencyPhone" placeholder="+1 555 555 5555" required>
-
-  <label data-es="Relación con el contacto" data-en="Relationship with Contact">Relación con el contacto</label>
-  <input type="text" name="emergencyRelation" placeholder="Ej: Padre, Hermano, Amigo" required>
-
-  <label data-es="Segundo contacto (opcional)" data-en="Second Contact (optional)">Segundo contacto (opcional)</label>
-  <input type="text" name="secondEmergencyName" placeholder="Ej: Juan Pérez">
-
-  <label data-es="Teléfono del segundo contacto" data-en="Second Contact Phone">Teléfono del segundo contacto</label>
-  <input type="tel" name="secondEmergencyPhone" placeholder="+1 555 555 5555">
-
-  <div class="btns">
-    <button type="button" class="prev" data-step="6">Anterior</button>
-    <button type="button" class="next" data-step="8">Continuar</button>
-  </div>
+<!-- Mensaje de confeti al finalizar paso 5 -->
+<div class="confetti-msg" id="confettiMsg" style="display:none;text-align:center;margin-top:30px;font-weight:700;font-size:18px;color:#1f8f4a;">
+✅ ¡Has completado la primera parte de tu aplicación! 🎉
+<br><br>
+<button id="goNext" style="padding:12px 24px;border:none;border-radius:12px;background:#1f8f4a;color:#fff;font-weight:600;cursor:pointer;">Continuar a pasos siguientes</button>
 </div>
 
-<!-- ================= STEP 8 ================= -->
-<div class="form-step" id="step8">
-  <h2 data-es="Equipamiento y Seguridad" data-en="Equipment & Safety">Equipamiento y Seguridad</h2>
-  <div class="score-bar"><div class="score-fill" id="score8"></div></div>
-  <p class="step-desc">Indique si traerá su propio equipo de seguridad, herramientas adicionales o si necesita que la empresa le proporcione equipo para realizar su trabajo de manera segura.</p>
-
-  <label data-es="Trae su propio equipo de seguridad" data-en="Bringing own safety gear?">Trae su propio equipo de seguridad</label>
-  <select name="ownGear" required>
-    <option value="">Seleccione</option>
-    <option>Sí / Yes</option>
-    <option>No / No</option>
-  </select>
-
-  <label data-es="Equipo adicional que puede aportar" data-en="Additional tools you can bring">Equipo adicional que puede aportar</label>
-  <textarea name="extraTools" placeholder="Ej: Casco, guantes, linterna, multiherramienta"></textarea>
-
-  <label data-es="Necesita que la compañía proporcione equipo" data-en="Need company-provided equipment?">Necesita que la compañía proporcione equipo</label>
-  <select name="needCompanyGear" required>
-    <option value="">Seleccione</option>
-    <option>Sí / Yes</option>
-    <option>No / No</option>
-  </select>
-
-  <label data-es="Comentarios sobre equipamiento" data-en="Equipment Comments">Comentarios sobre equipamiento</label>
-  <textarea name="equipmentComments" placeholder="Si tiene observaciones sobre equipo, escríbalas aquí"></textarea>
-
-  <div class="btns">
-    <button type="button" class="prev" data-step="7">Anterior</button>
-    <button type="button" class="next" data-step="9">Continuar</button>
-  </div>
 </div>
-
-<!-- ================= STEP 9 ================= -->
-<div class="form-step" id="step9">
-  <h2 data-es="Información Adicional Corporativa" data-en="Corporate Additional Info">Información Adicional Corporativa</h2>
-  <div class="score-bar"><div class="score-fill" id="score9"></div></div>
-  <p class="step-desc">Preguntas adicionales sobre logística y cumplimiento corporativo durante su contrato.</p>
-
-  <label data-es="Disponibilidad para trabajar horas extra" data-en="Available for Overtime?">Disponibilidad para trabajar horas extra</label>
-  <select name="overtimeAvailability" required>
-    <option value="">Seleccione</option>
-    <option>Sí / Yes</option>
-    <option>No / No</option>
-  </select>
-
-  <label data-es="Necesita asistencia especial" data-en="Need Special Assistance?">Necesita asistencia especial</label>
-  <textarea name="specialAssistance" placeholder="Ej: Accesibilidad, transporte especial, adaptaciones de equipo"></textarea>
-
-  <label data-es="Comentarios sobre su contrato" data-en="Contract Comments">Comentarios sobre su contrato</label>
-  <textarea name="contractComments" placeholder="Cualquier detalle relevante para el equipo de recursos humanos"></textarea>
-
-  <div class="btns">
-    <button type="button" class="prev" data-step="8">Anterior</button>
-    <button type="button" class="next" data-step="10">Continuar</button>
-  </div>
-</div>
-
-<!-- ================= STEP 10 ================= -->
-<div class="form-step" id="step10">
-  <h2 data-es="Revisión Final y Envío" data-en="Final Review & Submit">Revisión Final y Envío</h2>
-  <div class="score-bar"><div class="score-fill" id="score10"></div></div>
-  <p class="step-desc">Revise toda la información antes de enviar la solicitud. Solo después de enviar recibirá confirmación y las instrucciones finales del equipo corporativo.</p>
-
-  <label data-es="Comentarios finales" data-en="Final Comments">Comentarios finales</label>
-  <textarea name="finalComments" placeholder="Si tiene algo más que añadir, escríbalo aquí"></textarea>
-
-  <div class="btns">
-    <button type="button" class="prev" data-step="9">Anterior</button>
-    <button type="submit">Enviar Solicitud</button>
-  </div>
-</div>
-
 </form>
-
-<div class="footer">
-  <span>©️ 2026 SunPower Corporation. Todos los derechos reservados.</span>
-</div>
-
-<div class="confetti-msg" id="confettiMsg">✅ ¡Solicitud enviada! Espere los próximos pasos y confirmación del equipo corporativo 🎉</div>
-
 </div>
 </div>
 
 <script>
+// Manejo de pasos
 const steps = document.querySelectorAll('.form-step');
 const nextBtns = document.querySelectorAll('.next');
 const prevBtns = document.querySelectorAll('.prev');
@@ -404,14 +249,13 @@ let currentStep = 0;
 function updateProgress(){
   const percent = ((currentStep+1)/steps.length)*100;
   progress.style.width = percent+'%';
-  if(document.getElementById('score'+(currentStep+1))){
-    document.getElementById('score'+(currentStep+1)).style.width='100%';
-  }
+  const score = document.getElementById('score'+(currentStep+1));
+  if(score) score.style.width='100%';
 }
 
 nextBtns.forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    if(validateStep(currentStep)){
+    if(currentStep < steps.length -1){
       steps[currentStep].classList.remove('active');
       currentStep++;
       steps[currentStep].classList.add('active');
@@ -429,17 +273,24 @@ prevBtns.forEach(btn=>{
   });
 });
 
-function validateStep(stepIndex){
-  const step = steps[stepIndex];
-  const inputs = step.querySelectorAll('input, select, textarea');
-  for(let i=0;i<inputs.length;i++){
-    if(!inputs[i].checkValidity()){
-      inputs[i].reportValidity();
-      return false;
-    }
-  }
-  return true;
-}
+// Final Step - mostrar mensaje y confeti
+document.getElementById('finalStepBtn').addEventListener('click', ()=>{
+  const step5 = document.getElementById('step5');
+  // Validar que todos los campos estén completos
+  const inputs = step5.querySelectorAll('select');
+  let valid = true;
+  inputs.forEach(input=>{ if(!input.value) valid=false; });
+  if(!valid){ alert('Por favor complete todos los campos obligatorios antes de continuar.'); return; }
+
+  // Ocultar formulario y mostrar mensaje
+  step5.querySelector('.btns').style.display='none';
+  document.getElementById('confettiMsg').style.display='block';
+});
+
+// Botón continuar al otro HTML
+document.getElementById('goNext').addEventListener('click', ()=>{
+  window.location.href = 'continuar.html';
+});
 
 // Cambio de idioma
 const langSelect = document.getElementById('langSelect');
@@ -454,15 +305,8 @@ langSelect.addEventListener('change', ()=>{
   });
 });
 
-// Mensaje final al enviar solo al final
-document.getElementById('app').addEventListener('submit', function(e){
-  e.preventDefault();
-  document.getElementById('confettiMsg').style.display = 'block';
-  setTimeout(()=>{document.getElementById('confettiMsg').style.display='none';},6000);
-  alert('✅ Solicitud enviada correctamente. Gracias por completar el formulario.');
-});
-
 updateProgress();
 </script>
+
 </body>
 </html>
