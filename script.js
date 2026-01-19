@@ -1,30 +1,32 @@
-// ================= VARIABLES PRINCIPALES =================
+// ====== Variables principales ======
 const steps = document.querySelectorAll('.form-step');
 const nextBtns = document.querySelectorAll('.next');
 const prevBtns = document.querySelectorAll('.prev');
-const progressBar = document.getElementById('progress');
+const progress = document.getElementById('progress');
 let currentStep = 0;
 
-// ================= FUNCION ACTUALIZAR PROGRESO =================
-function updateProgress(){
+// ====== Función para actualizar barra de progreso y scores ======
+function updateProgress() {
   const percent = ((currentStep + 1) / steps.length) * 100;
-  if(progressBar){
-    progressBar.style.width = percent + '%';
+  progress.style.width = percent + '%';
+
+  // Resetear todos los scores antes
+  for (let i = 0; i < steps.length; i++) {
+    const scoreElem = document.getElementById('score' + (i + 1));
+    if (scoreElem) scoreElem.style.width = '0%';
   }
-  steps.forEach((step, index) => {
-    const scoreFill = step.querySelector('.score-fill');
-    if(scoreFill){
-      scoreFill.style.width = index <= currentStep ? '100%' : '0%';
-    }
-  });
+
+  // Activar score del paso actual
+  const currentScore = document.getElementById('score' + (currentStep + 1));
+  if (currentScore) currentScore.style.width = '100%';
 }
 
-// ================= FUNCION VALIDACION =================
-function validateStep(stepIndex){
+// ====== Función para validar los inputs de cada paso ======
+function validateStep(stepIndex) {
   const step = steps[stepIndex];
   const inputs = step.querySelectorAll('input, select, textarea');
-  for(let i=0;i<inputs.length;i++){
-    if(!inputs[i].checkValidity()){
+  for (let i = 0; i < inputs.length; i++) {
+    if (!inputs[i].checkValidity()) {
       inputs[i].reportValidity();
       return false;
     }
@@ -32,78 +34,77 @@ function validateStep(stepIndex){
   return true;
 }
 
-// ================= BOTONES SIGUIENTE =================
+// ====== Botones "Siguiente" ======
 nextBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    if(validateStep(currentStep)){
+    if (validateStep(currentStep)) {
       steps[currentStep].classList.remove('active');
       currentStep++;
-      if(currentStep < steps.length){
-        steps[currentStep].classList.add('active');
-        updateProgress();
-      }
-    }
-  });
-});
 
-// ================= BOTONES ANTERIOR =================
-prevBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    steps[currentStep].classList.remove('active');
-    currentStep--;
-    if(currentStep >= 0){
+      // Si es el último paso, mostrar confeti
+      if (currentStep >= steps.length) {
+        showFinalMessage();
+        return;
+      }
+
       steps[currentStep].classList.add('active');
       updateProgress();
+
+      // Scroll al inicio del formulario para cada paso
+      steps[currentStep].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
 });
 
-// ================= CAMBIO DE IDIOMA =================
+// ====== Botones "Anterior" ======
+prevBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (currentStep <= 0) return;
+    steps[currentStep].classList.remove('active');
+    currentStep--;
+    steps[currentStep].classList.add('active');
+    updateProgress();
+
+    steps[currentStep].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ====== Cambio de idioma ES/EN ======
 const langSelect = document.getElementById('langSelect');
-if(langSelect){
-  langSelect.addEventListener('change', ()=>{
+if (langSelect) {
+  langSelect.addEventListener('change', () => {
     const lang = langSelect.value;
-    document.querySelectorAll('[data-es]').forEach(el=>{
-      if(el.tagName==='INPUT' || el.tagName==='TEXTAREA'){ 
-        el.placeholder = el.getAttribute(`data-${lang}`) || '';
+    document.querySelectorAll('[data-es]').forEach(el => {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = el.getAttribute(`data-${lang}`);
       } else {
-        el.textContent = el.getAttribute(`data-${lang}`) || '';
+        el.textContent = el.getAttribute(`data-${lang}`);
       }
     });
   });
 }
 
-// ================= MENSAJE FINAL Y CONFETI =================
-const appForm = document.querySelector('form');
-if(appForm){
-  appForm.addEventListener('submit', function(e){
+// ====== Función para mostrar mensaje final con confeti ======
+function showFinalMessage() {
+  const confettiMsg = document.getElementById('confettiMsg');
+  if (confettiMsg) {
+    confettiMsg.style.display = 'block';
+    confettiMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Ocultar después de unos segundos
+    setTimeout(() => { confettiMsg.style.display = 'none'; }, 6000);
+  }
+}
+
+// ====== Manejo del submit del formulario ======
+const appForm = document.getElementById('app');
+if (appForm) {
+  appForm.addEventListener('submit', function (e) {
     e.preventDefault();
-
-    // Mostrar confeti y mensaje
-    const confettiMsg = document.getElementById('confettiMsg');
-    if(confettiMsg){
-      confettiMsg.style.display = 'block';
-    }
-
-    // Animación confeti simple con setTimeout (puedes integrar librerías)
-    setTimeout(()=>{
-      if(confettiMsg){
-        confettiMsg.style.display = 'none';
-      }
-    }, 6000);
-
-    // Mensaje alert opcional
-    alert('✅ ¡Solicitud enviada correctamente! Espere instrucciones por correo.');
-    
-    // Redirigir si es index.html a continuar.html
-    if(window.location.pathname.includes('index.html')){
-      window.location.href = 'continuar.html';
-    }
+    showFinalMessage();
+    alert('✅ Solicitud enviada correctamente. Gracias por completar el formulario.');
   });
 }
 
-// ================= INICIALIZAR =================
-window.addEventListener('DOMContentLoaded', ()=>{
-  if(steps.length) steps[0].classList.add('active');
-  updateProgress();
-});
+// ====== Inicialización ======
+updateProgress();
