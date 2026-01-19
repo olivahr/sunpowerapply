@@ -2,37 +2,52 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Aplicación Corporativa – Continuar</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aplicación Corporativa – Paneles Solares (Parte 2)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Selector de idioma -->
+<select class="lang-select" id="langSelect">
+  <option value="es">ES</option>
+  <option value="en">EN</option>
+</select>
+
 <div class="app-container">
   <div class="form-wrapper">
+    <!-- Barra de progreso -->
     <div class="progress-bar"><div class="progress" id="progress"></div></div>
+
     <form id="app">
 
       <!-- ================= STEP 6 ================= -->
       <div class="form-step active" id="step6">
-        <h2>Transporte y Llegada</h2>
-        <p class="step-desc">Indique cómo planea llegar al sitio de trabajo y cualquier detalle adicional que el equipo de logística necesite para coordinar su llegada.</p>
-        <label>Medio de transporte principal</label>
+        <h2 data-es="Transporte y Llegada" data-en="Transportation & Arrival">Transporte y Llegada</h2>
+        <div class="score-bar"><div class="score-fill" id="score6"></div></div>
+        <p class="step-desc" data-es="Explique cómo planea llegar al trabajo y cualquier requerimiento especial de logística." data-en="Explain how you plan to reach work and any special logistics requirements.">Explique cómo planea llegar al trabajo y cualquier requerimiento especial de logística.</p>
+
+        <label data-es="Medio de transporte principal" data-en="Primary Transportation">Medio de transporte principal</label>
         <select name="transportMode" required>
           <option value="">Seleccione</option>
-          <option>Avión</option>
-          <option>Tren</option>
-          <option>Automóvil</option>
-          <option>Autobús</option>
-          <option>Bicicleta</option>
-          <option>Otro</option>
+          <option>Avión / Plane</option>
+          <option>Tren / Train</option>
+          <option>Automóvil / Car</option>
+          <option>Autobús / Bus</option>
+          <option>Bicicleta / Bicycle</option>
+          <option>Compartido / Rideshare</option>
+          <option>Otro / Other</option>
         </select>
-        <label>Número de vuelo o referencia</label>
+
+        <label data-es="Número de referencia o vuelo" data-en="Flight / Reference Number">Número de referencia o vuelo</label>
         <input type="text" name="transportRef" placeholder="Ej: AA123 / TR456" required>
-        <label>Hora estimada de llegada al lugar de trabajo</label>
+
+        <label data-es="Hora estimada de llegada al sitio" data-en="Estimated Arrival Time">Hora estimada de llegada al sitio</label>
         <input type="time" name="arrivalTime" required>
-        <label>Notas adicionales sobre transporte</label>
-        <textarea name="transportNotes" placeholder="Ej: Necesito transporte desde el aeropuerto, accesibilidad especial, compartir auto, etc."></textarea>
+
+        <label data-es="Notas adicionales sobre transporte" data-en="Additional Transportation Notes">Notas adicionales sobre transporte</label>
+        <textarea name="transportNotes" placeholder="Ej: Necesito transporte desde aeropuerto, compartir auto, accesibilidad especial, etc."></textarea>
 
         <div class="btns">
           <button type="button" class="prev" data-step="5">Anterior</button>
@@ -42,17 +57,23 @@
 
       <!-- ================= STEP 7 ================= -->
       <div class="form-step" id="step7">
-        <h2>Contactos de Emergencia</h2>
-        <p class="step-desc">Proporcione información de personas que podamos contactar en caso de emergencia durante su periodo de trabajo.</p>
-        <label>Nombre completo del contacto</label>
+        <h2 data-es="Contactos de Emergencia" data-en="Emergency Contacts">Contactos de Emergencia</h2>
+        <div class="score-bar"><div class="score-fill" id="score7"></div></div>
+        <p class="step-desc" data-es="Proporcione información de personas que podamos contactar en caso de emergencia durante su periodo de trabajo." data-en="Provide contacts we can reach in case of emergency during your work period.">Proporcione información de personas que podamos contactar en caso de emergencia durante su periodo de trabajo.</p>
+
+        <label data-es="Nombre completo del contacto" data-en="Full Name of Contact">Nombre completo del contacto</label>
         <input type="text" name="emergencyName" placeholder="Ej: María López" required>
-        <label>Teléfono de contacto</label>
+
+        <label data-es="Teléfono de contacto" data-en="Contact Phone">Teléfono de contacto</label>
         <input type="tel" name="emergencyPhone" placeholder="+1 555 555 5555" required>
-        <label>Relación con el contacto</label>
+
+        <label data-es="Relación con el contacto" data-en="Relationship">Relación con el contacto</label>
         <input type="text" name="emergencyRelation" placeholder="Ej: Padre, Hermano, Amigo" required>
-        <label>Segundo contacto opcional</label>
+
+        <label data-es="Segundo contacto opcional" data-en="Second Contact (optional)">Segundo contacto opcional</label>
         <input type="text" name="secondEmergencyName" placeholder="Nombre completo">
-        <label>Teléfono del segundo contacto</label>
+
+        <label data-es="Teléfono del segundo contacto" data-en="Second Contact Phone">Teléfono del segundo contacto</label>
         <input type="tel" name="secondEmergencyPhone" placeholder="+1 555 555 5555">
 
         <div class="btns">
@@ -63,24 +84,29 @@
 
       <!-- ================= STEP 8 ================= -->
       <div class="form-step" id="step8">
-        <h2>Información de Equipo y Seguridad</h2>
-        <p class="step-desc">Indique si traerá su propio equipo de seguridad o herramientas adicionales, o si necesita que la empresa le proporcione equipo.</p>
-        <label>¿Trae su propio equipo de seguridad?</label>
+        <h2 data-es="Habilidades y Equipamiento Adicional" data-en="Additional Skills & Equipment">Habilidades y Equipamiento Adicional</h2>
+        <div class="score-bar"><div class="score-fill" id="score8"></div></div>
+        <p class="step-desc" data-es="Indique si tiene habilidades adicionales o necesita que la empresa proporcione equipo especial." data-en="Indicate if you have extra skills or need company-provided special equipment.">Indique si tiene habilidades adicionales o necesita que la empresa proporcione equipo especial.</p>
+
+        <label data-es="Trae equipo propio de seguridad?" data-en="Bringing own safety gear?">Trae equipo propio de seguridad?</label>
         <select name="ownGear" required>
           <option value="">Seleccione</option>
-          <option>Sí</option>
-          <option>No</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
         </select>
-        <label>Herramientas adicionales que puede aportar</label>
-        <textarea name="extraTools" placeholder="Ej: Multiherramienta, guantes, casco, linterna"></textarea>
-        <label>Necesita que se le proporcione equipo</label>
+
+        <label data-es="Habilidades adicionales que posee" data-en="Additional Skills">Habilidades adicionales que posee</label>
+        <textarea name="extraSkills" placeholder="Ej: Electricidad, Manejo de maquinaria, Primeros auxilios"></textarea>
+
+        <label data-es="Necesita que la empresa proporcione equipo?" data-en="Need company-provided equipment?">Necesita que la empresa proporcione equipo?</label>
         <select name="needCompanyGear" required>
           <option value="">Seleccione</option>
-          <option>Sí</option>
-          <option>No</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
         </select>
-        <label>Comentarios sobre equipo</label>
-        <textarea name="equipmentComments" placeholder="Si tiene observaciones sobre equipo, escríbalas aquí"></textarea>
+
+        <label data-es="Comentarios sobre habilidades y equipo" data-en="Skills & Equipment Comments">Comentarios sobre habilidades y equipo</label>
+        <textarea name="skillsComments" placeholder="Si desea añadir comentarios sobre habilidades o equipo, escríbalos aquí"></textarea>
 
         <div class="btns">
           <button type="button" class="prev" data-step="7">Anterior</button>
@@ -90,19 +116,28 @@
 
       <!-- ================= STEP 9 ================= -->
       <div class="form-step" id="step9">
-        <h2>Condiciones de Trabajo Adicionales</h2>
-        <p class="step-desc">Indique cualquier condición o requerimiento especial durante su contrato.</p>
-        <label>Turnos preferidos</label>
-        <select name="shiftPreference" required>
+        <h2 data-es="Preferencias Laborales" data-en="Work Preferences">Preferencias Laborales</h2>
+        <div class="score-bar"><div class="score-fill" id="score9"></div></div>
+        <p class="step-desc" data-es="Indique disponibilidad, turnos preferidos y cualquier observación sobre su jornada de trabajo." data-en="Indicate availability, preferred shifts and any observations regarding your work schedule.">Indique disponibilidad, turnos preferidos y cualquier observación sobre su jornada de trabajo.</p>
+
+        <label data-es="Disponibilidad de horario" data-en="Available Hours">Disponibilidad de horario</label>
+        <select name="availableHours" required>
           <option value="">Seleccione</option>
-          <option>Diurno</option>
-          <option>Nocturno</option>
-          <option>Mixto</option>
+          <option>Tiempo completo / Full-time</option>
+          <option>Medio tiempo / Part-time</option>
+          <option>Flexible / Flexible</option>
         </select>
-        <label>Restricciones de salud o físicas</label>
-        <textarea name="healthRestrictions" placeholder="Ej: No puedo levantar más de 20kg, alergias, etc."></textarea>
-        <label>Necesidades especiales o comentarios adicionales</label>
-        <textarea name="additionalNotes" placeholder="Si tiene algún requerimiento, escriba aquí"></textarea>
+
+        <label data-es="Turnos preferidos" data-en="Preferred Shifts">Turnos preferidos</label>
+        <select name="preferredShifts" required>
+          <option value="">Seleccione</option>
+          <option>Mañana / Morning</option>
+          <option>Tarde / Afternoon</option>
+          <option>Noche / Night</option>
+        </select>
+
+        <label data-es="Comentarios sobre jornada laboral" data-en="Work Schedule Comments">Comentarios sobre jornada laboral</label>
+        <textarea name="workComments" placeholder="Si tiene comentarios sobre horarios o turnos, escríbalos aquí"></textarea>
 
         <div class="btns">
           <button type="button" class="prev" data-step="8">Anterior</button>
@@ -112,10 +147,12 @@
 
       <!-- ================= STEP 10 ================= -->
       <div class="form-step" id="step10">
-        <h2>Revisión Final y Envío</h2>
-        <p class="step-desc">Revise toda la información ingresada antes de enviar la solicitud. Una vez enviada, recibirá un mensaje de confirmación y las instrucciones por correo electrónico.</p>
-        <label>Comentarios finales</label>
-        <textarea name="finalComments" placeholder="Si tiene algo que añadir, escríbalo aquí"></textarea>
+        <h2 data-es="Revisión Final y Envío" data-en="Final Review & Submit">Revisión Final y Envío</h2>
+        <div class="score-bar"><div class="score-fill" id="score10"></div></div>
+        <p class="step-desc" data-es="Revise toda la información, confirme y envíe la solicitud. Recibirá un mensaje final de confirmación." data-en="Review all information, confirm and submit. You will receive a final confirmation message.">Revise toda la información, confirme y envíe la solicitud. Recibirá un mensaje final de confirmación.</p>
+
+        <label data-es="Comentarios finales" data-en="Final Comments">Comentarios finales</label>
+        <textarea name="finalComments" placeholder="Si desea añadir algo, escríbalo aquí"></textarea>
 
         <div class="btns">
           <button type="button" class="prev" data-step="9">Anterior</button>
@@ -125,8 +162,11 @@
 
     </form>
 
-    <div class="confetti-msg" id="confettiMsgFinal">
-      ✅ ¡Solicitud enviada! Espere instrucciones por correo electrónico 🎉
+    <!-- Mensaje final + confeti -->
+    <div class="confetti-msg" id="confettiMsg">
+      🎉 ¡Solicitud completada! 🎉<br>
+      Espere instrucciones por correo electrónico.
+      <button id="goIndex">Volver al inicio</button>
     </div>
 
   </div>
