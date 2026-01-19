@@ -6,49 +6,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* RESET Y BODY */
-html, body {margin:0; padding:0; height:100%; font-family:'Inter',Arial,sans-serif; background:#e6edf3; overflow:hidden;}
+html, body{margin:0;padding:0;height:100%;font-family:'Inter',Arial,sans-serif;background:#e6edf3;scroll-behavior:smooth;}
 *{box-sizing:border-box;}
 input, select, textarea { font-size:16px; } /* evita zoom en iOS */
 
 /* CONTENEDOR PRINCIPAL */
-.app-container {width:100%; height:100%; display:flex; justify-content:center; align-items:center; padding:10px;}
-.form-wrapper {width:100%; max-width:950px; height:95%; background:#fff; border-radius:24px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.15); display:flex; flex-direction:column; padding:30px; overflow:hidden; position:relative;}
+.app-container{width:100%;min-height:100%;display:flex;justify-content:center;padding:20px;}
+.form-wrapper{width:100%;max-width:950px;background:#fff;border-radius:24px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;
+  padding:30px;overflow:hidden;}
+
+/* SCROLL CONTAINER PARA STEPS */
+.steps-container{overflow-y:auto; max-height:85vh; scroll-behavior:smooth; padding-right:10px;}
 
 /* BARRA DE PROGRESO */
-.progress-bar {height:16px; background:#d9d9d9; border-radius:8px; margin-bottom:25px; overflow:hidden;}
-.progress {height:100%; width:0%; background:linear-gradient(90deg,#1f8f4a,#45c16c); border-radius:8px; transition:width .5s ease-in-out;}
+.progress-bar{height:16px;background:#d9d9d9;border-radius:8px;margin-bottom:25px;overflow:hidden;position:sticky;top:0;z-index:10;}
+.progress{height:100%;width:0%;background:linear-gradient(90deg,#1f8f4a,#45c16c);border-radius:8px;transition:width .5s ease-in-out;}
 
 /* STEPS */
-.form-step {display:none; flex:1; overflow-y:auto; padding-right:10px; opacity:0; transform:translateX(50px); transition:all 0.7s cubic-bezier(0.65,0,0.35,1);}
-.form-step.active {display:flex; opacity:1; transform:translateX(0); flex-direction:column;}
-h2 {color:#1f8f4a; text-align:center; margin-bottom:25px; font-weight:600; font-size:24px;}
-label {display:block; margin-top:16px; font-weight:500; color:#333;}
-input, select, textarea {width:100%; padding:16px; margin-top:6px; border:1px solid #ccc; border-radius:14px; font-size:16px; transition:.3s; outline:none; background:#f7f9fc;}
-input:focus, select:focus, textarea:focus {border-color:#1f8f4a; box-shadow:0 0 10px rgba(31,143,74,0.2); background:#fff;}
-textarea {resize:vertical; min-height:60px;}
+.form-step{min-height:80vh; display:flex; flex-direction:column; justify-content:flex-start; opacity:1; padding-bottom:30px; transition:all 0.5s ease;}
+h2{text-align:center;margin-bottom:25px;color:#1f8f4a;font-weight:600;font-size:24px;}
+label{display:block;margin-top:16px;font-weight:500;color:#333;}
+input, select, textarea{width:100%;padding:16px;margin-top:6px;border:1px solid #ccc;border-radius:14px;font-size:16px;transition:.3s;outline:none;background:#f7f9fc;}
+input:focus, select:focus, textarea:focus{border-color:#1f8f4a;box-shadow:0 0 10px rgba(31,143,74,0.2);background:#fff;}
+textarea{resize:vertical;min-height:60px;}
 
 /* BOTONES */
-.btns {display:flex; justify-content:space-between; margin-top:30px;}
-button {padding:16px 28px; border:none; border-radius:14px;
-  background:linear-gradient(135deg,#1f8f4a,#45c16c); color:#fff; font-size:16px; font-weight:500;
-  cursor:pointer; transition:all 0.3s; box-shadow:0 5px 15px rgba(0,0,0,0.15);}
-button:hover {transform:translateY(-2px); box-shadow:0 7px 18px rgba(0,0,0,0.25);}
-button:active {transform:translateY(0); box-shadow:0 5px 15px rgba(0,0,0,0.15);}
+.btns{display:flex;justify-content:space-between;margin-top:30px;}
+button{padding:16px 28px;border:none;border-radius:14px;
+  background:linear-gradient(135deg,#1f8f4a,#45c16c);color:#fff;font-size:16px;font-weight:500;
+  cursor:pointer;transition:all 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.15);}
+button:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(0,0,0,0.25);}
+button:active{transform:translateY(0);box-shadow:0 5px 15px rgba(0,0,0,0.15);}
 @media(max-width:800px){.btns{flex-direction:column;} button{width:100%; margin-bottom:12px;}}
 
 /* POLICY BOX */
-.policy-box {border:1px solid #ccc; background:#f0f3f7; padding:18px; border-radius:14px; max-height:250px; overflow-y:auto; margin-top:12px; font-size:14px; box-shadow:inset 0 1px 6px rgba(0,0,0,0.06);}
-input[type="checkbox"] {width:auto; margin-right:8px;}
-
-/* SCROLLBAR */
-.policy-box::-webkit-scrollbar {width:6px;}
-.policy-box::-webkit-scrollbar-thumb {background:#1f8f4a; border-radius:3px;}
+.policy-box{border:1px solid #ccc;background:#f0f3f7;padding:18px;border-radius:14px;max-height:250px;overflow-y:auto;margin-top:12px;font-size:14px;box-shadow:inset 0 1px 6px rgba(0,0,0,0.06);}
+input[type="checkbox"]{width:auto;margin-right:8px;}
+.policy-box::-webkit-scrollbar{width:6px;}
+.policy-box::-webkit-scrollbar-thumb{background:#1f8f4a;border-radius:3px;}
 
 /* FOOTER */
-.footer {margin-top:50px; text-align:center; font-size:12px; color:#666; position:relative; bottom:0;}
-.footer span {display:block; margin-top:4px;}
+.footer{margin-top:40px;text-align:center;font-size:12px;color:#666;}
+.footer span{display:block;margin-top:4px;}
 </style>
 </head>
 <body>
@@ -56,10 +56,11 @@ input[type="checkbox"] {width:auto; margin-right:8px;}
 <div class="app-container">
   <div class="form-wrapper">
     <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <div class="steps-container">
     <form id="app">
 
 <!-- ================= STEP 1 ================= -->
-<div class="form-step active">
+<div class="form-step">
 <h2>Información Personal</h2>
 <label>Nombre completo</label><input name="fullName" required>
 <label>Apellidos</label><input name="lastName" required>
@@ -171,13 +172,12 @@ input[type="checkbox"] {width:auto; margin-right:8px;}
 </div>
 
 </form>
+</div>
 
 <!-- FOOTER -->
 <div class="footer">
 <span>SunPower Corporation – Todos los derechos reservados</span>
 <span>Contacto HR: hr@sunpowercorp.com</span>
-</div>
-
 </div>
 </div>
 
@@ -186,17 +186,41 @@ input[type="checkbox"] {width:auto; margin-right:8px;}
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-// WIZARD LOGIC
-const steps=document.querySelectorAll('.form-step');
-const progress=document.getElementById('progress');
-let step=0;
-function showStep(){steps.forEach((s,i)=>s.classList.toggle('active',i===step));progress.style.width=((step+1)/steps.length*100)+'%';}
-document.querySelectorAll('.next').forEach(b=>b.onclick=()=>{if(validateStep()){step++; showStep();}});
-document.querySelectorAll('.prev').forEach(b=>b.onclick=()=>{step--; showStep();});
-function validateStep(){let ok=true;steps[step].querySelectorAll('[required]').forEach(f=>{if(f.type==='checkbox' && !f.checked) ok=false;else if(f.type!=='checkbox' && !f.value) ok=false;});if(!ok) alert('Completa y acepta todos los campos antes de continuar');return ok;}
+// LOGICA WIZARD CON SCROLL
+const steps = document.querySelectorAll('.form-step');
+const progress = document.getElementById('progress');
+let stepIndex = 0;
+function showStep(){
+    const scrollContainer = document.querySelector('.steps-container');
+    const stepEl = steps[stepIndex];
+    stepEl.scrollIntoView({behavior:'smooth', block:'start'});
+    progress.style.width = ((stepIndex+1)/steps.length*100)+'%';
+}
+document.querySelectorAll('.next').forEach(b => b.onclick = ()=>{
+    if(validateStep()){stepIndex++; if(stepIndex>=steps.length)stepIndex=steps.length-1; showStep();}
+});
+document.querySelectorAll('.prev').forEach(b => b.onclick = ()=>{
+    stepIndex--; if(stepIndex<0)stepIndex=0; showStep();
+});
+function validateStep(){
+    let ok=true;
+    steps[stepIndex].querySelectorAll('[required]').forEach(f=>{
+        if(f.type==='checkbox' && !f.checked) ok=false;
+        else if(f.type!=='checkbox' && !f.value) ok=false;
+    });
+    if(!ok) alert('Completa y acepta todos los campos antes de continuar');
+    return ok;
+}
 
 // CONFETI
-function lanzarConfeti(){const duration=5*1000;const end=Date.now()+duration;(function frame(){confetti({particleCount:6,angle:60,spread:55,origin:{x:0},colors:['#1f8f4a','#45c16c','#FFC700','#FF5733','#33C3FF']});confetti({particleCount:6,angle:120,spread:55,origin:{x:1},colors:['#1f8f4a','#45c16c','#FFC700','#FF5733','#33C3FF']});if(Date.now()<end){requestAnimationFrame(frame);}})();
+function lanzarConfeti(){
+    const duration = 5*1000;
+    const end = Date.now()+duration;
+    (function frame(){
+        confetti({particleCount:6,angle:60,spread:55,origin:{x:0},colors:['#1f8f4a','#45c16c','#FFC700','#FF5733','#33C3FF']});
+        confetti({particleCount:6,angle:120,spread:55,origin:{x:1},colors:['#1f8f4a','#45c16c','#FFC700','#FF5733','#33C3FF']});
+        if(Date.now()<end) requestAnimationFrame(frame);
+    })();
 }
 
 document.getElementById('app').addEventListener('submit',e=>{
@@ -205,7 +229,7 @@ document.getElementById('app').addEventListener('submit',e=>{
         alert('¡Solicitud enviada con éxito! 🎉');
         lanzarConfeti();
         document.getElementById('app').reset();
-        step=0;
+        stepIndex=0;
         showStep();
     }else{alert('Completa todos los campos');}
 });
