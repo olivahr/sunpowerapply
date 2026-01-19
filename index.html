@@ -8,32 +8,37 @@
 <style>
 html, body{margin:0;padding:0;height:100%;font-family:'Inter',Arial,sans-serif;background:#e6edf3;scroll-behavior:smooth;}
 *{box-sizing:border-box;}
-input, select, textarea { font-size:16px; } /* evita zoom en iOS */
+input, select, textarea { font-size:16px; }
 
-/* CONTENEDOR PRINCIPAL */
-.app-container{width:100%;min-height:100%;display:flex;justify-content:center;padding:20px;}
+/* SELECTOR LENGUAJE */
+.lang-select{position:absolute;top:15px;right:15px;z-index:1000;font-weight:600;padding:6px 12px;border-radius:12px;border:none;background:#1f8f4a;color:#fff;cursor:pointer;}
+
+/* CONTENEDOR */
+.app-container{width:100%;min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding:60px 10px 10px 10px;}
 .form-wrapper{width:100%;max-width:950px;background:#fff;border-radius:24px;
   box-shadow:0 15px 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;
-  padding:30px;overflow:hidden;}
+  padding:30px;overflow:hidden;position:relative;}
 
-/* SCROLL CONTAINER PARA STEPS */
-.steps-container{overflow-y:auto; max-height:85vh; scroll-behavior:smooth; padding-right:10px;}
-
-/* BARRA DE PROGRESO */
-.progress-bar{height:16px;background:#d9d9d9;border-radius:8px;margin-bottom:25px;overflow:hidden;position:sticky;top:0;z-index:10;}
+/* BARRA DE PROGRESO GENERAL */
+.progress-bar{height:16px;background:#d9d9d9;border-radius:8px;margin-bottom:15px;overflow:hidden;}
 .progress{height:100%;width:0%;background:linear-gradient(90deg,#1f8f4a,#45c16c);border-radius:8px;transition:width .5s ease-in-out;}
 
+/* BARRA SCORE PARCIAL */
+.score-bar{position:relative;height:16px;background:#ddd;border-radius:8px;margin:12px 0;overflow:hidden;}
+.score-fill{height:100%;width:0%;border-radius:8px;transition:width .3s ease-in-out;text-align:center;color:#fff;font-size:12px;font-weight:600;line-height:16px;}
+
 /* STEPS */
-.form-step{min-height:80vh; display:flex; flex-direction:column; justify-content:flex-start; opacity:1; padding-bottom:30px; transition:all 0.5s ease;}
-h2{text-align:center;margin-bottom:25px;color:#1f8f4a;font-weight:600;font-size:24px;}
-label{display:block;margin-top:16px;font-weight:500;color:#333;}
-input, select, textarea{width:100%;padding:16px;margin-top:6px;border:1px solid #ccc;border-radius:14px;font-size:16px;transition:.3s;outline:none;background:#f7f9fc;}
+.form-step{min-height:70vh; display:flex; flex-direction:column; justify-content:flex-start; opacity:1; padding-bottom:30px; transition:all 0.5s ease; display:none;}
+.form-step.active{display:flex;}
+h2{text-align:center;margin-bottom:15px;color:#1f8f4a;font-weight:600;font-size:24px;}
+label{display:block;margin-top:12px;font-weight:500;color:#333;}
+input, select, textarea{width:100%;padding:14px;margin-top:6px;border:1px solid #ccc;border-radius:14px;font-size:16px;transition:.3s;outline:none;background:#f7f9fc;}
 input:focus, select:focus, textarea:focus{border-color:#1f8f4a;box-shadow:0 0 10px rgba(31,143,74,0.2);background:#fff;}
 textarea{resize:vertical;min-height:60px;}
 
 /* BOTONES */
-.btns{display:flex;justify-content:space-between;margin-top:30px;}
-button{padding:16px 28px;border:none;border-radius:14px;
+.btns{display:flex;justify-content:flex-end;margin-top:20px;}
+button{padding:14px 28px;border:none;border-radius:14px;
   background:linear-gradient(135deg,#1f8f4a,#45c16c);color:#fff;font-size:16px;font-weight:500;
   cursor:pointer;transition:all 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.15);}
 button:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(0,0,0,0.25);}
@@ -41,7 +46,7 @@ button:active{transform:translateY(0);box-shadow:0 5px 15px rgba(0,0,0,0.15);}
 @media(max-width:800px){.btns{flex-direction:column;} button{width:100%; margin-bottom:12px;}}
 
 /* POLICY BOX */
-.policy-box{border:1px solid #ccc;background:#f0f3f7;padding:18px;border-radius:14px;max-height:250px;overflow-y:auto;margin-top:12px;font-size:14px;box-shadow:inset 0 1px 6px rgba(0,0,0,0.06);}
+.policy-box{border:1px solid #ccc;background:#f0f3f7;padding:18px;border-radius:14px;max-height:200px;overflow-y:auto;margin-top:12px;font-size:14px;box-shadow:inset 0 1px 6px rgba(0,0,0,0.06);}
 input[type="checkbox"]{width:auto;margin-right:8px;}
 .policy-box::-webkit-scrollbar{width:6px;}
 .policy-box::-webkit-scrollbar-thumb{background:#1f8f4a;border-radius:3px;}
@@ -49,193 +54,194 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
 /* FOOTER */
 .footer{margin-top:40px;text-align:center;font-size:12px;color:#666;}
 .footer span{display:block;margin-top:4px;}
+
+/* CONFETI MENSAJE */
+.confetti-msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;
+background:rgba(31,143,74,0.95);color:#fff;padding:20px 40px;border-radius:20px;text-align:center;font-size:18px;font-weight:600;display:none;}
 </style>
 </head>
 <body>
 
+<select class="lang-select" id="langSelect">
+<option value="es">ES</option>
+<option value="en">EN</option>
+</select>
+
 <div class="app-container">
   <div class="form-wrapper">
     <div class="progress-bar"><div class="progress" id="progress"></div></div>
-    <div class="steps-container">
     <form id="app">
 
 <!-- ================= STEP 1 ================= -->
-<div class="form-step">
-<h2>Información Personal</h2>
-<label>Nombre completo</label><input name="fullName" required>
-<label>Apellidos</label><input name="lastName" required>
-<label>Fecha de nacimiento</label><input type="date" name="dob" required>
-<label>Email</label><input type="email" name="email" required>
-<label>Teléfono</label><input name="phone" required>
-<label>Dirección completa</label><input name="address" required>
-<label>Contacto de emergencia</label><input name="emergencyContact" required>
-<label>Disponibilidad para reubicación</label><select name="relocation" required><option></option><option>Sí</option><option>No</option></select>
-<label>Nacionalidad</label><input name="nationality" required>
-<div class="btns"><span></span><button type="button" class="next">Siguiente</button></div>
+<div class="form-step active">
+<h2 data-es="Información Personal" data-en="Personal Information">Información Personal</h2>
+<div class="score-bar"><div class="score-fill" id="score1"></div></div>
+<label data-es="Nombre completo" data-en="Full Name">Nombre completo</label><input name="fullName" required>
+<label data-es="Apellidos" data-en="Last Name">Apellidos</label><input name="lastName" required>
+<label data-es="Fecha de nacimiento" data-en="Date of Birth">Fecha de nacimiento</label><input type="date" name="dob" required>
+<label data-es="Email" data-en="Email">Email</label><input type="email" name="email" required>
+<label data-es="Teléfono" data-en="Phone">Teléfono</label><input name="phone" required>
+<div class="btns"><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 2 ================= -->
 <div class="form-step">
-<h2>Educación y Capacitación</h2>
-<label>Nivel de educación</label><select name="education" required><option></option><option>Secundaria</option><option>Técnico</option><option>Universitario</option><option>Otro</option></select>
-<label>Institución</label><input name="school" required>
-<label>Año de graduación</label><input type="number" min="1900" max="2100" name="gradYear" required>
-<label>Capacitación adicional</label><textarea rows="3" name="courses"></textarea>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<h2 data-es="Educación y Capacitación" data-en="Education & Training">Educación y Capacitación</h2>
+<div class="score-bar"><div class="score-fill" id="score2"></div></div>
+<label data-es="Nivel de educación" data-en="Education Level">Nivel de educación</label>
+<select name="education" required>
+<option></option>
+<option data-es="Secundaria" data-en="High School">Secundaria</option>
+<option data-es="Técnico" data-en="Technical">Técnico</option>
+<option data-es="Universitario" data-en="University">Universitario</option>
+<option data-es="Otro" data-en="Other">Otro</option>
+</select>
+<label data-es="Institución" data-en="Institution">Institución</label><input name="school" required>
+<label data-es="Año de graduación" data-en="Graduation Year">Año de graduación</label><input type="number" min="1900" max="2100" name="gradYear" required>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 3 ================= -->
 <div class="form-step">
-<h2>Experiencia Laboral</h2>
-<label>Puesto más reciente</label><input name="recentJob" required>
-<label>Empresa / Compañía</label><input name="recentCompany" required>
-<label>Años de experiencia en el sector</label><input type="number" min="0" name="sectorExp" required>
-<label>Referencias laborales</label><textarea rows="3" name="references"></textarea>
-<label>Herramientas y equipos manejados</label><textarea rows="2" name="tools"></textarea>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<h2 data-es="Experiencia Laboral" data-en="Work Experience">Experiencia Laboral</h2>
+<div class="score-bar"><div class="score-fill" id="score3"></div></div>
+<label data-es="Puesto más reciente" data-en="Most Recent Position">Puesto más reciente</label><input name="recentJob" required>
+<label data-es="Empresa / Compañía" data-en="Company">Empresa / Compañía</label><input name="recentCompany" required>
+<label data-es="Años de experiencia en el sector" data-en="Years in the Sector">Años de experiencia en el sector</label><input type="number" min="0" name="sectorExp" required>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 4 ================= -->
 <div class="form-step">
-<h2>Habilidades y Certificaciones</h2>
-<label>Certificaciones técnicas</label><textarea rows="2" name="technicalCerts"></textarea>
-<label>Idiomas hablados</label><input name="languages">
-<label>Disponibilidad de turnos</label><select name="shifts" required><option></option><option>Mañana</option><option>Tarde</option><option>Noche</option><option>Flexible</option></select>
-<label>Otras habilidades</label><textarea rows="2" name="skills"></textarea>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<h2 data-es="Habilidades y Certificaciones" data-en="Skills & Certifications">Habilidades y Certificaciones</h2>
+<div class="score-bar"><div class="score-fill" id="score4"></div></div>
+<label data-es="Certificaciones técnicas" data-en="Technical Certifications">Certificaciones técnicas</label><textarea rows="2" name="technicalCerts"></textarea>
+<label data-es="Idiomas hablados" data-en="Languages Spoken">Idiomas hablados</label><input name="languages">
+<label data-es="Disponibilidad de turnos" data-en="Shift Availability">Disponibilidad de turnos</label>
+<select name="shifts" required>
+<option></option>
+<option data-es="Mañana" data-en="Morning">Mañana</option>
+<option data-es="Tarde" data-en="Afternoon">Tarde</option>
+<option data-es="Noche" data-en="Night">Noche</option>
+<option data-es="Flexible" data-en="Flexible">Flexible</option>
+</select>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 5 ================= -->
 <div class="form-step">
-<h2>Alojamiento Corporativo</h2>
-<label>Tipo de alojamiento</label><select name="roomType" required><option></option><option>Habitación compartida</option><option>Habitación privada</option></select>
-<div class="policy-box">
-<strong>Condiciones:</strong><br><br>
-• Exclusivo para empleados.<br>
-• Primera semana debe pagarse antes de llegar.<br>
-• Habitación compartida: no requiere depósito.<br>
-• Habitación privada: depósito reembolsable.<br>
-• No fumar, no visitas, limpieza obligatoria.<br>
-• Transporte disponible según normativa.<br>
+<h2 data-es="Alojamiento Corporativo" data-en="Corporate Housing">Alojamiento Corporativo</h2>
+<div class="score-bar"><div class="score-fill" id="score5"></div></div>
+<label data-es="Tipo de alojamiento" data-en="Room Type">Tipo de alojamiento</label>
+<select name="roomType" required>
+<option></option>
+<option data-es="Habitación compartida" data-en="Shared Room">Habitación compartida</option>
+<option data-es="Habitación privada" data-en="Private Room">Habitación privada</option>
+</select>
+<div class="policy-box" data-es="Condiciones: Exclusivo para empleados. Primera semana debe pagarse antes de llegar. Habitación compartida: no requiere depósito. Habitación privada: depósito reembolsable. No fumar, no visitas, limpieza obligatoria. Transporte disponible según normativa." 
+data-en="Conditions: Employee only. First week must be paid before arrival. Shared room: no deposit. Private room: refundable deposit. No smoking, no visitors, cleaning required. Transport as per policy.">
+Condiciones: Exclusivo para empleados. Primera semana debe pagarse antes de llegar. Habitación compartida: no requiere depósito. Habitación privada: depósito reembolsable. No fumar, no visitas, limpieza obligatoria. Transporte disponible según normativa.
 </div>
-<label><input type="checkbox" name="acceptHotel" required> Acepto las condiciones</label>
-<label>Comentarios adicionales</label><textarea rows="3" name="hotelNotes"></textarea>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<label><input type="checkbox" name="acceptHotel" required data-es="Acepto las condiciones" data-en="I accept the conditions"> Acepto las condiciones</label>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 6 ================= -->
 <div class="form-step">
-<h2>Capacidad Física y Salud</h2>
-<label>Capacidad para levantar peso / estar de pie largas horas</label><select name="physicalAbility" required><option></option><option>Sí</option><option>No</option></select>
-<label>Limitaciones médicas</label><textarea rows="2" name="medicalLimits"></textarea>
-<label>Uso de EPP</label><select name="ppe" required><option></option><option>Sí</option><option>No</option></select>
-<label>Certificaciones de seguridad</label><input name="safetyCert">
-<label>Contrato de 9 meses</label><select name="contract" required><option></option><option>Sí</option><option>No</option></select>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<h2 data-es="Capacidad Física y Salud" data-en="Physical Ability & Health">Capacidad Física y Salud</h2>
+<div class="score-bar"><div class="score-fill" id="score6"></div></div>
+<label data-es="Capacidad para levantar peso / estar de pie largas horas" data-en="Ability to lift weight / stand long hours">Capacidad para levantar peso / estar de pie largas horas</label>
+<select name="physicalAbility" required>
+<option></option>
+<option data-es="Sí" data-en="Yes">Sí</option>
+<option data-es="No" data-en="No">No</option>
+</select>
+<label data-es="Limitaciones médicas" data-en="Medical Limitations">Limitaciones médicas</label><textarea rows="2" name="medicalLimits"></textarea>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 7 ================= -->
 <div class="form-step">
-<h2>Transporte y Disponibilidad</h2>
-<label>Transporte propio</label><select name="transportation" required><option></option><option>Sí</option><option>No</option></select>
-<label>Disponibilidad horas extra / fines de semana</label><select name="extraHours" required><option></option><option>Sí</option><option>No</option></select>
-<label>Turnos preferidos</label><select name="preferredShifts"><option></option><option>Mañana</option><option>Tarde</option><option>Noche</option></select>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<h2 data-es="Transporte y Disponibilidad" data-en="Transportation & Availability">Transporte y Disponibilidad</h2>
+<div class="score-bar"><div class="score-fill" id="score7"></div></div>
+<label data-es="Transporte propio" data-en="Own Transportation">Transporte propio</label>
+<select name="transportation" required>
+<option></option>
+<option data-es="Sí" data-en="Yes">Sí</option>
+<option data-es="No" data-en="No">No</option>
+</select>
+<label data-es="Disponibilidad horas extra / fines de semana" data-en="Overtime / Weekend Availability">Disponibilidad horas extra / fines de semana</label>
+<select name="extraHours" required>
+<option></option>
+<option data-es="Sí" data-en="Yes">Sí</option>
+<option data-es="No" data-en="No">No</option>
+</select>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 8 ================= -->
 <div class="form-step">
-<h2>Documentación Legal</h2>
-<label>Ciudadano / Residente</label><select name="citizenship" required><option></option><option>Ciudadano</option><option>Residente</option></select>
-<p><strong>Aviso:</strong> En HR se verificará Formulario I‑9 con dos ID.</p>
-<label>ID / Pasaporte</label><input type="file" name="idDocument" required>
-<label>Certificaciones / Licencias</label><input type="file" name="certifications">
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<h2 data-es="Documentación Legal" data-en="Legal Documentation">Documentación Legal</h2>
+<div class="score-bar"><div class="score-fill" id="score8"></div></div>
+<label data-es="Ciudadano / Residente" data-en="Citizen / Resident">Ciudadano / Residente</label>
+<select name="citizenship" required>
+<option></option>
+<option data-es="Ciudadano" data-en="Citizen">Ciudadano</option>
+<option data-es="Residente" data-en="Resident">Residente</option>
+</select>
+<p data-es="Aviso: En HR se verificará Formulario I‑9 con dos ID." data-en="Notice: HR will verify Form I‑9 with two IDs.">
+Aviso: En HR se verificará Formulario I‑9 con dos ID.
+</p>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 9 ================= -->
 <div class="form-step">
-<h2>Referencias y Contrato</h2>
-<label>Referencias personales</label><textarea rows="3" name="personalRefs"></textarea>
-<label>Referencias laborales</label><textarea rows="3" name="workRefs"></textarea>
-<label>Contrato 9 meses</label><select name="contractConfirm" required><option></option><option>Sí</option><option>No</option></select>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+<h2 data-es="Referencias y Contrato" data-en="References & Contract">Referencias y Contrato</h2>
+<div class="score-bar"><div class="score-fill" id="score9"></div></div>
+<label data-es="Referencias personales" data-en="Personal References">Referencias personales</label><textarea rows="3" name="personalRefs"></textarea>
+<label data-es="Referencias laborales" data-en="Work References">Referencias laborales</label><textarea rows="3" name="workRefs"></textarea>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 10 ================= -->
 <div class="form-step">
-<h2>Firma y Certificación</h2>
-<label>Comentarios adicionales</label><textarea rows="3" name="notes"></textarea>
-<label>Firma digital</label><input type="text" name="signature" required>
-<label><input type="checkbox" name="agree" required> Certifico que toda la información es verdadera</label>
+<h2 data-es="Firma y Certificación" data-en="Signature & Certification">Firma y Certificación</h2>
+<div class="score-bar"><div class="score-fill" id="score10"></div></div>
+<label data-es="Comentarios adicionales" data-en="Additional Notes">Comentarios adicionales</label><textarea rows="3" name="notes"></textarea>
+<label data-es="Firma digital" data-en="Digital Signature">Firma digital</label><input type="text" name="signature" required>
+<label><input type="checkbox" name="agree" required data-es="Certifico que toda la información es verdadera" data-en="I certify all information is true"> Certifico que toda la información es verdadera</label>
 <div class="btns"><button type="button" class="prev">Atrás</button><button type="submit">Enviar Aplicación</button></div>
 </div>
 
 </form>
-</div>
 
-<!-- FOOTER -->
 <div class="footer">
 <span>SunPower Corporation – Todos los derechos reservados</span>
 <span>Contacto HR: hr@sunpowercorp.com</span>
 </div>
 </div>
+</div>
 
-<!-- CONFETI -->
-<canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
+<div class="confetti-msg" id="confettiMsg">¡Solicitud enviada! 🎉<br>Espere los próximos pasos</div>
+
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <script>
-// LOGICA WIZARD CON SCROLL
+// ----------------- WIZARD -----------------
 const steps = document.querySelectorAll('.form-step');
 const progress = document.getElementById('progress');
 let stepIndex = 0;
+
 function showStep(){
-    const scrollContainer = document.querySelector('.steps-container');
-    const stepEl = steps[stepIndex];
-    stepEl.scrollIntoView({behavior:'smooth', block:'start'});
-    progress.style.width = ((stepIndex+1)/steps.length*100)+'%';
-}
-document.querySelectorAll('.next').forEach(b => b.onclick = ()=>{
-    if(validateStep()){stepIndex++; if(stepIndex>=steps.length)stepIndex=steps.length-1; showStep();}
-});
-document.querySelectorAll('.prev').forEach(b => b.onclick = ()=>{
-    stepIndex--; if(stepIndex<0)stepIndex=0; showStep();
-});
-function validateStep(){
-    let ok=true;
-    steps[stepIndex].querySelectorAll('[required]').forEach(f=>{
-        if(f.type==='checkbox' && !f.checked) ok=false;
-        else if(f.type!=='checkbox' && !f.value) ok=false;
-    });
-    if(!ok) alert('Completa y acepta todos los campos antes de continuar');
-    return ok;
+  steps.forEach((s,i)=>{s.classList.remove('active'); if(i===stepIndex)s.classList.add('active');});
+  progress.style.width = ((stepIndex+1)/steps.length*100)+'%';
+  updateScore(stepIndex);
 }
 
-// CONFETI
-function lanzarConfeti(){
-    const duration = 5*1000;
-    const end = Date.now()+duration;
-    (function frame(){
-        confetti({particleCount:6,angle:60,spread:55,origin:{x:0},colors:['#1f8f4a','#45c16c','#FFC700','#FF5733','#33C3FF']});
-        confetti({particleCount:6,angle:120,spread:55,origin:{x:1},colors:['#1f8f4a','#45c16c','#FFC700','#FF5733','#33C3FF']});
-        if(Date.now()<end) requestAnimationFrame(frame);
-    })();
-}
-
-document.getElementById('app').addEventListener('submit',e=>{
-    e.preventDefault();
-    if(validateStep()){
-        alert('¡Solicitud enviada con éxito! 🎉');
-        lanzarConfeti();
-        document.getElementById('app').reset();
-        stepIndex=0;
-        showStep();
-    }else{alert('Completa todos los campos');}
-});
-
-showStep();
-</script>
-
-</body>
-</html>
+function updateScore(index){
+  const step = steps[index];
+  const scoreBar = step.querySelector('.score-fill');
+  const requiredFields = step.querySelectorAll('[required]');
+  let filled=0;
+  requiredFields.forEach(f=>{
+    if((f.type==='checkbox' && f.checked) || (f.type!=='checkbox
