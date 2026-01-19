@@ -1,64 +1,97 @@
-function createConfetti() {
-  const canvas = document.createElement('canvas');
-  canvas.id = 'confettiCanvas';
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+// ================== VARIABLES ==================
+const steps = document.querySelectorAll('.form-step');
+const nextBtns = document.querySelectorAll('.next');
+const prevBtns = document.querySelectorAll('.prev');
+const progress = document.getElementById('progress');
+let currentStep = 0;
 
-  const confetti = [];
-  const colors = ['#1f8f4a', '#45c16c', '#FFD700', '#FFB347'];
-
-  for (let i = 0; i < 200; i++) {
-    confetti.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height - canvas.height,
-      r: Math.random() * 6 + 4,
-      d: Math.random() * 100 + 50,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      tilt: Math.random() * 10 - 10,
-      tiltAngleIncrement: Math.random() * 0.07 + 0.05,
-      tiltAngle: 0
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    confetti.forEach(c => {
-      ctx.beginPath();
-      ctx.lineWidth = c.r / 2;
-      ctx.strokeStyle = c.color;
-      ctx.moveTo(c.x + c.tilt + c.r/4, c.y);
-      ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r/2);
-      ctx.stroke();
-    });
-    update();
-  }
-
-  function update() {
-    confetti.forEach(c => {
-      c.tiltAngle += c.tiltAngleIncrement;
-      c.y += (Math.cos(c.d) + 3 + c.r/2)/2;
-      c.tilt = Math.sin(c.tiltAngle) * 15;
-
-      if (c.y > canvas.height) {
-        c.x = Math.random() * canvas.width;
-        c.y = -20;
-        c.tilt = Math.random() * 10 - 10;
-      }
-    });
-  }
-
-  let confettiInterval = setInterval(draw, 20);
-  setTimeout(() => {
-    clearInterval(confettiInterval);
-    canvas.remove();
-  }, 6000); // dura 6 segundos
+// ================== FUNCIONES ==================
+function updateProgress() {
+  const percent = ((currentStep + 1) / steps.length) * 100;
+  progress.style.width = percent + '%';
+  const score = document.getElementById('score' + (currentStep + 1));
+  if (score) score.style.width = '100%';
 }
 
-// Activar confeti en formulario
-document.getElementById('app').addEventListener('submit', function(e){
-  e.preventDefault();
-  createConfetti();
-  alert('✅ Solicitud enviada correctamente. Espere los próximos pasos y confirmación del equipo corporativo.');
+// ================== VALIDACIÓN ==================
+function validateStep(stepIndex) {
+  const step = steps[stepIndex];
+  const inputs = step.querySelectorAll('input, select, textarea');
+  for (let i = 0; i < inputs.length; i++) {
+    if (!inputs[i].checkValidity()) {
+      inputs[i].reportValidity();
+      return false;
+    }
+  }
+  return true;
+}
+
+// ================== NAVEGACIÓN BOTONES ==================
+nextBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (validateStep(currentStep)) {
+      // Si es index.html y estamos en el último paso (5)
+      if (window.location.pathname.includes('index.html') && currentStep === steps.length - 1) {
+        // Mostrar confeti y botón continuar
+        const confettiMsg = document.getElementById('confettiMsg');
+        confettiMsg.style.display = 'block';
+        return;
+      }
+
+      steps[currentStep].classList.remove('active');
+      currentStep++;
+      steps[currentStep].classList.add('active');
+      updateProgress();
+    }
+  });
 });
+
+prevBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    steps[currentStep].classList.remove('active');
+    currentStep--;
+    steps[currentStep].classList.add('active');
+    updateProgress();
+  });
+});
+
+// ================== CAMBIO DE IDIOMA ==================
+const langSelect = document.getElementById('langSelect');
+if (langSelect) {
+  langSelect.addEventListener('change', () => {
+    const lang = langSelect.value;
+    document.querySelectorAll('[data-es]').forEach(el => {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = el.getAttribute(`data-${lang}`);
+      } else {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      }
+    });
+  });
+}
+
+// ================== ENVÍO DE FORMULARIO ==================
+const form = document.getElementById('app');
+if (form) {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Mostrar confeti solo al finalizar todo
+    const confettiMsg = document.getElementById('confettiMsg');
+    if (confettiMsg) {
+      confettiMsg.style.display = 'block';
+    }
+
+    // Mensaje de alerta
+    alert('✅ Solicitud enviada correctamente. Espere los próximos pasos por correo.');
+
+    // Opcional: limpiar formulario si quieres
+    // form.reset();
+  });
+}
+
+// ================== INICIALIZAR ==================
+if (steps.length > 0) {
+  steps[0].classList.add('active');
+  updateProgress();
+}
