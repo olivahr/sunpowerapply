@@ -2,229 +2,136 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Aplicación Corporativa – Continuación</title>
+<title>Aplicación Corporativa – Continuar</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<select class="lang-select" id="langSelect">
-<option value="es">ES</option>
-<option value="en">EN</option>
-</select>
-
 <div class="app-container">
-<div class="form-wrapper">
-<div class="progress-bar"><div class="progress" id="progress"></div></div>
+  <div class="form-wrapper">
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <form id="app">
 
-<form id="app">
+      <!-- ================= STEP 6 ================= -->
+      <div class="form-step active" id="step6">
+        <h2>Transporte y Llegada</h2>
+        <p class="step-desc">Indique cómo planea llegar al sitio de trabajo y cualquier detalle adicional que el equipo de logística necesite para coordinar su llegada.</p>
+        <label>Medio de transporte principal</label>
+        <select name="transportMode" required>
+          <option value="">Seleccione</option>
+          <option>Avión</option>
+          <option>Tren</option>
+          <option>Automóvil</option>
+          <option>Autobús</option>
+          <option>Bicicleta</option>
+          <option>Otro</option>
+        </select>
+        <label>Número de vuelo o referencia</label>
+        <input type="text" name="transportRef" placeholder="Ej: AA123 / TR456" required>
+        <label>Hora estimada de llegada al lugar de trabajo</label>
+        <input type="time" name="arrivalTime" required>
+        <label>Notas adicionales sobre transporte</label>
+        <textarea name="transportNotes" placeholder="Ej: Necesito transporte desde el aeropuerto, accesibilidad especial, compartir auto, etc."></textarea>
 
-<!-- ================= STEP 6 ================= -->
-<div class="form-step active" id="step6">
-<h2>Transporte y Llegada</h2>
-<div class="score-bar"><div class="score-fill" id="score6"></div></div>
-<p class="step-desc">Indique cómo planea llegar al sitio de trabajo y cualquier detalle que el equipo de logística de SunPower necesite para coordinar su llegada.</p>
+        <div class="btns">
+          <button type="button" class="prev" data-step="5">Anterior</button>
+          <button type="button" class="next" data-step="7">Continuar</button>
+        </div>
+      </div>
 
-<label>Medio de transporte principal</label>
-<select name="transportMode" required>
-<option value="">Seleccione</option>
-<option>Avión</option>
-<option>Tren</option>
-<option>Automóvil</option>
-<option>Autobús</option>
-<option>Bicicleta</option>
-<option>Otro</option>
-</select>
+      <!-- ================= STEP 7 ================= -->
+      <div class="form-step" id="step7">
+        <h2>Contactos de Emergencia</h2>
+        <p class="step-desc">Proporcione información de personas que podamos contactar en caso de emergencia durante su periodo de trabajo.</p>
+        <label>Nombre completo del contacto</label>
+        <input type="text" name="emergencyName" placeholder="Ej: María López" required>
+        <label>Teléfono de contacto</label>
+        <input type="tel" name="emergencyPhone" placeholder="+1 555 555 5555" required>
+        <label>Relación con el contacto</label>
+        <input type="text" name="emergencyRelation" placeholder="Ej: Padre, Hermano, Amigo" required>
+        <label>Segundo contacto opcional</label>
+        <input type="text" name="secondEmergencyName" placeholder="Nombre completo">
+        <label>Teléfono del segundo contacto</label>
+        <input type="tel" name="secondEmergencyPhone" placeholder="+1 555 555 5555">
 
-<label>Número de vuelo, tren o referencia</label>
-<input type="text" name="transportRef" placeholder="Ej: AA123 / TR456">
+        <div class="btns">
+          <button type="button" class="prev" data-step="6">Anterior</button>
+          <button type="button" class="next" data-step="8">Continuar</button>
+        </div>
+      </div>
 
-<label>Hora estimada de llegada al lugar de trabajo</label>
-<input type="time" name="arrivalTime" required>
+      <!-- ================= STEP 8 ================= -->
+      <div class="form-step" id="step8">
+        <h2>Información de Equipo y Seguridad</h2>
+        <p class="step-desc">Indique si traerá su propio equipo de seguridad o herramientas adicionales, o si necesita que la empresa le proporcione equipo.</p>
+        <label>¿Trae su propio equipo de seguridad?</label>
+        <select name="ownGear" required>
+          <option value="">Seleccione</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+        <label>Herramientas adicionales que puede aportar</label>
+        <textarea name="extraTools" placeholder="Ej: Multiherramienta, guantes, casco, linterna"></textarea>
+        <label>Necesita que se le proporcione equipo</label>
+        <select name="needCompanyGear" required>
+          <option value="">Seleccione</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+        <label>Comentarios sobre equipo</label>
+        <textarea name="equipmentComments" placeholder="Si tiene observaciones sobre equipo, escríbalas aquí"></textarea>
 
-<label>Notas adicionales sobre transporte</label>
-<textarea name="transportNotes" placeholder="Ej: Necesito transporte desde el aeropuerto, compartir auto, accesibilidad especial, etc."></textarea>
+        <div class="btns">
+          <button type="button" class="prev" data-step="7">Anterior</button>
+          <button type="button" class="next" data-step="9">Continuar</button>
+        </div>
+      </div>
 
-<div class="btns">
-<button type="button" class="prev" data-step="5">Anterior</button>
-<button type="button" class="next" data-step="7">Continuar</button>
-</div>
-</div>
+      <!-- ================= STEP 9 ================= -->
+      <div class="form-step" id="step9">
+        <h2>Condiciones de Trabajo Adicionales</h2>
+        <p class="step-desc">Indique cualquier condición o requerimiento especial durante su contrato.</p>
+        <label>Turnos preferidos</label>
+        <select name="shiftPreference" required>
+          <option value="">Seleccione</option>
+          <option>Diurno</option>
+          <option>Nocturno</option>
+          <option>Mixto</option>
+        </select>
+        <label>Restricciones de salud o físicas</label>
+        <textarea name="healthRestrictions" placeholder="Ej: No puedo levantar más de 20kg, alergias, etc."></textarea>
+        <label>Necesidades especiales o comentarios adicionales</label>
+        <textarea name="additionalNotes" placeholder="Si tiene algún requerimiento, escriba aquí"></textarea>
 
-<!-- ================= STEP 7 ================= -->
-<div class="form-step" id="step7">
-<h2>Contactos de Emergencia</h2>
-<div class="score-bar"><div class="score-fill" id="score7"></div></div>
-<p class="step-desc">Proporcione información de personas que podamos contactar en caso de emergencia. Puede añadir más de un contacto si lo desea.</p>
+        <div class="btns">
+          <button type="button" class="prev" data-step="8">Anterior</button>
+          <button type="button" class="next" data-step="10">Continuar</button>
+        </div>
+      </div>
 
-<label>Nombre completo del contacto</label>
-<input type="text" name="emergencyName" placeholder="Ej: María López" required>
+      <!-- ================= STEP 10 ================= -->
+      <div class="form-step" id="step10">
+        <h2>Revisión Final y Envío</h2>
+        <p class="step-desc">Revise toda la información ingresada antes de enviar la solicitud. Una vez enviada, recibirá un mensaje de confirmación y las instrucciones por correo electrónico.</p>
+        <label>Comentarios finales</label>
+        <textarea name="finalComments" placeholder="Si tiene algo que añadir, escríbalo aquí"></textarea>
 
-<label>Teléfono de contacto</label>
-<input type="tel" name="emergencyPhone" placeholder="+1 555 555 5555" required>
+        <div class="btns">
+          <button type="button" class="prev" data-step="9">Anterior</button>
+          <button type="submit">Enviar Solicitud</button>
+        </div>
+      </div>
 
-<label>Relación con el contacto</label>
-<input type="text" name="emergencyRelation" placeholder="Ej: Padre, Hermano, Amigo" required>
+    </form>
 
-<label>Segundo contacto opcional</label>
-<input type="text" name="secondEmergencyName" placeholder="Nombre completo">
+    <div class="confetti-msg" id="confettiMsgFinal">
+      ✅ ¡Solicitud enviada! Espere instrucciones por correo electrónico 🎉
+    </div>
 
-<label>Teléfono del segundo contacto</label>
-<input type="tel" name="secondEmergencyPhone" placeholder="+1 555 555 5555">
-
-<div class="btns">
-<button type="button" class="prev" data-step="6">Anterior</button>
-<button type="button" class="next" data-step="8">Continuar</button>
-</div>
-</div>
-
-<!-- ================= STEP 8 ================= -->
-<div class="form-step" id="step8">
-<h2>Seguridad y Equipos</h2>
-<div class="score-bar"><div class="score-fill" id="score8"></div></div>
-<p class="step-desc">Indique si trae su propio equipo de seguridad o si necesita que la empresa le proporcione el equipo necesario para trabajar de forma segura.</p>
-
-<label>Trae su propio equipo de seguridad</label>
-<select name="ownGear" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<label>Herramientas adicionales que puede aportar</label>
-<textarea name="extraTools" placeholder="Ej: Multiherramienta, guantes, casco, linterna"></textarea>
-
-<label>Necesita que se le proporcione equipo</label>
-<select name="needCompanyGear" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<label>Comentarios sobre equipo</label>
-<textarea name="equipmentComments" placeholder="Si tiene observaciones sobre equipo, escríbalas aquí"></textarea>
-
-<div class="btns">
-<button type="button" class="prev" data-step="7">Anterior</button>
-<button type="button" class="next" data-step="9">Continuar</button>
-</div>
-</div>
-
-<!-- ================= STEP 9 ================= -->
-<div class="form-step" id="step9">
-<h2>Condiciones Laborales Adicionales</h2>
-<div class="score-bar"><div class="score-fill" id="score9"></div></div>
-<p class="step-desc">Indique cualquier requerimiento especial o información relevante sobre su jornada, descansos o preferencias de trabajo.</p>
-
-<label>Tipo de jornada preferida</label>
-<select name="workShift" required>
-<option value="">Seleccione</option>
-<option>Diurna</option>
-<option>Nocturna</option>
-<option>Rotativa</option>
-</select>
-
-<label>Necesita adaptaciones especiales</label>
-<select name="specialNeeds" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<label>Comentarios sobre condiciones laborales</label>
-<textarea name="workComments" placeholder="Ej: Necesito descanso extra, alergias a materiales, etc."></textarea>
-
-<div class="btns">
-<button type="button" class="prev" data-step="8">Anterior</button>
-<button type="button" class="next" data-step="10">Continuar</button>
-</div>
+  </div>
 </div>
 
-<!-- ================= STEP 10 ================= -->
-<div class="form-step" id="step10">
-<h2>Revisión Final y Envío</h2>
-<div class="score-bar"><div class="score-fill" id="score10"></div></div>
-<p class="step-desc">Revise toda la información ingresada antes de enviar la solicitud. Una vez enviada, recibirá confirmación y las instrucciones finales por correo electrónico.</p>
-
-<label>Comentarios adicionales</label>
-<textarea name="finalComments" placeholder="Si tiene algo que añadir, escríbalo aquí"></textarea>
-
-<div class="btns">
-<button type="button" class="prev" data-step="9">Anterior</button>
-<button type="button" id="submitBtn">Enviar Solicitud</button>
-</div>
-
-<!-- Mensaje final con confeti -->
-<div class="confetti-msg" id="confettiMsg" style="display:none;text-align:center;margin-top:30px;font-weight:700;font-size:18px;color:#1f8f4a;">
-✅ ¡Solicitud completa enviada! 🎉<br>
-Espere los próximos pasos por correo electrónico.
-</div>
-</div>
-
-</form>
-</div>
-</div>
-
-<script>
-// Manejo de pasos
-const steps = document.querySelectorAll('.form-step');
-const nextBtns = document.querySelectorAll('.next');
-const prevBtns = document.querySelectorAll('.prev');
-const progress = document.getElementById('progress');
-let currentStep = 0;
-
-function updateProgress(){
-  const percent = ((currentStep+1)/steps.length)*100;
-  progress.style.width = percent+'%';
-  const score = document.getElementById('score'+(currentStep+1));
-  if(score) score.style.width='100%';
-}
-
-nextBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    if(currentStep < steps.length -1){
-      steps[currentStep].classList.remove('active');
-      currentStep++;
-      steps[currentStep].classList.add('active');
-      updateProgress();
-    }
-  });
-});
-
-prevBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    steps[currentStep].classList.remove('active');
-    currentStep--;
-    steps[currentStep].classList.add('active');
-    updateProgress();
-  });
-});
-
-// Botón enviar
-document.getElementById('submitBtn').addEventListener('click', ()=>{
-  const step10 = document.getElementById('step10');
-  const inputs = step10.querySelectorAll('textarea');
-  let valid = true;
-  inputs.forEach(input=>{ if(!input.value) valid=true; }); // solo comentarios opcionales
-  step10.querySelector('.btns').style.display='none';
-  document.getElementById('confettiMsg').style.display='block';
-});
-
-// Cambio de idioma
-const langSelect = document.getElementById('langSelect');
-langSelect.addEventListener('change', ()=>{
-  const lang = langSelect.value;
-  document.querySelectorAll('[data-es]').forEach(el=>{
-    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){ 
-      el.placeholder = el.getAttribute(`data-${lang}`);
-    } else {
-      el.textContent = el.getAttribute(`data-${lang}`);
-    }
-  });
-});
-
-updateProgress();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
