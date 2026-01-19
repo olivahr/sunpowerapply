@@ -1,4 +1,4 @@
-/* ================== ESTILOS GENERALES ================== */
+/* ================= GLOBAL ================= */
 html, body {
   margin: 0;
   padding: 0;
@@ -15,37 +15,41 @@ html, body {
 
 input, select, textarea {
   font-size: 16px;
+  outline: none;
 }
 
-/* ================== SELECTOR DE IDIOMA ================== */
-.lang-select {
-  position: fixed; /* se queda arriba aunque haya scroll */
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%); /* centra exacto */
+/* ================= LANG SELECT ================= */
+.lang-container {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  padding-top: 15px;
+  position: fixed; /* siempre arriba */
   z-index: 1000;
+}
+
+.lang-select {
   font-weight: 600;
-  padding: 8px 20px; /* más ancho y cómodo */
-  border-radius: 20px;
+  padding: 8px 16px;
+  border-radius: 16px;
   border: none;
   background: #1f8f4a;
   color: #fff;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  text-align: center;
 }
 
-/* ================== CONTENEDOR PRINCIPAL ================== */
+/* ================= APP CONTAINER ================= */
 .app-container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 100px 10px 40px 10px; /* más arriba para que no choque con el select */
+  padding: 80px 10px 20px 10px;
 }
 
-/* ================== FORMULARIO ================== */
+/* ================= FORM WRAPPER ================= */
 .form-wrapper {
   width: 100%;
   max-width: 1000px;
@@ -55,11 +59,11 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   padding: 40px;
-  overflow: hidden;
+  overflow: hidden; /* no scroll infinito dentro del contenedor */
   position: relative;
 }
 
-/* ================== BARRA DE PROGRESO ================== */
+/* ================= PROGRESS BAR ================= */
 .progress-bar {
   height: 20px;
   background: #ddd;
@@ -72,12 +76,11 @@ input, select, textarea {
 .progress {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #1f8f4a, #45c16c);
+  background: linear-gradient(90deg,#1f8f4a,#45c16c);
   border-radius: 10px;
-  transition: width 0.6s ease-in-out;
+  transition: width .6s ease-in-out;
 }
 
-/* ================== SCORE BARS ================== */
 .score-bar {
   position: relative;
   height: 20px;
@@ -91,7 +94,7 @@ input, select, textarea {
   height: 100%;
   width: 0%;
   border-radius: 10px;
-  transition: width 0.4s ease-in-out;
+  transition: width .4s ease-in-out;
   text-align: center;
   color: #fff;
   font-size: 12px;
@@ -99,7 +102,7 @@ input, select, textarea {
   line-height: 20px;
 }
 
-/* ================== PASOS DEL FORMULARIO ================== */
+/* ================= FORM STEP ================= */
 .form-step {
   min-height: 75vh;
   display: flex;
@@ -109,7 +112,6 @@ input, select, textarea {
   opacity: 0;
   transform: translateX(50px);
   transition: all 0.6s ease;
-  overflow: hidden;
 }
 
 .form-step.active {
@@ -118,14 +120,6 @@ input, select, textarea {
   transform: translateX(0);
 }
 
-.step-desc {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 15px;
-  line-height: 1.5;
-}
-
-/* ================== TITULOS Y ETIQUETAS ================== */
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -134,6 +128,13 @@ h2 {
   font-size: 28px;
 }
 
+.step-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* ================= LABELS & INPUTS ================= */
 label {
   display: block;
   margin-top: 14px;
@@ -150,7 +151,6 @@ input, select, textarea {
   border-radius: 16px;
   font-size: 16px;
   transition: .3s;
-  outline: none;
   background: #f7f9fc;
 }
 
@@ -165,7 +165,7 @@ textarea {
   min-height: 80px;
 }
 
-/* ================== BOTONES ================== */
+/* ================= BUTTONS ================= */
 .btns {
   display: flex;
   justify-content: flex-end;
@@ -177,7 +177,7 @@ button {
   padding: 16px 32px;
   border: none;
   border-radius: 20px;
-  background: linear-gradient(135deg, #1f8f4a, #45c16c);
+  background: linear-gradient(135deg,#1f8f4a,#45c16c);
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -196,7 +196,6 @@ button:active {
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* ================== RESPONSIVE ================== */
 @media(max-width:900px){
   .btns {
     flex-direction: column;
@@ -206,7 +205,7 @@ button:active {
   }
 }
 
-/* ================== FOOTER ================== */
+/* ================= FOOTER ================= */
 .footer {
   margin-top: 50px;
   text-align: center;
@@ -219,7 +218,7 @@ button:active {
   margin-top: 6px;
 }
 
-/* ================== MENSAJE DE CONFETI ================== */
+/* ================= CONFETTI MSG ================= */
 .confetti-msg {
   display: none;
   text-align: center;
@@ -227,4 +226,15 @@ button:active {
   color: #1f8f4a;
   margin-top: 30px;
   font-weight: 700;
+}
+
+/* ================= SCROLL & LIMIT ================= */
+/* Para que el scroll solo vaya dentro de las preguntas y no infinito */
+body {
+  overflow-y: hidden; /* evita scroll general */
+}
+
+.form-wrapper {
+  overflow-y: auto; /* scroll solo dentro del contenedor de la forma */
+  max-height: 90vh; /* limita altura visible */
 }
