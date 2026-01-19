@@ -2,311 +2,181 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Aplicación Corporativa – SunPower</title>
+<title>Aplicación Corporativa – Paneles Solares</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<select class="lang-select" id="langSelect">
-<option value="es">ES</option>
-<option value="en">EN</option>
-</select>
-
 <div class="app-container">
-<div class="form-wrapper">
-<div class="progress-bar"><div class="progress" id="progress"></div></div>
+  <div class="form-wrapper">
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <form id="app">
 
-<form id="app">
+      <!-- ================= STEP 1 ================= -->
+      <div class="form-step active" id="step1">
+        <h2>Información Personal</h2>
+        <label>Nombre completo</label>
+        <input type="text" name="fullName" placeholder="Ej: Juan Pérez" required>
+        <label>Fecha de nacimiento</label>
+        <input type="date" name="birthDate" required>
+        <label>Correo electrónico</label>
+        <input type="email" name="email" placeholder="ejemplo@correo.com" required>
+        <label>Teléfono</label>
+        <input type="tel" name="phone" placeholder="+1 555 555 5555" required>
+        <label>País de residencia</label>
+        <select name="country" required>
+          <option value="">Seleccione un país</option>
+          <option>Estados Unidos</option>
+          <option>Canadá</option>
+          <option>México</option>
+          <option>Colombia</option>
+          <option>Chile</option>
+          <option>Brasil</option>
+          <option>Argentina</option>
+          <option>Otro</option>
+        </select>
+        <label>Estado / Provincia</label>
+        <input type="text" name="state" placeholder="Ej: California" required>
+        <label>Ciudad</label>
+        <input type="text" name="city" placeholder="Ej: Los Angeles" required>
+        <label>Dirección</label>
+        <input type="text" name="address" placeholder="Ej: Calle 123, Apt 4B" required>
+        <label>Estado civil</label>
+        <select name="maritalStatus" required>
+          <option value="">Seleccione</option>
+          <option>Soltero</option>
+          <option>Casado</option>
+          <option>Divorciado</option>
+          <option>Viudo</option>
+          <option>Otro</option>
+        </select>
+        <label>Género</label>
+        <select name="gender" required>
+          <option value="">Seleccione</option>
+          <option>Masculino</option>
+          <option>Femenino</option>
+          <option>Otro</option>
+          <option>Prefiero no decir</option>
+        </select>
 
-<!-- ================= STEP 1 ================= -->
-<div class="form-step active" id="step1">
-<h2>Información Personal</h2>
-<div class="score-bar"><div class="score-fill" id="score1"></div></div>
-<p class="step-desc">Complete su información personal para validar identidad y preparar correctamente su contrato corporativo.</p>
+        <div class="btns">
+          <button type="button" class="next" data-step="2">Continuar</button>
+        </div>
+      </div>
 
-<label>Nombre completo</label>
-<input type="text" name="fullName" placeholder="Ej: Juan Pérez" required>
+      <!-- ================= STEP 2 ================= -->
+      <div class="form-step" id="step2">
+        <h2>Experiencia Laboral y Habilidades</h2>
+        <label>Años de experiencia</label>
+        <select name="experienceYears" required>
+          <option value="">Seleccione</option>
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5+</option>
+        </select>
+        <label>¿Puede levantar peso durante turnos?</label>
+        <select name="canLift" required>
+          <option value="">Seleccione</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+        <label>Disponibilidad para contrato de 9 meses</label>
+        <select name="availability" required>
+          <option value="">Seleccione</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
 
-<label>Fecha de nacimiento</label>
-<input type="date" name="birthDate" required>
+        <div class="btns">
+          <button type="button" class="prev" data-step="1">Anterior</button>
+          <button type="button" class="next" data-step="3">Continuar</button>
+        </div>
+      </div>
 
-<label>Correo electrónico</label>
-<input type="email" name="email" placeholder="ejemplo@correo.com" required>
+      <!-- ================= STEP 3 ================= -->
+      <div class="form-step" id="step3">
+        <h2>Alojamiento Corporativo</h2>
+        <label>Tipo de habitación</label>
+        <select name="housingType" required>
+          <option value="">Seleccione</option>
+          <option>1 cama individual – baño privado, Wi-Fi, TV, aire acondicionado</option>
+          <option>2 camas – baño privado, Wi-Fi, TV, aire acondicionado</option>
+        </select>
+        <label>Acepta reglas de la corporación</label>
+        <select name="housingAgree" required>
+          <option value="">Seleccione</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+        <label>Pago de primera semana</label>
+        <select name="housingPayment" required>
+          <option value="">Seleccione</option>
+          <option>Realizar pago en el portal corporativo tras aprobación</option>
+          <option>No aplica</option>
+        </select>
 
-<label>Teléfono</label>
-<input type="tel" name="phone" placeholder="+1 555 555 5555" required>
+        <div class="btns">
+          <button type="button" class="prev" data-step="2">Anterior</button>
+          <button type="button" class="next" data-step="4">Continuar</button>
+        </div>
+      </div>
 
-<label>País de residencia</label>
-<select name="country" required>
-<option value="">Seleccione un país</option>
-<option>Estados Unidos</option>
-<option>Canadá</option>
-<option>México</option>
-<option>Colombia</option>
-<option>Brasil</option>
-<option>Argentina</option>
-<option>Otro</option>
-</select>
+      <!-- ================= STEP 4 ================= -->
+      <div class="form-step" id="step4">
+        <h2>Documentación</h2>
+        <label>Ciudadanía o residencia legal</label>
+        <select name="docCitizenship" required>
+          <option value="">Seleccione</option>
+          <option>Ciudadano</option>
+          <option>Residente</option>
+          <option>Otro</option>
+        </select>
+        <label>I-9 verificación en HR (traer 2 formas de ID)</label>
+        <input type="text" name="i9Info" placeholder="Ej: Pasaporte y Licencia" required>
 
-<label>Estado / Provincia</label>
-<input type="text" name="state" placeholder="Ej: California" required>
+        <div class="btns">
+          <button type="button" class="prev" data-step="3">Anterior</button>
+          <button type="button" class="next" data-step="5">Continuar</button>
+        </div>
+      </div>
 
-<label>Ciudad</label>
-<input type="text" name="city" placeholder="Ej: Los Angeles" required>
+      <!-- ================= STEP 5 ================= -->
+      <div class="form-step" id="step5">
+        <h2>Condiciones Legales y Contrato</h2>
+        <label>Acepta contrato de 9 meses</label>
+        <select name="contractAgree" required>
+          <option value="">Seleccione</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+        <label>Acepta políticas de la empresa y derechos</label>
+        <select name="policiesAgree" required>
+          <option value="">Seleccione</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
 
-<label>Dirección completa</label>
-<input type="text" name="address" placeholder="Ej: Calle 123, Apt 4B" required>
+        <div class="btns">
+          <button type="button" class="prev" data-step="4">Anterior</button>
+          <button type="button" class="next" data-step="final">Finalizar</button>
+        </div>
+      </div>
 
-<label>Código postal</label>
-<input type="text" name="zipCode" placeholder="Ej: 90001" required>
+    </form>
 
-<label>Estado civil</label>
-<select name="maritalStatus" required>
-<option value="">Seleccione</option>
-<option>Soltero</option>
-<option>Casado</option>
-<option>Divorciado</option>
-<option>Viudo</option>
-<option>Otro</option>
-</select>
+    <div class="confetti-msg" id="confettiMsgStep5">
+      ✅ ¡Has completado la primera parte de la aplicación! 🎉
+      <br>
+      <a href="continuar.html" class="btn-continue">Continuar con los pasos restantes</a>
+    </div>
 
-<label>Género</label>
-<select name="gender" required>
-<option value="">Seleccione</option>
-<option>Masculino</option>
-<option>Femenino</option>
-<option>Otro</option>
-<option>Prefiero no decir</option>
-</select>
-
-<label>Nivel de educación</label>
-<select name="education" required>
-<option value="">Seleccione</option>
-<option>Primaria completa</option>
-<option>Secundaria completa</option>
-<option>Técnico</option>
-<option>Universitario</option>
-<option>Postgrado</option>
-<option>Otro</option>
-</select>
-
-<label>Licencia de conducir</label>
-<select name="driverLicense" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<div class="btns">
-<button type="button" class="next" data-step="2">Continuar</button>
-</div>
-</div>
-
-<!-- ================= STEP 2 ================= -->
-<div class="form-step" id="step2">
-<h2>Experiencia Laboral y Habilidades</h2>
-<div class="score-bar"><div class="score-fill" id="score2"></div></div>
-<p class="step-desc">Detalle su experiencia laboral, habilidades técnicas y certificaciones relevantes para la posición. Sea lo más específico posible.</p>
-
-<label>Años de experiencia</label>
-<select name="experienceYears" required>
-<option value="">Seleccione</option>
-<option>0</option>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5+</option>
-</select>
-
-<label>Habilidades técnicas</label>
-<textarea name="skills" placeholder="Ej: Instalación de paneles solares, manejo de herramientas eléctricas, seguridad industrial, soldadura" required></textarea>
-
-<label>Certificaciones</label>
-<textarea name="certifications" placeholder="Ej: OSHA, Electricista certificado, Manejo de montacargas"></textarea>
-
-<label>Capacidad para levantar peso durante turnos</label>
-<select name="canLift" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<label>Disponibilidad para contrato de 9 meses</label>
-<select name="availability" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<div class="btns">
-<button type="button" class="prev" data-step="1">Anterior</button>
-<button type="button" class="next" data-step="3">Continuar</button>
-</div>
-</div>
-
-<!-- ================= STEP 3 ================= -->
-<div class="form-step" id="step3">
-<h2>Alojamiento Corporativo</h2>
-<div class="score-bar"><div class="score-fill" id="score3"></div></div>
-<p class="step-desc">Seleccione la habitación que ocupará durante su contrato. Solo hay opciones de 1 cama individual o 2 camas. El pago se realiza en el portal corporativo después de la aprobación.</p>
-
-<label>Tipo de habitación</label>
-<select name="housingType" required>
-<option value="">Seleccione</option>
-<option>1 cama individual – baño privado, Wi-Fi, TV, aire acondicionado</option>
-<option>2 camas – baño privado, Wi-Fi, TV, aire acondicionado</option>
-</select>
-
-<label>Acepta reglas corporativas</label>
-<select name="housingAgree" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<label>Pago de la primera semana</label>
-<select name="housingPayment" required>
-<option value="">Seleccione</option>
-<option>Realizar pago en portal corporativo tras aprobación</option>
-</select>
-
-<div class="btns">
-<button type="button" class="prev" data-step="2">Anterior</button>
-<button type="button" class="next" data-step="4">Continuar</button>
-</div>
-</div>
-
-<!-- ================= STEP 4 ================= -->
-<div class="form-step" id="step4">
-<h2>Documentación</h2>
-<div class="score-bar"><div class="score-fill" id="score4"></div></div>
-<p class="step-desc">Ingrese su ciudadanía o residencia legal y prepare los documentos necesarios para verificación de identidad y HR.</p>
-
-<label>Ciudadanía o residencia legal</label>
-<select name="docCitizenship" required>
-<option value="">Seleccione</option>
-<option>Ciudadano</option>
-<option>Residente</option>
-<option>Otro</option>
-</select>
-
-<label>Documentos para verificación</label>
-<textarea name="verificationDocs" placeholder="Ej: Pasaporte, licencia de conducir, ID nacional" required></textarea>
-
-<div class="btns">
-<button type="button" class="prev" data-step="3">Anterior</button>
-<button type="button" class="next" data-step="5">Continuar</button>
-</div>
+  </div>
 </div>
 
-<!-- ================= STEP 5 ================= -->
-<div class="form-step" id="step5">
-<h2>Condiciones Legales y Contrato</h2>
-<div class="score-bar"><div class="score-fill" id="score5"></div></div>
-<p class="step-desc">Revise y acepte las condiciones del contrato y políticas de la empresa. Obligatorio para continuar con los siguientes pasos.</p>
-
-<label>Acepta contrato de 9 meses</label>
-<select name="contractAgree" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<label>Acepta políticas corporativas</label>
-<select name="policiesAgree" required>
-<option value="">Seleccione</option>
-<option>Sí</option>
-<option>No</option>
-</select>
-
-<div class="btns">
-<button type="button" class="prev" data-step="4">Anterior</button>
-<button type="button" id="finalStepBtn">Continuar</button>
-</div>
-
-<!-- Mensaje de confeti al finalizar paso 5 -->
-<div class="confetti-msg" id="confettiMsg" style="display:none;text-align:center;margin-top:30px;font-weight:700;font-size:18px;color:#1f8f4a;">
-✅ ¡Has completado la primera parte de tu aplicación! 🎉
-<br><br>
-<button id="goNext" style="padding:12px 24px;border:none;border-radius:12px;background:#1f8f4a;color:#fff;font-weight:600;cursor:pointer;">Continuar a pasos siguientes</button>
-</div>
-
-</div>
-</form>
-</div>
-</div>
-
-<script>
-// Manejo de pasos
-const steps = document.querySelectorAll('.form-step');
-const nextBtns = document.querySelectorAll('.next');
-const prevBtns = document.querySelectorAll('.prev');
-const progress = document.getElementById('progress');
-let currentStep = 0;
-
-function updateProgress(){
-  const percent = ((currentStep+1)/steps.length)*100;
-  progress.style.width = percent+'%';
-  const score = document.getElementById('score'+(currentStep+1));
-  if(score) score.style.width='100%';
-}
-
-nextBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    if(currentStep < steps.length -1){
-      steps[currentStep].classList.remove('active');
-      currentStep++;
-      steps[currentStep].classList.add('active');
-      updateProgress();
-    }
-  });
-});
-
-prevBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    steps[currentStep].classList.remove('active');
-    currentStep--;
-    steps[currentStep].classList.add('active');
-    updateProgress();
-  });
-});
-
-// Final Step - mostrar mensaje y confeti
-document.getElementById('finalStepBtn').addEventListener('click', ()=>{
-  const step5 = document.getElementById('step5');
-  // Validar que todos los campos estén completos
-  const inputs = step5.querySelectorAll('select');
-  let valid = true;
-  inputs.forEach(input=>{ if(!input.value) valid=false; });
-  if(!valid){ alert('Por favor complete todos los campos obligatorios antes de continuar.'); return; }
-
-  // Ocultar formulario y mostrar mensaje
-  step5.querySelector('.btns').style.display='none';
-  document.getElementById('confettiMsg').style.display='block';
-});
-
-// Botón continuar al otro HTML
-document.getElementById('goNext').addEventListener('click', ()=>{
-  window.location.href = 'continuar.html';
-});
-
-// Cambio de idioma
-const langSelect = document.getElementById('langSelect');
-langSelect.addEventListener('change', ()=>{
-  const lang = langSelect.value;
-  document.querySelectorAll('[data-es]').forEach(el=>{
-    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){ 
-      el.placeholder = el.getAttribute(`data-${lang}`);
-    } else {
-      el.textContent = el.getAttribute(`data-${lang}`);
-    }
-  });
-});
-
-updateProgress();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
