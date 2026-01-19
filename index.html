@@ -2,32 +2,113 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Aplicación Trabajo Paneles Solares</title>
+<title>Aplicación Solar Full App</title>
 <style>
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f7; padding: 25px; }
-  .form-container { max-width: 720px; margin: auto; background: #ffffff; padding: 35px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-  .form-step { display: none; opacity: 0; transform: translateX(50px); transition: all 0.5s ease; }
-  .form-step.active { display: block; opacity: 1; transform: translateX(0); }
-  h2, h3 { text-align: center; color: #1f8f4a; font-weight: 600; }
-  h3 { margin-top: 18px; margin-bottom: 12px; }
+  /* FONDO Y BODY */
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f3ff, #f0f4f7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* CONTENEDOR CENTRAL */
+  .app-container {
+    width: 90%;
+    max-width: 900px;
+    height: 95%;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* BARRA DE PROGRESO */
+  .progress-bar {
+    width: 100%;
+    height: 14px;
+    background: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  .progress {
+    width: 0%;
+    height: 100%;
+    background: #1f8f4a;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  /* PASOS DEL WIZARD */
+  .form-step {
+    position: absolute;
+    width: 100%;
+    top: 70px;
+    left: 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+  }
+  .form-step.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+  }
+  .form-step.prev {
+    transform: translateX(-100%);
+  }
+
+  h2 { text-align: center; color: #1f8f4a; font-weight: 700; margin-bottom: 25px; }
   label { display: block; margin-top: 12px; font-weight: 600; color: #333; }
-  input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+  input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
   textarea { resize: vertical; }
-  button { margin-top: 20px; padding: 14px; width: 48%; background: #1f8f4a; color: white; border: none; font-size: 16px; cursor: pointer; border-radius: 6px; transition: background 0.3s; }
+
+  /* BOTONES */
+  .btn-group { display: flex; justify-content: space-between; margin-top: 25px; }
+  button {
+    padding: 15px;
+    background: #1f8f4a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 48%;
+  }
   button:hover { background: #166b38; }
-  .btn-group { display: flex; justify-content: space-between; margin-top: 15px; }
+  @media(max-width:700px){ .btn-group{ flex-direction: column; } button{ width: 100%; margin-bottom: 10px; } }
+
+  /* ERRORES */
   .error { color: red; font-size: 0.85em; display: none; margin-top: 2px; }
-  .progress-bar { width: 100%; background: #ddd; border-radius: 8px; height: 12px; margin-bottom: 25px; overflow: hidden; }
-  .progress { height: 100%; background: #1f8f4a; width: 0%; transition: width 0.4s ease; border-radius: 8px; }
 </style>
 </head>
 <body>
 
-<div class="form-container">
+<div class="app-container">
   <div class="progress-bar"><div class="progress" id="progress"></div></div>
   <form id="solarApp">
 
-    <!-- STEP 1: Datos Personales -->
+    <!-- STEP 1 -->
     <div class="form-step active">
       <h2>Información Personal</h2>
       <label>Nombre Completo</label>
@@ -56,7 +137,7 @@
       </div>
     </div>
 
-    <!-- STEP 2: Posición y Experiencia -->
+    <!-- STEP 2 -->
     <div class="form-step">
       <h2>Posición y Experiencia</h2>
       <label>Puesto al que aplicas</label>
@@ -88,7 +169,7 @@
       </div>
     </div>
 
-    <!-- STEP 3: Disponibilidad y Contrato -->
+    <!-- STEP 3 -->
     <div class="form-step">
       <h2>Disponibilidad y Contrato</h2>
       <label>¿Puedes cumplir un contrato de 9 meses?</label>
@@ -122,7 +203,7 @@
       </div>
     </div>
 
-    <!-- STEP 4: Legalidad y Transporte -->
+    <!-- STEP 4 -->
     <div class="form-step">
       <h2>Legalidad y Transporte</h2>
       <label>¿Autorizado para trabajar en EE. UU.?</label>
@@ -147,7 +228,7 @@
       </div>
     </div>
 
-    <!-- STEP 5: Documentos -->
+    <!-- STEP 5 -->
     <div class="form-step">
       <h2>Documentos Requeridos</h2>
       <label>Documento de identificación (ID / Pasaporte, máximo 2MB)</label>
@@ -163,7 +244,7 @@
       </div>
     </div>
 
-    <!-- STEP 6: Información adicional y Firma -->
+    <!-- STEP 6 -->
     <div class="form-step">
       <h2>Información Adicional y Firma</h2>
       <label>Notas / Comentarios (opcional)</label>
@@ -194,30 +275,33 @@ const steps = document.querySelectorAll('.form-step');
 const progress = document.getElementById('progress');
 let currentStep = 0;
 
-function showStep(step) {
-  steps.forEach((s,i)=>s.classList.toggle('active', i===step));
+function showStep(step){
+  steps.forEach((s,i)=>{
+    s.classList.remove('prev');
+    s.classList.remove('active');
+    if(i<step) s.classList.add('prev');
+    if(i===step) s.classList.add('active');
+  });
   progress.style.width = ((step+1)/steps.length)*100 + '%';
 }
 
-function validateStep(step) {
+function validateStep(step){
   let valid = true;
   const fields = steps[step].querySelectorAll('input, select, textarea');
-  fields.forEach(field => {
+  fields.forEach(field=>{
     const error = field.nextElementSibling;
-    if(field.hasAttribute('required') && !field.value) {
-      valid = false;
-      if(error) error.style.display='block';
-    } else if(error) error.style.display='none';
+    if(field.hasAttribute('required') && !field.value){ valid=false; if(error) error.style.display='block'; }
+    else if(error) error.style.display='none';
 
-    if(field.name==='dob' && field.value) {
+    if(field.name==='dob' && field.value){
       const dob = new Date(field.value);
-      const age = (new Date() - dob)/(1000*60*60*24*365.25);
-      if(age<18) { valid=false; error.textContent="Debes ser mayor de 18 años"; error.style.display='block'; }
+      const age = (new Date()-dob)/(1000*60*60*24*365.25);
+      if(age<18){ valid=false; error.textContent="Debes ser mayor de 18 años"; error.style.display='block'; }
       else if(error) error.style.display='none';
     }
 
-    if(field.type==='file' && field.files.length>0) {
-      if(field.files[0].size>2*1024*1024) { valid=false; error.textContent="Archivo demasiado grande (máx 2MB)"; error.style.display='block'; }
+    if(field.type==='file' && field.files.length>0){
+      if(field.files[0].size>2*1024*1024){ valid=false; error.textContent="Archivo demasiado grande (máx 2MB)"; error.style.display='block'; }
     }
   });
   return valid;
@@ -225,7 +309,7 @@ function validateStep(step) {
 
 document.querySelectorAll('.next-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    if(validateStep(currentStep)) { currentStep++; showStep(currentStep); }
+    if(validateStep(currentStep)){ currentStep++; showStep(currentStep); }
     else alert('Por favor completa correctamente todos los campos antes de continuar.');
   });
 });
@@ -236,7 +320,7 @@ document.querySelectorAll('.prev-btn').forEach(btn=>{
 
 form.addEventListener('submit', e=>{
   e.preventDefault();
-  if(validateStep(currentStep)) {
+  if(validateStep(currentStep)){
     alert('Aplicación completada con éxito. Todos los campos fueron llenados correctamente.');
     form.reset();
     currentStep=0; showStep(currentStep);
