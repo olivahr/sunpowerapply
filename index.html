@@ -9,241 +9,252 @@
 </head>
 <body>
 
-<!-- ================= LENGUAJE CENTRADO ================= -->
-<div class="lang-container">
+<!-- ================= INSTRUCCIONES GENERALES ================= -->
+<div class="instructions">
+  <h2>Bienvenido a la aplicación corporativa de SunPower</h2>
+  <p>Complete cada sección cuidadosamente. Toda la información es confidencial y se utilizará para gestionar su contrato de trabajo y alojamiento corporativo. No avance al siguiente paso sin llenar todos los campos correctamente. El formulario está dividido en secciones (steps) para facilitar la captura de datos.</p>
+  <ul>
+    <li>Use información real: nombre completo, dirección, país, ciudad, etc.</li>
+    <li>Seleccione sus opciones según corresponda: disponibilidad, experiencia, estado civil, género, etc.</li>
+    <li>Al finalizar cada sección, haga clic en "Continuar".</li>
+    <li>Se mostrará su progreso y puntuación de completado.</li>
+    <li>Al final de la primera parte aparecerá un mensaje de confirmación y confeti.</li>
+  </ul>
+</div>
+
+<!-- ================= SELECCIÓN DE IDIOMA ================= -->
+<div class="lang-container" id="langContainer">
   <select class="lang-select" id="langSelect">
     <option value="es">ES</option>
     <option value="en">EN</option>
   </select>
 </div>
 
-<!-- ================= CONTENEDOR PRINCIPAL CON SCROLL CONTROLADO ================= -->
+<!-- ================= CONTENEDOR DE LA APLICACIÓN ================= -->
 <div class="app-container">
   <div class="form-wrapper">
     <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <form id="app">
 
-    <div id="form-container">
-      <form id="app">
+      <!-- ================= STEP 1 ================= -->
+      <div class="form-step active" id="step1">
+        <h2 data-es="Información Personal" data-en="Personal Information">Información Personal</h2>
+        <div class="score-bar"><div class="score-fill" id="score1"></div></div>
 
-        <!-- ================= STEP 1 ================= -->
-        <div class="form-step active" id="step1">
-          <h2 data-es="Información Personal" data-en="Personal Information">Información Personal</h2>
-          <div class="score-bar"><div class="score-fill" id="score1"></div></div>
+        <p class="step-desc">Complete todos los campos con información personal exacta. Esto permite al equipo de contratación conocer sus datos correctamente.</p>
 
-          <p class="step-desc">Complete todos los campos con información personal exacta. Esto permite al equipo de contratación conocer sus datos correctamente.</p>
+        <label data-es="Nombre completo" data-en="Full Name">Nombre completo</label>
+        <input type="text" name="fullName" placeholder="Ej: Juan Pérez" required>
 
-          <label data-es="Nombre completo" data-en="Full Name">Nombre completo</label>
-          <input type="text" name="fullName" placeholder="Ej: Juan Pérez" required>
+        <label data-es="Fecha de nacimiento" data-en="Birthdate">Fecha de nacimiento</label>
+        <input type="date" name="birthDate" required>
 
-          <label data-es="Fecha de nacimiento" data-en="Birthdate">Fecha de nacimiento</label>
-          <input type="date" name="birthDate" required>
+        <label data-es="Correo electrónico" data-en="Email">Correo electrónico</label>
+        <input type="email" name="email" placeholder="ejemplo@correo.com" required>
 
-          <label data-es="Correo electrónico" data-en="Email">Correo electrónico</label>
-          <input type="email" name="email" placeholder="ejemplo@correo.com" required>
+        <label data-es="Teléfono" data-en="Phone">Teléfono</label>
+        <input type="tel" name="phone" placeholder="+1 555 555 5555" required>
 
-          <label data-es="Teléfono" data-en="Phone">Teléfono</label>
-          <input type="tel" name="phone" placeholder="+1 555 555 5555" required>
+        <label data-es="País de residencia" data-en="Country of Residence">País de residencia</label>
+        <select name="country" required>
+          <option value="">Seleccione un país</option>
+          <option>Estados Unidos / United States</option>
+          <option>Canadá / Canada</option>
+          <option>México / Mexico</option>
+          <option>Colombia / Colombia</option>
+          <option>Chile / Chile</option>
+          <option>Brasil / Brazil</option>
+          <option>Argentina / Argentina</option>
+          <option>Otro / Other</option>
+        </select>
 
-          <label data-es="País de residencia" data-en="Country of Residence">País de residencia</label>
-          <select name="country" required>
-            <option value="">Seleccione un país</option>
-            <option>Estados Unidos / United States</option>
-            <option>Canadá / Canada</option>
-            <option>México / Mexico</option>
-            <option>Colombia / Colombia</option>
-            <option>Chile / Chile</option>
-            <option>Brasil / Brazil</option>
-            <option>Argentina / Argentina</option>
-            <option>Otro / Other</option>
-          </select>
+        <label data-es="Estado / Provincia" data-en="State / Province">Estado / Provincia</label>
+        <input type="text" name="state" placeholder="Ej: California" required>
 
-          <label data-es="Estado / Provincia" data-en="State / Province">Estado / Provincia</label>
-          <input type="text" name="state" placeholder="Ej: California" required>
+        <label data-es="Ciudad" data-en="City">Ciudad</label>
+        <input type="text" name="city" placeholder="Ej: Los Angeles" required>
 
-          <label data-es="Ciudad" data-en="City">Ciudad</label>
-          <input type="text" name="city" placeholder="Ej: Los Angeles" required>
+        <label data-es="Código postal" data-en="Postal Code">Código postal</label>
+        <input type="text" name="postalCode" placeholder="Ej: 90001" required>
 
-          <label data-es="Código postal" data-en="Postal Code">Código postal</label>
-          <input type="text" name="postalCode" placeholder="Ej: 90001" required>
+        <label data-es="Dirección completa" data-en="Full Address">Dirección completa</label>
+        <input type="text" name="address" placeholder="Ej: Calle 123, Apt 4B" required>
 
-          <label data-es="Dirección completa" data-en="Full Address">Dirección completa</label>
-          <input type="text" name="address" placeholder="Ej: Calle 123, Apt 4B" required>
+        <label data-es="Estado civil" data-en="Marital Status">Estado civil</label>
+        <select name="maritalStatus" required>
+          <option value="">Seleccione</option>
+          <option>Soltero / Single</option>
+          <option>Casado / Married</option>
+          <option>Divorciado / Divorced</option>
+          <option>Viudo / Widowed</option>
+          <option>Otro / Other</option>
+        </select>
 
-          <label data-es="Estado civil" data-en="Marital Status">Estado civil</label>
-          <select name="maritalStatus" required>
-            <option value="">Seleccione</option>
-            <option>Soltero / Single</option>
-            <option>Casado / Married</option>
-            <option>Divorciado / Divorced</option>
-            <option>Viudo / Widowed</option>
-            <option>Otro / Other</option>
-          </select>
+        <label data-es="Género" data-en="Gender">Género</label>
+        <select name="gender" required>
+          <option value="">Seleccione</option>
+          <option>Masculino / Male</option>
+          <option>Femenino / Female</option>
+          <option>Otro / Other</option>
+          <option>Prefiero no decir / Prefer not to say</option>
+        </select>
 
-          <label data-es="Género" data-en="Gender">Género</label>
-          <select name="gender" required>
-            <option value="">Seleccione</option>
-            <option>Masculino / Male</option>
-            <option>Femenino / Female</option>
-            <option>Otro / Other</option>
-            <option>Prefiero no decir / Prefer not to say</option>
-          </select>
+        <label data-es="Nivel de educación" data-en="Education Level">Nivel de educación</label>
+        <select name="education" required>
+          <option value="">Seleccione</option>
+          <option>Primaria completa / Primary School</option>
+          <option>Secundaria completa / High School</option>
+          <option>Técnico / Technical</option>
+          <option>Universitario / University</option>
+          <option>Postgrado / Postgraduate</option>
+          <option>Otro / Other</option>
+        </select>
 
-          <label data-es="Nivel de educación" data-en="Education Level">Nivel de educación</label>
-          <select name="education" required>
-            <option value="">Seleccione</option>
-            <option>Primaria completa / Primary School</option>
-            <option>Secundaria completa / High School</option>
-            <option>Técnico / Technical</option>
-            <option>Universitario / University</option>
-            <option>Postgrado / Postgraduate</option>
-            <option>Otro / Other</option>
-          </select>
+        <label data-es="Licencia de conducir" data-en="Driver License">Licencia de conducir</label>
+        <select name="driverLicense" required>
+          <option value="">Seleccione</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
+        </select>
 
-          <label data-es="Licencia de conducir" data-en="Driver License">Licencia de conducir</label>
-          <select name="driverLicense" required>
-            <option value="">Seleccione</option>
-            <option>Sí / Yes</option>
-            <option>No / No</option>
-          </select>
-
-          <div class="btns">
-            <button type="button" class="next" data-step="2">Continuar</button>
-          </div>
+        <div class="btns">
+          <button type="button" class="next" data-step="2">Continuar</button>
         </div>
-
-        <!-- ================= STEP 2 ================= -->
-        <div class="form-step" id="step2">
-          <h2 data-es="Experiencia Laboral y Habilidades" data-en="Work Experience & Skills">Experiencia Laboral y Habilidades</h2>
-          <div class="score-bar"><div class="score-fill" id="score2"></div></div>
-
-          <p class="step-desc">Ingrese su experiencia laboral, habilidades relevantes y disponibilidad para contratos. Esto permite asignarle trabajos adecuados.</p>
-
-          <label data-es="Años de experiencia" data-en="Years of Experience">Años de experiencia</label>
-          <select name="experienceYears" required>
-            <option value="">Seleccione</option>
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5+</option>
-          </select>
-
-          <label data-es="Especialidades o habilidades" data-en="Specialties or Skills">Especialidades o habilidades</label>
-          <textarea name="skills" placeholder="Ej: Instalación de paneles solares, electricidad básica, trabajo en altura" required></textarea>
-
-          <label data-es="Disponibilidad para contrato de 9 meses" data-en="Available for 9-month contract?">Disponibilidad para contrato de 9 meses</label>
-          <select name="availability" required>
-            <option value="">Seleccione</option>
-            <option>Sí / Yes</option>
-            <option>No / No</option>
-          </select>
-
-          <label data-es="¿Puede levantar peso durante turnos?" data-en="Can lift weight during shifts?">¿Puede levantar peso durante turnos?</label>
-          <select name="canLift" required>
-            <option value="">Seleccione</option>
-            <option>Sí / Yes</option>
-            <option>No / No</option>
-          </select>
-
-          <div class="btns">
-            <button type="button" class="prev" data-step="1">Anterior</button>
-            <button type="button" class="next" data-step="3">Continuar</button>
-          </div>
-        </div>
-
-        <!-- ================= STEP 3 ================= -->
-        <div class="form-step" id="step3">
-          <h2 data-es="Alojamiento Corporativo" data-en="Corporate Housing">Alojamiento Corporativo</h2>
-          <div class="score-bar"><div class="score-fill" id="score3"></div></div>
-
-          <p class="step-desc">Seleccione el tipo de habitación corporativa que usará durante el contrato. Todas las reservas se pagan dentro del portal corporativo.</p>
-
-          <label data-es="Tipo de habitación" data-en="Room Type">Tipo de habitación</label>
-          <select name="housingType" required>
-            <option value="">Seleccione</option>
-            <option>1 cama individual – baño privado, Wi-Fi, TV, aire acondicionado / 1 Bed – Private bath, Wi-Fi, TV, AC</option>
-            <option>2 camas – baño privado, Wi-Fi, TV, aire acondicionado / 2 Beds – Private bath, Wi-Fi, TV, AC</option>
-          </select>
-
-          <label data-es="Acepta reglas de la corporación" data-en="Agree with corporate rules?">Acepta reglas de la corporación durante la estadía del contrato</label>
-          <select name="housingAgree" required>
-            <option value="">Seleccione</option>
-            <option>Sí / Yes</option>
-            <option>No / No</option>
-          </select>
-
-          <label data-es="Pago de la primera semana" data-en="First week payment">Pago de la primera semana</label>
-          <select name="housingPayment" required>
-            <option value="">Seleccione</option>
-            <option>Realizar pago en el portal corporativo tras aprobación / Pay in corporate portal after approval</option>
-            <option>No aplica / N/A</option>
-          </select>
-
-          <div class="btns">
-            <button type="button" class="prev" data-step="2">Anterior</button>
-            <button type="button" class="next" data-step="4">Continuar</button>
-          </div>
-        </div>
-
-        <!-- ================= STEP 4 ================= -->
-        <div class="form-step" id="step4">
-          <h2 data-es="Documentación" data-en="Documentation">Documentación</h2>
-          <div class="score-bar"><div class="score-fill" id="score4"></div></div>
-
-          <p class="step-desc">Proporcione documentos legales y de identidad necesarios para la contratación.</p>
-
-          <label data-es="Ciudadanía o residencia legal" data-en="Citizenship or Legal Residence">Ciudadanía o residencia legal</label>
-          <select name="docCitizenship" required>
-            <option value="">Seleccione</option>
-            <option>Ciudadano / Citizen</option>
-            <option>Residente / Resident</option>
-            <option>Otro / Other</option>
-          </select>
-
-          <label data-es="I-9 verificación en HR (traer 2 formas de ID)" data-en="I-9 verification at HR (bring 2 IDs)">I-9 verificación en HR (traer 2 formas de ID)</label>
-          <input type="text" name="i9Info" placeholder="Ej: Pasaporte y Licencia" required>
-
-          <div class="btns">
-            <button type="button" class="prev" data-step="3">Anterior</button>
-            <button type="button" class="next" data-step="5">Continuar</button>
-          </div>
-        </div>
-
-        <!-- ================= STEP 5 ================= -->
-        <div class="form-step" id="step5">
-          <h2 data-es="Condiciones Legales y Contrato" data-en="Legal Terms & Contract">Condiciones Legales y Contrato</h2>
-          <div class="score-bar"><div class="score-fill" id="score5"></div></div>
-
-          <p class="step-desc">Revise y acepte las condiciones del contrato de 9 meses y las políticas corporativas antes de continuar con la aplicación.</p>
-
-          <label data-es="Acepta contrato de 9 meses" data-en="Accept 9-month contract?">Acepta contrato de 9 meses</label>
-          <select name="contractAgree" required>
-            <option value="">Seleccione</option>
-            <option>Sí / Yes</option>
-            <option>No / No</option>
-          </select>
-
-          <label data-es="Acepta políticas de la empresa y derechos" data-en="Accept company policies & rights?">Acepta políticas de la empresa y derechos</label>
-          <select name="policiesAgree" required>
-            <option value="">Seleccione</option>
-            <option>Sí / Yes</option>
-            <option>No / No</option>
-          </select>
-
-          <div class="btns">
-            <button type="button" class="prev" data-step="4">Anterior</button>
-            <button type="button" class="next" data-step="end">Completar primera parte</button>
-          </div>
-        </div>
-
-      </form>
-
-      <div class="confetti-msg" id="confettiMsg">
-        ✅ ¡Felicitaciones! Has completado la primera parte de tu solicitud.<br>
-        <button onclick="location.href='continuar.html'">Continuar a la siguiente sección</button>
       </div>
-    </div> <!-- fin form-container -->
+
+      <!-- ================= STEP 2 ================= -->
+      <div class="form-step" id="step2">
+        <h2 data-es="Experiencia Laboral y Habilidades" data-en="Work Experience & Skills">Experiencia Laboral y Habilidades</h2>
+        <div class="score-bar"><div class="score-fill" id="score2"></div></div>
+
+        <p class="step-desc">Ingrese su experiencia laboral, habilidades relevantes y disponibilidad para contratos. Esto permite asignarle trabajos adecuados.</p>
+
+        <label data-es="Años de experiencia" data-en="Years of Experience">Años de experiencia</label>
+        <select name="experienceYears" required>
+          <option value="">Seleccione</option>
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5+</option>
+        </select>
+
+        <label data-es="Especialidades o habilidades" data-en="Specialties or Skills">Especialidades o habilidades</label>
+        <textarea name="skills" placeholder="Ej: Instalación de paneles solares, electricidad básica, trabajo en altura" required></textarea>
+
+        <label data-es="Disponibilidad para contrato de 9 meses" data-en="Available for 9-month contract?">Disponibilidad para contrato de 9 meses</label>
+        <select name="availability" required>
+          <option value="">Seleccione</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
+        </select>
+
+        <label data-es="¿Puede levantar peso durante turnos?" data-en="Can lift weight during shifts?">¿Puede levantar peso durante turnos?</label>
+        <select name="canLift" required>
+          <option value="">Seleccione</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev" data-step="1">Anterior</button>
+          <button type="button" class="next" data-step="3">Continuar</button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 3 ================= -->
+      <div class="form-step" id="step3">
+        <h2 data-es="Alojamiento Corporativo" data-en="Corporate Housing">Alojamiento Corporativo</h2>
+        <div class="score-bar"><div class="score-fill" id="score3"></div></div>
+
+        <p class="step-desc">Seleccione el tipo de habitación corporativa que usará durante el contrato. Todas las reservas se pagan dentro del portal corporativo.</p>
+
+        <label data-es="Tipo de habitación" data-en="Room Type">Tipo de habitación</label>
+        <select name="housingType" required>
+          <option value="">Seleccione</option>
+          <option>1 cama individual – baño privado, Wi-Fi, TV, aire acondicionado / 1 Bed – Private bath, Wi-Fi, TV, AC</option>
+          <option>2 camas – baño privado, Wi-Fi, TV, aire acondicionado / 2 Beds – Private bath, Wi-Fi, TV, AC</option>
+        </select>
+
+        <label data-es="Acepta reglas de la corporación" data-en="Agree with corporate rules?">Acepta reglas de la corporación durante la estadía del contrato</label>
+        <select name="housingAgree" required>
+          <option value="">Seleccione</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
+        </select>
+
+        <label data-es="Pago de la primera semana" data-en="First week payment">Pago de la primera semana</label>
+        <select name="housingPayment" required>
+          <option value="">Seleccione</option>
+          <option>Realizar pago en el portal corporativo tras aprobación / Pay in corporate portal after approval</option>
+          <option>No aplica / N/A</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev" data-step="2">Anterior</button>
+          <button type="button" class="next" data-step="4">Continuar</button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 4 ================= -->
+      <div class="form-step" id="step4">
+        <h2 data-es="Documentación" data-en="Documentation">Documentación</h2>
+        <div class="score-bar"><div class="score-fill" id="score4"></div></div>
+
+        <p class="step-desc">Proporcione documentos legales y de identidad necesarios para la contratación.</p>
+
+        <label data-es="Ciudadanía o residencia legal" data-en="Citizenship or Legal Residence">Ciudadanía o residencia legal</label>
+        <select name="docCitizenship" required>
+          <option value="">Seleccione</option>
+          <option>Ciudadano / Citizen</option>
+          <option>Residente / Resident</option>
+          <option>Otro / Other</option>
+        </select>
+
+        <label data-es="I-9 verificación en HR (traer 2 formas de ID)" data-en="I-9 verification at HR (bring 2 IDs)">I-9 verificación en HR (traer 2 formas de ID)</label>
+        <input type="text" name="i9Info" placeholder="Ej: Pasaporte y Licencia" required>
+
+        <div class="btns">
+          <button type="button" class="prev" data-step="3">Anterior</button>
+          <button type="button" class="next" data-step="5">Continuar</button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 5 ================= -->
+      <div class="form-step" id="step5">
+        <h2 data-es="Condiciones Legales y Contrato" data-en="Legal Terms & Contract">Condiciones Legales y Contrato</h2>
+        <div class="score-bar"><div class="score-fill" id="score5"></div></div>
+
+        <p class="step-desc">Revise y acepte las condiciones del contrato de 9 meses y las políticas corporativas antes de continuar con la aplicación.</p>
+
+        <label data-es="Acepta contrato de 9 meses" data-en="Accept 9-month contract?">Acepta contrato de 9 meses</label>
+        <select name="contractAgree" required>
+          <option value="">Seleccione</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
+        </select>
+
+        <label data-es="Acepta políticas de la empresa y derechos" data-en="Accept company policies & rights?">Acepta políticas de la empresa y derechos</label>
+        <select name="policiesAgree" required>
+          <option value="">Seleccione</option>
+          <option>Sí / Yes</option>
+          <option>No / No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev" data-step="4">Anterior</button>
+          <button type="submit">Completar primera parte</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- ================= CONFETTI & MENSAJE FINAL ================= -->
+    <div class="confetti-msg" id="confettiMsg">
+      ✅ ¡Felicitaciones! Has completado la primera parte de tu solicitud.<br>
+      <button onclick="location.href='continuar.html'">Continuar a la siguiente sección</button>
+    </div>
 
   </div>
 </div>
