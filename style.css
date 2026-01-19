@@ -6,7 +6,8 @@ html, body {
   font-family: 'Inter', Arial, sans-serif;
   background: #f0f3f7;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: hidden; /* horizontal scroll desactivado */
+  overflow-y: auto;   /* permite scroll del body si se necesita */
 }
 
 * {
@@ -59,13 +60,13 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   padding: 40px;
-  overflow-y: auto; /* scroll solo dentro del contenedor */
-  max-height: 90vh; /* limita altura visible */
   position: relative;
 
   /* ================= SCROLL SUAVE EN MÓVILES ================= */
-  -webkit-overflow-scrolling: touch; /* iOS scroll */
-  overscroll-behavior: contain; /* evita rebotes */
+  overflow-y: auto; /* scroll dentro del wrapper */
+  max-height: 90vh; /* altura limitada */
+  -webkit-overflow-scrolling: touch; /* iOS touch scroll */
+  overscroll-behavior: contain;     /* evita que el scroll del step afecte al body */
 }
 
 /* ================= PROGRESS BAR ================= */
@@ -117,6 +118,10 @@ input, select, textarea {
   opacity: 0;
   transform: translateX(50px);
   transition: all 0.6s ease;
+
+  overflow-y: auto;                /* scroll solo dentro del step */
+  overscroll-behavior-y: contain;  /* evita rebotes hacia el body */
+  -webkit-overflow-scrolling: touch; /* smooth touch scroll iOS */
 }
 
 .form-step.active {
