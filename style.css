@@ -4,36 +4,46 @@ html, body {
   padding: 0;
   height: 100%;
   font-family: 'Inter', Arial, sans-serif;
-  background: #f0f3f7;
+  background: #f7f9fc;
   scroll-behavior: smooth;
-  overflow-y: auto; /* permitir scroll general si hace falta */
   overflow-x: hidden;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-input, select, textarea { font-size: 16px; outline: none; }
+input, select, textarea {
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
 
 /* ================= LANG SELECT ================= */
 .lang-container {
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 20px 0;
   position: fixed;
-  top: 10px;
-  width: 100%;
-  padding: 10px 0;
+  top: 0;
   z-index: 1000;
+  background: #ffffffaa; /* translúcido con efecto elegante */
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-bottom: 1px solid #eee;
 }
 
 .lang-select {
   font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 16px;
+  padding: 10px 20px;
+  border-radius: 24px;
   border: none;
   background: #1f8f4a;
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 /* ================= APP CONTAINER ================= */
@@ -43,85 +53,176 @@ input, select, textarea { font-size: 16px; outline: none; }
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 80px 10px 20px 10px; /* deja espacio para lang select */
+  padding: 120px 10px 40px 10px;
 }
 
 /* ================= FORM WRAPPER ================= */
 .form-wrapper {
   width: 100%;
   max-width: 1000px;
-  background: #fff;
-  border-radius: 32px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  background: #ffffff;
+  border-radius: 36px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 40px;
-  overflow-y: auto;
-  max-height: 90vh;
+  padding: 50px;
+  overflow: hidden;
   position: relative;
 }
 
-/* ================= FORM STEPS ================= */
+/* ================= PROGRESS BAR ================= */
+.progress-bar {
+  height: 22px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#1f8f4a,#45c16c);
+  border-radius: 12px;
+  transition: width 0.6s ease-in-out;
+}
+
+.score-bar {
+  position: relative;
+  height: 20px;
+  background: #eee;
+  border-radius: 10px;
+  margin: 15px 0 25px 0;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  transition: width 0.4s ease-in-out;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  background: linear-gradient(135deg,#1f8f4a,#45c16c);
+}
+
+/* ================= FORM STEP ================= */
 .form-step {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px 0;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 40px;
   opacity: 0;
   transform: translateX(50px);
   transition: all 0.6s ease;
 }
 
 .form-step.active {
+  display: flex;
   opacity: 1;
   transform: translateX(0);
-  display: flex;
-  flex-direction: column;
 }
 
-/* ================= HEADINGS ================= */
-h2 { text-align: center; margin-bottom: 20px; color: #1f8f4a; font-weight: 700; font-size: 28px; }
-.step-desc { font-size: 14px; color: #555; margin-bottom: 15px; }
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1f8f4a;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+}
+
+.step-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.5;
+}
 
 /* ================= LABELS & INPUTS ================= */
-label { display: block; margin-top: 14px; font-weight: 500; color: #333; font-size: 16px; }
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: 500;
+  color: #333;
+  font-size: 16px;
+}
+
 input, select, textarea {
   width: 100%;
-  padding: 16px;
+  padding: 16px 18px;
   margin-top: 8px;
   border: 1px solid #ccc;
-  border-radius: 16px;
+  border-radius: 20px;
   font-size: 16px;
-  transition: .3s;
-  background: #f7f9fc;
+  background: #f9fafc;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
 }
+
 input:focus, select:focus, textarea:focus {
   border-color: #1f8f4a;
-  box-shadow: 0 0 12px rgba(31,143,74,0.25);
+  box-shadow: 0 0 14px rgba(31,143,74,0.25);
   background: #fff;
 }
-textarea { resize: vertical; min-height: 80px; }
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
 
 /* ================= BUTTONS ================= */
-.btns { display: flex; justify-content: flex-end; margin-top: 25px; gap: 15px; }
+.btns {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 35px;
+  gap: 20px;
+}
+
 button {
-  padding: 16px 32px;
+  padding: 16px 36px;
   border: none;
-  border-radius: 20px;
+  border-radius: 24px;
   background: linear-gradient(135deg,#1f8f4a,#45c16c);
   color: #fff;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.3); }
-button:active { transform: translateY(0); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.3);
+}
+
+button:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
 @media(max-width:900px){
-  .btns { flex-direction: column; }
-  button { width: 100%; }
+  .btns {
+    flex-direction: column;
+  }
+  button {
+    width: 100%;
+  }
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 13px;
+  color: #666;
 }
 
 /* ================= CONFETTI MSG ================= */
@@ -132,4 +233,28 @@ button:active { transform: translateY(0); box-shadow: 0 8px 20px rgba(0,0,0,0.2)
   color: #1f8f4a;
   margin-top: 30px;
   font-weight: 700;
+  animation: fadeIn 1s ease forwards;
+}
+
+.confetti-msg button {
+  margin-top: 15px;
+  padding: 12px 28px;
+  font-size: 15px;
+  border-radius: 20px;
+  font-weight: 600;
+  background: linear-gradient(135deg,#1f8f4a,#45c16c);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confetti-msg button:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* ================= ANIMACIONES ================= */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
