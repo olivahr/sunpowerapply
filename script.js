@@ -1,32 +1,57 @@
-// ====== Variables principales ======
+// ================= SCRIPT.JS =================
+
 const steps = document.querySelectorAll('.form-step');
 const nextBtns = document.querySelectorAll('.next');
 const prevBtns = document.querySelectorAll('.prev');
 const progress = document.getElementById('progress');
 let currentStep = 0;
 
-// ====== Función para actualizar barra de progreso y scores ======
-function updateProgress() {
-  const percent = ((currentStep + 1) / steps.length) * 100;
-  progress.style.width = percent + '%';
-
-  // Resetear todos los scores antes
-  for (let i = 0; i < steps.length; i++) {
-    const scoreElem = document.getElementById('score' + (i + 1));
-    if (scoreElem) scoreElem.style.width = '0%';
-  }
-
-  // Activar score del paso actual
-  const currentScore = document.getElementById('score' + (currentStep + 1));
-  if (currentScore) currentScore.style.width = '100%';
+// Función para actualizar barra de progreso y score por step
+function updateProgress(){
+  const percent = ((currentStep+1)/steps.length)*100;
+  progress.style.width = percent+'%';
+  steps.forEach((step, index) => {
+    const scoreBar = step.querySelector('.score-fill');
+    if(scoreBar){
+      scoreBar.style.width = (index <= currentStep ? '100%' : '0%');
+    }
+  });
 }
 
-// ====== Función para validar los inputs de cada paso ======
-function validateStep(stepIndex) {
+// Avanzar al siguiente step
+nextBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    if(validateStep(currentStep)){
+      steps[currentStep].classList.remove('active');
+      currentStep++;
+      if(currentStep >= steps.length){
+        currentStep = steps.length -1;
+      }
+      steps[currentStep].classList.add('active');
+      updateProgress();
+      scrollToStep();
+    }
+  });
+});
+
+// Retroceder al step anterior
+prevBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    steps[currentStep].classList.remove('active');
+    currentStep--;
+    if(currentStep < 0) currentStep = 0;
+    steps[currentStep].classList.add('active');
+    updateProgress();
+    scrollToStep();
+  });
+});
+
+// Validar inputs del step actual
+function validateStep(stepIndex){
   const step = steps[stepIndex];
   const inputs = step.querySelectorAll('input, select, textarea');
-  for (let i = 0; i < inputs.length; i++) {
-    if (!inputs[i].checkValidity()) {
+  for(let i=0;i<inputs.length;i++){
+    if(!inputs[i].checkValidity()){
       inputs[i].reportValidity();
       return false;
     }
@@ -34,77 +59,53 @@ function validateStep(stepIndex) {
   return true;
 }
 
-// ====== Botones "Siguiente" ======
-nextBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (validateStep(currentStep)) {
-      steps[currentStep].classList.remove('active');
-      currentStep++;
-
-      // Si es el último paso, mostrar confeti
-      if (currentStep >= steps.length) {
-        showFinalMessage();
-        return;
-      }
-
-      steps[currentStep].classList.add('active');
-      updateProgress();
-
-      // Scroll al inicio del formulario para cada paso
-      steps[currentStep].scrollIntoView({ behavior: 'smooth', block: 'start' });
+// Cambio de idioma ES/EN
+const langSelect = document.getElementById('langSelect');
+langSelect.addEventListener('change', ()=>{
+  const lang = langSelect.value;
+  document.querySelectorAll('[data-es]').forEach(el=>{
+    if(el.tagName==='INPUT' || el.tagName==='TEXTAREA'){ 
+      el.placeholder = el.getAttribute(`data-${lang}`);
+    } else {
+      el.textContent = el.getAttribute(`data-${lang}`);
     }
   });
 });
 
-// ====== Botones "Anterior" ======
-prevBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (currentStep <= 0) return;
-    steps[currentStep].classList.remove('active');
-    currentStep--;
-    steps[currentStep].classList.add('active');
-    updateProgress();
+// Confeti y mensaje al enviar formulario (final de cada parte)
+document.getElementById('app').addEventListener('submit', function(e){
+  e.preventDefault();
+  // Mostrar confeti y mensaje
+  const confettiMsg = document.querySelector('.confetti-msg');
+  if(confettiMsg){
+    confettiMsg.style.display = 'block';
+  }
 
-    steps[currentStep].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Deshabilitar inputs y botones para evitar más cambios
+  this.querySelectorAll('input, select, textarea, button').forEach(el=>{
+    el.disabled = true;
   });
+
+  // Opcional: auto-ocultar confeti después de unos segundos
+  setTimeout(()=>{
+    if(confettiMsg){
+      confettiMsg.style.display = 'none';
+    }
+  }, 6000);
+
+  alert('✅ ¡Solicitud enviada correctamente! Espere las instrucciones siguientes.');
 });
 
-// ====== Cambio de idioma ES/EN ======
-const langSelect = document.getElementById('langSelect');
-if (langSelect) {
-  langSelect.addEventListener('change', () => {
-    const lang = langSelect.value;
-    document.querySelectorAll('[data-es]').forEach(el => {
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = el.getAttribute(`data-${lang}`);
-      } else {
-        el.textContent = el.getAttribute(`data-${lang}`);
-      }
-    });
-  });
-}
-
-// ====== Función para mostrar mensaje final con confeti ======
-function showFinalMessage() {
-  const confettiMsg = document.getElementById('confettiMsg');
-  if (confettiMsg) {
-    confettiMsg.style.display = 'block';
-    confettiMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Ocultar después de unos segundos
-    setTimeout(() => { confettiMsg.style.display = 'none'; }, 6000);
+// Función para scroll al contenedor activo (evita scroll infinito)
+function scrollToStep(){
+  const container = document.querySelector('.container');
+  const step = steps[currentStep];
+  if(container && step){
+    const top = step.offsetTop - container.offsetTop;
+    container.scrollTo({top: top, behavior: 'smooth'});
   }
 }
 
-// ====== Manejo del submit del formulario ======
-const appForm = document.getElementById('app');
-if (appForm) {
-  appForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    showFinalMessage();
-    alert('✅ Solicitud enviada correctamente. Gracias por completar el formulario.');
-  });
-}
-
-// ====== Inicialización ======
+// Inicialización
 updateProgress();
+scrollToStep();
