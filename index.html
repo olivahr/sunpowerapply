@@ -9,7 +9,7 @@
 html, body{margin:0;padding:0;height:100%;font-family:'Inter',Arial,sans-serif;background:#e6edf3;scroll-behavior:smooth;}
 *{box-sizing:border-box;}
 input, select, textarea { font-size:16px; }
-.lang-select{position:absolute;top:15px;right:15px;z-index:1000;font-weight:600;padding:6px 12px;border-radius:12px;border:none;background:#1f8f4a;color:#fff;cursor:pointer;}
+.lang-select{position:absolute;top:15px;left:50%;transform:translateX(-50%);z-index:1000;font-weight:600;padding:6px 12px;border-radius:12px;border:none;background:#1f8f4a;color:#fff;cursor:pointer;}
 .app-container{width:100%;min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding:60px 10px 10px 10px;}
 .form-wrapper{width:100%;max-width:950px;background:#fff;border-radius:24px;box-shadow:0 15px 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;padding:30px;overflow:hidden;position:relative;}
 .progress-bar{height:16px;background:#d9d9d9;border-radius:8px;margin-bottom:15px;overflow:hidden;}
@@ -49,75 +49,71 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
     <div class="progress-bar"><div class="progress" id="progress"></div></div>
     <form id="app">
 
-<!-- ================= STEP 1 ================= -->
+<!-- ================= STEP 1: Información Personal ================= -->
 <div class="form-step active">
 <h2 data-es="Información Personal" data-en="Personal Information">Información Personal</h2>
 <div class="score-bar"><div class="score-fill" id="score1"></div></div>
 <label data-es="Nombre completo" data-en="Full Name">Nombre completo</label>
-<input name="fullName" placeholder="Nombre completo" required data-es="Nombre completo" data-en="Full Name">
-<label data-es="Apellidos" data-en="Last Name">Apellidos</label>
-<input name="lastName" placeholder="Apellidos" required data-es="Apellidos" data-en="Last Name">
-<label data-es="Fecha de nacimiento" data-en="Date of Birth">Fecha de nacimiento</label>
-<input type="date" name="dob" required data-es="Fecha de nacimiento" data-en="Date of Birth">
-<label data-es="Email" data-en="Email">Email</label>
-<input type="email" name="email" placeholder="Email" required data-es="Email" data-en="Email">
+<input type="text" name="fullName" required data-es="Nombre completo" data-en="Full Name">
+<label data-es="Fecha de nacimiento" data-en="Birthdate">Fecha de nacimiento</label>
+<input type="date" name="birthDate" required data-es="Fecha de nacimiento" data-en="Birthdate">
+<label data-es="Correo electrónico" data-en="Email">Correo electrónico</label>
+<input type="email" name="email" required data-es="Correo electrónico" data-en="Email">
 <label data-es="Teléfono" data-en="Phone">Teléfono</label>
-<input name="phone" placeholder="Teléfono" required data-es="Teléfono" data-en="Phone">
+<input type="tel" name="phone" required data-es="Teléfono" data-en="Phone">
 <div class="btns">
 <button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
 </div>
 </div>
 
-<!-- ================= STEP 2 ================= -->
+<!-- ================= STEP 2: Educación ================= -->
 <div class="form-step">
-<h2 data-es="Educación y Capacitación" data-en="Education & Training">Educación y Capacitación</h2>
+<h2 data-es="Educación / Capacitación" data-en="Education / Training">Educación / Capacitación</h2>
 <div class="score-bar"><div class="score-fill" id="score2"></div></div>
 <label data-es="Nivel de educación" data-en="Education Level">Nivel de educación</label>
-<select name="education" required data-es="Nivel de educación" data-en="Education Level">
+<select name="educationLevel" required data-es="Nivel de educación" data-en="Education Level">
 <option value=""></option>
-<option data-es="Secundaria" data-en="High School">Secundaria</option>
-<option data-es="Técnico" data-en="Technical">Técnico</option>
-<option data-es="Universitario" data-en="University">Universitario</option>
+<option data-es="Secundaria completa" data-en="High School Completed">Secundaria completa</option>
+<option data-es="Universidad incompleta" data-en="Some College">Universidad incompleta</option>
+<option data-es="Universidad completa" data-en="College Graduate">Universidad completa</option>
 <option data-es="Otro" data-en="Other">Otro</option>
 </select>
-<label data-es="Institución" data-en="Institution">Institución</label>
-<input name="school" placeholder="Institución" required data-es="Institución" data-en="Institution">
-<label data-es="Año de graduación" data-en="Graduation Year">Año de graduación</label>
-<input type="number" min="1900" max="2100" name="gradYear" placeholder="Año de graduación" required data-es="Año de graduación" data-en="Graduation Year">
+<label data-es="Cursos o certificaciones relevantes" data-en="Relevant Courses/Certifications">Cursos o certificaciones relevantes</label>
+<textarea name="courses" data-es="Cursos o certificaciones relevantes" data-en="Relevant Courses/Certifications" placeholder="Ej: Seguridad Industrial, Paneles Solares"></textarea>
 <div class="btns">
 <button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
 <button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
 </div>
 </div>
 
-<!-- ================= STEP 3 ================= -->
+<!-- ================= STEP 3: Experiencia Laboral ================= -->
 <div class="form-step">
 <h2 data-es="Experiencia Laboral" data-en="Work Experience">Experiencia Laboral</h2>
 <div class="score-bar"><div class="score-fill" id="score3"></div></div>
-<label data-es="Puesto más reciente" data-en="Most Recent Position">Puesto más reciente</label>
-<input name="recentJob" placeholder="Puesto más reciente" required data-es="Puesto más reciente" data-en="Most Recent Position">
-<label data-es="Empresa / Compañía" data-en="Company">Empresa / Compañía</label>
-<input name="recentCompany" placeholder="Empresa / Compañía" required data-es="Empresa / Compañía" data-en="Company">
-<label data-es="Años de experiencia en el sector" data-en="Years in the Sector">Años de experiencia en el sector</label>
-<input type="number" min="0" name="sectorExp" placeholder="Años de experiencia" required data-es="Años de experiencia en el sector" data-en="Years in the Sector">
+<label data-es="Años de experiencia" data-en="Years of Experience">Años de experiencia</label>
+<input type="number" min="0" name="experienceYears" required data-es="Años de experiencia" data-en="Years of Experience">
+<label data-es="Último empleo" data-en="Last Job">Último empleo</label>
+<input type="text" name="lastJob" data-es="Último empleo" data-en="Last Job">
+<label data-es="Responsabilidades" data-en="Responsibilities">Responsabilidades</label>
+<textarea name="responsibilities" data-es="Responsabilidades" data-en="Responsibilities"></textarea>
 <div class="btns">
 <button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
 <button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
 </div>
 </div>
 
-<!-- ================= STEP 4 ================= -->
+<!-- ================= STEP 4: Habilidades / Condición Física ================= -->
 <div class="form-step">
-<h2 data-es="Habilidades y Condición Física" data-en="Skills & Physical Condition">Habilidades y Condición Física</h2>
+<h2 data-es="Habilidades / Condición Física" data-en="Skills / Physical Condition">Habilidades / Condición Física</h2>
 <div class="score-bar"><div class="score-fill" id="score4"></div></div>
-<label data-es="¿Puede levantar hasta 50kg?" data-en="Can you lift up to 50kg?">¿Puede levantar hasta 50kg?</label>
-<select name="liftWeight" required data-es="¿Puede levantar hasta 50kg?" data-en="Can you lift up to 50kg?">
+<label data-es="Puede levantar peso (máx 25kg)" data-en="Can lift weight (max 25kg)">Puede levantar peso (máx 25kg)</label>
+<select name="canLift" required data-es="Puede levantar peso (máx 25kg)" data-en="Can lift weight (max 25kg)">
 <option value=""></option>
 <option data-es="Sí" data-en="Yes">Sí</option>
 <option data-es="No" data-en="No">No</option>
 </select>
-<label data-es="¿Puede estar de pie por turnos largos?" data-en="Can stand long shifts?">¿Puede estar de pie por turnos largos?</label>
-<select name="standShift" required data-es="¿Puede estar de pie por turnos largos?" data-en="Can stand long shifts?">
+<label data-es="Puede estar de pie largas horas" data-en="Can stand long hours">Puede estar de pie largas horas</label>
+<select name="canStand" required data-es="Puede estar de pie largas horas" data-en="Can stand long hours">
 <option value=""></option>
 <option data-es="Sí" data-en="Yes">Sí</option>
 <option data-es="No" data-en="No">No</option>
@@ -128,9 +124,9 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
 </div>
 </div>
 
-<!-- ================= STEP 5 ================= -->
+<!-- ================= STEP 5: Hotel / Alojamiento ================= -->
 <div class="form-step">
-<h2 data-es="Alojamiento / Hotel" data-en="Accommodation / Hotel">Alojamiento / Hotel</h2>
+<h2 data-es="Hotel / Alojamiento" data-en="Hotel / Accommodation">Hotel / Alojamiento</h2>
 <div class="score-bar"><div class="score-fill" id="score5"></div></div>
 <label data-es="Tipo de habitación" data-en="Room Type">Tipo de habitación</label>
 <select name="roomType" required data-es="Tipo de habitación" data-en="Room Type">
@@ -138,19 +134,22 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
 <option data-es="Individual" data-en="Single">Individual</option>
 <option data-es="Compartida" data-en="Shared">Compartida</option>
 </select>
-<label data-es="Depósito (si aplica)" data-en="Deposit (if applies)">Depósito (si aplica)</label>
-<input type="number" name="deposit" placeholder="Monto depósito" data-es="Depósito (si aplica)" data-en="Deposit (if applies)">
-<label data-es="Primera semana a pagar" data-en="First week payment">Primera semana a pagar</label>
-<input type="number" name="firstWeek" placeholder="Monto primera semana" required data-es="Primera semana a pagar" data-en="First week payment">
-<label data-es="Acepta condiciones del hotel" data-en="Accept hotel conditions">Acepta condiciones del hotel</label>
-<input type="checkbox" name="hotelTerms" required data-es="Acepta condiciones del hotel" data-en="Accept hotel conditions">
+<label data-es="Depósito de reserva" data-en="Reservation Deposit">Depósito de reserva</label>
+<input type="number" min="0" name="deposit" required data-es="Depósito de reserva" data-en="Reservation Deposit" placeholder="Ej: 0">
+<label data-es="Primera semana pagada por el candidato" data-en="First week paid by candidate">Primera semana pagada por el candidato</label>
+<select name="firstWeekPaid" required data-es="Primera semana pagada por el candidato" data-en="First week paid by candidate">
+<option value=""></option>
+<option data-es="Sí" data-en="Yes">Sí</option>
+<option data-es="No" data-en="No">No</option>
+</select>
+<label data-es="Acepta condiciones del hotel" data-en="Accept hotel terms">Acepta condiciones del hotel</label>
+<input type="checkbox" name="hotelTerms" required data-es="Acepta condiciones del hotel" data-en="Accept hotel terms"> 
 <div class="btns">
 <button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
 <button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
 </div>
 </div>
-
-<!-- ================= STEP 6 ================= -->
+<!-- ================= STEP 6: Salud / Transporte ================= -->
 <div class="form-step">
 <h2 data-es="Salud / Transporte" data-en="Health / Transportation">Salud / Transporte</h2>
 <div class="score-bar"><div class="score-fill" id="score6"></div></div>
@@ -170,7 +169,7 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
 </div>
 </div>
 
-<!-- ================= STEP 7 ================= -->
+<!-- ================= STEP 7: Documentación I-9 ================= -->
 <div class="form-step">
 <h2 data-es="Documentación I-9" data-en="I-9 Documentation">Documentación I-9</h2>
 <div class="score-bar"><div class="score-fill" id="score7"></div></div>
@@ -190,7 +189,7 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
 </div>
 </div>
 
-<!-- ================= STEP 8 ================= -->
+<!-- ================= STEP 8: Referencias ================= -->
 <div class="form-step">
 <h2 data-es="Referencias" data-en="References">Referencias</h2>
 <div class="score-bar"><div class="score-fill" id="score8"></div></div>
@@ -210,7 +209,7 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
 </div>
 </div>
 
-<!-- ================= STEP 9 ================= -->
+<!-- ================= STEP 9: Firma final ================= -->
 <div class="form-step">
 <h2 data-es="Firma final" data-en="Final Signature">Firma final</h2>
 <div class="score-bar"><div class="score-fill" id="score9"></div></div>
@@ -224,7 +223,7 @@ input[type="checkbox"]{width:auto;margin-right:8px;}
 </div>
 </div>
 
-<!-- ================= STEP 10 ================= -->
+<!-- ================= STEP 10: Términos y Política ================= -->
 <div class="form-step">
 <h2 data-es="Términos y Política" data-en="Policy & Terms">Términos y Política</h2>
 <div class="score-bar"><div class="score-fill" id="score10"></div></div>
@@ -249,9 +248,9 @@ Lea los términos y condiciones. Al aceptar, confirma que toda la información e
 
 <div class="confetti-msg" id="confettiMsg" data-es="¡Solicitud enviada! 🎉 Espere los próximos pasos" data-en="Application submitted! 🎉 Please await next steps">¡Solicitud enviada! 🎉 Espere los próximos pasos</div>
 
-<!-- ================= SCRIPTS ================= -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
+// WIZARD LOGIC
 const steps=document.querySelectorAll('.form-step');
 const progress=document.getElementById('progress');
 const scores=[...Array(10)].map((_,i)=>document.getElementById('score'+(i+1)));
@@ -268,7 +267,7 @@ function submitForm(){
   confetti({particleCount:150,spread:70,origin:{y:0.6}});
   setTimeout(()=>document.getElementById('confettiMsg').style.display='none',4000);
 }
-showStep(currentStep);
+// LANGUAGE SWITCH
 const langSelect=document.getElementById('langSelect');
 langSelect.addEventListener('change',()=>{
   let lang=langSelect.value; document.documentElement.lang=lang;
@@ -276,7 +275,7 @@ langSelect.addEventListener('change',()=>{
     if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=el.getAttribute('data-'+lang);}else{el.textContent=el.getAttribute('data-'+lang);}
   });
 });
+showStep(currentStep);
 </script>
-
 </body>
 </html>
