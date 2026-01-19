@@ -1,25 +1,20 @@
-/* ================== RESET Y BASE ================== */
-* {
+/* ================= General ================= */
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
   height: 100%;
   font-family: 'Inter', Arial, sans-serif;
   background: #f0f3f7;
   scroll-behavior: smooth;
 }
 
-textarea, input, select {
-  font-size: 16px;
-  outline: none;
+* {
+  box-sizing: border-box;
 }
 
-/* ================== SELECT DE IDIOMA ================== */
+/* ================= Selector de idioma ================= */
 .lang-select {
-  position: absolute;
+  position: fixed;
   top: 15px;
   left: 50%;
   transform: translateX(-50%);
@@ -34,16 +29,17 @@ textarea, input, select {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* ================== CONTENEDOR ================== */
+/* ================= Contenedor general ================= */
 .app-container {
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 80px 10px 20px 10px;
+  align-items: center;
+  padding: 20px;
 }
 
+/* ================= Wrapper del formulario ================= */
 .form-wrapper {
   width: 100%;
   max-width: 1000px;
@@ -54,10 +50,11 @@ textarea, input, select {
   flex-direction: column;
   padding: 40px;
   overflow: hidden;
+  max-height: 90vh; /* limita la altura total */
   position: relative;
 }
 
-/* ================== BARRA DE PROGRESO ================== */
+/* ================= Barra de progreso ================= */
 .progress-bar {
   height: 20px;
   background: #ddd;
@@ -70,14 +67,16 @@ textarea, input, select {
 .progress {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #1f8f4a, #45c16c);
+  background: linear-gradient(90deg,#1f8f4a,#45c16c);
   border-radius: 10px;
   transition: width .6s ease-in-out;
 }
 
-/* ================== BARRA DE SCORE ================== */
+/* ================= Score bar ================= */
 .score-bar {
-  position: relative;
+  position: sticky;
+  top: 60px; /* debajo del selector de idioma */
+  z-index: 900;
   height: 20px;
   background: #eee;
   border-radius: 10px;
@@ -97,24 +96,22 @@ textarea, input, select {
   line-height: 20px;
 }
 
-/* ================== FORM STEPS ================== */
+/* ================= Steps ================= */
 .form-step {
-  min-height: 75vh;
-  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: none;
   flex-direction: column;
-  justify-content: flex-start;
   padding-bottom: 40px;
-  opacity: 0;
-  transform: translateX(50px);
+  overflow-y: auto; /* scroll interno si hay muchas preguntas */
   transition: all 0.6s ease;
 }
 
 .form-step.active {
   display: flex;
-  opacity: 1;
-  transform: translateX(0);
 }
 
+/* ================= Titulos ================= */
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -126,10 +123,10 @@ h2 {
 .step-desc {
   font-size: 14px;
   color: #555;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
-/* ================== LABELS Y INPUTS ================== */
+/* ================= Etiquetas ================= */
 label {
   display: block;
   margin-top: 14px;
@@ -146,6 +143,7 @@ input, select, textarea {
   border-radius: 16px;
   font-size: 16px;
   transition: .3s;
+  outline: none;
   background: #f7f9fc;
 }
 
@@ -160,19 +158,20 @@ textarea {
   min-height: 80px;
 }
 
-/* ================== BOTONES ================== */
+/* ================= Botones ================= */
 .btns {
   display: flex;
   justify-content: flex-end;
   margin-top: 25px;
   gap: 15px;
+  flex-shrink: 0;
 }
 
 button {
   padding: 16px 32px;
   border: none;
   border-radius: 20px;
-  background: linear-gradient(135deg, #1f8f4a, #45c16c);
+  background: linear-gradient(135deg,#1f8f4a,#45c16c);
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -192,15 +191,11 @@ button:active {
 }
 
 @media(max-width:900px){
-  .btns {
-    flex-direction: column;
-  }
-  button {
-    width: 100%;
-  }
+  .btns { flex-direction: column; }
+  button { width: 100%; }
 }
 
-/* ================== FOOTER ================== */
+/* ================= Footer ================= */
 .footer {
   margin-top: 50px;
   text-align: center;
@@ -213,7 +208,7 @@ button:active {
   margin-top: 6px;
 }
 
-/* ================== MENSAJE DE CONFETI ================== */
+/* ================= Mensaje de confeti ================= */
 .confetti-msg {
   display: none;
   text-align: center;
