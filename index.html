@@ -9,25 +9,13 @@
 html, body{margin:0;padding:0;height:100%;font-family:'Inter',Arial,sans-serif;background:#e6edf3;scroll-behavior:smooth;}
 *{box-sizing:border-box;}
 input, select, textarea { font-size:16px; }
-
-/* SELECTOR LENGUAJE */
 .lang-select{position:absolute;top:15px;right:15px;z-index:1000;font-weight:600;padding:6px 12px;border-radius:12px;border:none;background:#1f8f4a;color:#fff;cursor:pointer;}
-
-/* CONTENEDOR */
 .app-container{width:100%;min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding:60px 10px 10px 10px;}
-.form-wrapper{width:100%;max-width:950px;background:#fff;border-radius:24px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;
-  padding:30px;overflow:hidden;position:relative;}
-
-/* BARRA DE PROGRESO GENERAL */
+.form-wrapper{width:100%;max-width:950px;background:#fff;border-radius:24px;box-shadow:0 15px 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;padding:30px;overflow:hidden;position:relative;}
 .progress-bar{height:16px;background:#d9d9d9;border-radius:8px;margin-bottom:15px;overflow:hidden;}
 .progress{height:100%;width:0%;background:linear-gradient(90deg,#1f8f4a,#45c16c);border-radius:8px;transition:width .5s ease-in-out;}
-
-/* BARRA SCORE PARCIAL */
 .score-bar{position:relative;height:16px;background:#ddd;border-radius:8px;margin:12px 0;overflow:hidden;}
 .score-fill{height:100%;width:0%;border-radius:8px;transition:width .3s ease-in-out;text-align:center;color:#fff;font-size:12px;font-weight:600;line-height:16px;}
-
-/* STEPS */
 .form-step{min-height:70vh; display:flex; flex-direction:column; justify-content:flex-start; opacity:1; padding-bottom:30px; transition:all 0.5s ease; display:none;}
 .form-step.active{display:flex;}
 h2{text-align:center;margin-bottom:15px;color:#1f8f4a;font-weight:600;font-size:24px;}
@@ -35,29 +23,18 @@ label{display:block;margin-top:12px;font-weight:500;color:#333;}
 input, select, textarea{width:100%;padding:14px;margin-top:6px;border:1px solid #ccc;border-radius:14px;font-size:16px;transition:.3s;outline:none;background:#f7f9fc;}
 input:focus, select:focus, textarea:focus{border-color:#1f8f4a;box-shadow:0 0 10px rgba(31,143,74,0.2);background:#fff;}
 textarea{resize:vertical;min-height:60px;}
-
-/* BOTONES */
 .btns{display:flex;justify-content:flex-end;margin-top:20px;}
-button{padding:14px 28px;border:none;border-radius:14px;
-  background:linear-gradient(135deg,#1f8f4a,#45c16c);color:#fff;font-size:16px;font-weight:500;
-  cursor:pointer;transition:all 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.15);}
+button{padding:14px 28px;border:none;border-radius:14px;background:linear-gradient(135deg,#1f8f4a,#45c16c);color:#fff;font-size:16px;font-weight:500;cursor:pointer;transition:all 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.15);}
 button:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(0,0,0,0.25);}
 button:active{transform:translateY(0);box-shadow:0 5px 15px rgba(0,0,0,0.15);}
 @media(max-width:800px){.btns{flex-direction:column;} button{width:100%; margin-bottom:12px;}}
-
-/* POLICY BOX */
 .policy-box{border:1px solid #ccc;background:#f0f3f7;padding:18px;border-radius:14px;max-height:200px;overflow-y:auto;margin-top:12px;font-size:14px;box-shadow:inset 0 1px 6px rgba(0,0,0,0.06);}
 input[type="checkbox"]{width:auto;margin-right:8px;}
 .policy-box::-webkit-scrollbar{width:6px;}
 .policy-box::-webkit-scrollbar-thumb{background:#1f8f4a;border-radius:3px;}
-
-/* FOOTER */
 .footer{margin-top:40px;text-align:center;font-size:12px;color:#666;}
 .footer span{display:block;margin-top:4px;}
-
-/* CONFETI MENSAJE */
-.confetti-msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;
-background:rgba(31,143,74,0.95);color:#fff;padding:20px 40px;border-radius:20px;text-align:center;font-size:18px;font-weight:600;display:none;}
+.confetti-msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;background:rgba(31,143,74,0.95);color:#fff;padding:20px 40px;border-radius:20px;text-align:center;font-size:18px;font-weight:600;display:none;}
 </style>
 </head>
 <body>
@@ -76,12 +53,19 @@ background:rgba(31,143,74,0.95);color:#fff;padding:20px 40px;border-radius:20px;
 <div class="form-step active">
 <h2 data-es="Información Personal" data-en="Personal Information">Información Personal</h2>
 <div class="score-bar"><div class="score-fill" id="score1"></div></div>
-<label data-es="Nombre completo" data-en="Full Name">Nombre completo</label><input name="fullName" required>
-<label data-es="Apellidos" data-en="Last Name">Apellidos</label><input name="lastName" required>
-<label data-es="Fecha de nacimiento" data-en="Date of Birth">Fecha de nacimiento</label><input type="date" name="dob" required>
-<label data-es="Email" data-en="Email">Email</label><input type="email" name="email" required>
-<label data-es="Teléfono" data-en="Phone">Teléfono</label><input name="phone" required>
-<div class="btns"><button type="button" class="next">Continuar</button></div>
+<label data-es="Nombre completo" data-en="Full Name">Nombre completo</label>
+<input name="fullName" placeholder="Nombre completo" required data-es="Nombre completo" data-en="Full Name">
+<label data-es="Apellidos" data-en="Last Name">Apellidos</label>
+<input name="lastName" placeholder="Apellidos" required data-es="Apellidos" data-en="Last Name">
+<label data-es="Fecha de nacimiento" data-en="Date of Birth">Fecha de nacimiento</label>
+<input type="date" name="dob" required data-es="Fecha de nacimiento" data-en="Date of Birth">
+<label data-es="Email" data-en="Email">Email</label>
+<input type="email" name="email" placeholder="Email" required data-es="Email" data-en="Email">
+<label data-es="Teléfono" data-en="Phone">Teléfono</label>
+<input name="phone" placeholder="Teléfono" required data-es="Teléfono" data-en="Phone">
+<div class="btns">
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
+</div>
 </div>
 
 <!-- ================= STEP 2 ================= -->
@@ -89,159 +73,210 @@ background:rgba(31,143,74,0.95);color:#fff;padding:20px 40px;border-radius:20px;
 <h2 data-es="Educación y Capacitación" data-en="Education & Training">Educación y Capacitación</h2>
 <div class="score-bar"><div class="score-fill" id="score2"></div></div>
 <label data-es="Nivel de educación" data-en="Education Level">Nivel de educación</label>
-<select name="education" required>
-<option></option>
+<select name="education" required data-es="Nivel de educación" data-en="Education Level">
+<option value=""></option>
 <option data-es="Secundaria" data-en="High School">Secundaria</option>
 <option data-es="Técnico" data-en="Technical">Técnico</option>
 <option data-es="Universitario" data-en="University">Universitario</option>
 <option data-es="Otro" data-en="Other">Otro</option>
 </select>
-<label data-es="Institución" data-en="Institution">Institución</label><input name="school" required>
-<label data-es="Año de graduación" data-en="Graduation Year">Año de graduación</label><input type="number" min="1900" max="2100" name="gradYear" required>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
+<label data-es="Institución" data-en="Institution">Institución</label>
+<input name="school" placeholder="Institución" required data-es="Institución" data-en="Institution">
+<label data-es="Año de graduación" data-en="Graduation Year">Año de graduación</label>
+<input type="number" min="1900" max="2100" name="gradYear" placeholder="Año de graduación" required data-es="Año de graduación" data-en="Graduation Year">
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
+</div>
 </div>
 
 <!-- ================= STEP 3 ================= -->
 <div class="form-step">
 <h2 data-es="Experiencia Laboral" data-en="Work Experience">Experiencia Laboral</h2>
 <div class="score-bar"><div class="score-fill" id="score3"></div></div>
-<label data-es="Puesto más reciente" data-en="Most Recent Position">Puesto más reciente</label><input name="recentJob" required>
-<label data-es="Empresa / Compañía" data-en="Company">Empresa / Compañía</label><input name="recentCompany" required>
-<label data-es="Años de experiencia en el sector" data-en="Years in the Sector">Años de experiencia en el sector</label><input type="number" min="0" name="sectorExp" required>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
+<label data-es="Puesto más reciente" data-en="Most Recent Position">Puesto más reciente</label>
+<input name="recentJob" placeholder="Puesto más reciente" required data-es="Puesto más reciente" data-en="Most Recent Position">
+<label data-es="Empresa / Compañía" data-en="Company">Empresa / Compañía</label>
+<input name="recentCompany" placeholder="Empresa / Compañía" required data-es="Empresa / Compañía" data-en="Company">
+<label data-es="Años de experiencia en el sector" data-en="Years in the Sector">Años de experiencia en el sector</label>
+<input type="number" min="0" name="sectorExp" placeholder="Años de experiencia" required data-es="Años de experiencia en el sector" data-en="Years in the Sector">
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
+</div>
 </div>
 
 <!-- ================= STEP 4 ================= -->
 <div class="form-step">
-<h2 data-es="Habilidades y Certificaciones" data-en="Skills & Certifications">Habilidades y Certificaciones</h2>
+<h2 data-es="Habilidades y Condición Física" data-en="Skills & Physical Condition">Habilidades y Condición Física</h2>
 <div class="score-bar"><div class="score-fill" id="score4"></div></div>
-<label data-es="Certificaciones técnicas" data-en="Technical Certifications">Certificaciones técnicas</label><textarea rows="2" name="technicalCerts"></textarea>
-<label data-es="Idiomas hablados" data-en="Languages Spoken">Idiomas hablados</label><input name="languages">
-<label data-es="Disponibilidad de turnos" data-en="Shift Availability">Disponibilidad de turnos</label>
-<select name="shifts" required>
-<option></option>
-<option data-es="Mañana" data-en="Morning">Mañana</option>
-<option data-es="Tarde" data-en="Afternoon">Tarde</option>
-<option data-es="Noche" data-en="Night">Noche</option>
-<option data-es="Flexible" data-en="Flexible">Flexible</option>
+<label data-es="¿Puede levantar hasta 50kg?" data-en="Can you lift up to 50kg?">¿Puede levantar hasta 50kg?</label>
+<select name="liftWeight" required data-es="¿Puede levantar hasta 50kg?" data-en="Can you lift up to 50kg?">
+<option value=""></option>
+<option data-es="Sí" data-en="Yes">Sí</option>
+<option data-es="No" data-en="No">No</option>
 </select>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
+<label data-es="¿Puede estar de pie por turnos largos?" data-en="Can stand long shifts?">¿Puede estar de pie por turnos largos?</label>
+<select name="standShift" required data-es="¿Puede estar de pie por turnos largos?" data-en="Can stand long shifts?">
+<option value=""></option>
+<option data-es="Sí" data-en="Yes">Sí</option>
+<option data-es="No" data-en="No">No</option>
+</select>
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
+</div>
 </div>
 
 <!-- ================= STEP 5 ================= -->
 <div class="form-step">
-<h2 data-es="Alojamiento Corporativo" data-en="Corporate Housing">Alojamiento Corporativo</h2>
+<h2 data-es="Alojamiento / Hotel" data-en="Accommodation / Hotel">Alojamiento / Hotel</h2>
 <div class="score-bar"><div class="score-fill" id="score5"></div></div>
-<label data-es="Tipo de alojamiento" data-en="Room Type">Tipo de alojamiento</label>
-<select name="roomType" required>
-<option></option>
-<option data-es="Habitación compartida" data-en="Shared Room">Habitación compartida</option>
-<option data-es="Habitación privada" data-en="Private Room">Habitación privada</option>
+<label data-es="Tipo de habitación" data-en="Room Type">Tipo de habitación</label>
+<select name="roomType" required data-es="Tipo de habitación" data-en="Room Type">
+<option value=""></option>
+<option data-es="Individual" data-en="Single">Individual</option>
+<option data-es="Compartida" data-en="Shared">Compartida</option>
 </select>
-<div class="policy-box" data-es="Condiciones: Exclusivo para empleados. Primera semana debe pagarse antes de llegar. Habitación compartida: no requiere depósito. Habitación privada: depósito reembolsable. No fumar, no visitas, limpieza obligatoria. Transporte disponible según normativa." 
-data-en="Conditions: Employee only. First week must be paid before arrival. Shared room: no deposit. Private room: refundable deposit. No smoking, no visitors, cleaning required. Transport as per policy.">
-Condiciones: Exclusivo para empleados. Primera semana debe pagarse antes de llegar. Habitación compartida: no requiere depósito. Habitación privada: depósito reembolsable. No fumar, no visitas, limpieza obligatoria. Transporte disponible según normativa.
+<label data-es="Depósito (si aplica)" data-en="Deposit (if applies)">Depósito (si aplica)</label>
+<input type="number" name="deposit" placeholder="Monto depósito" data-es="Depósito (si aplica)" data-en="Deposit (if applies)">
+<label data-es="Primera semana a pagar" data-en="First week payment">Primera semana a pagar</label>
+<input type="number" name="firstWeek" placeholder="Monto primera semana" required data-es="Primera semana a pagar" data-en="First week payment">
+<label data-es="Acepta condiciones del hotel" data-en="Accept hotel conditions">Acepta condiciones del hotel</label>
+<input type="checkbox" name="hotelTerms" required data-es="Acepta condiciones del hotel" data-en="Accept hotel conditions">
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
 </div>
-<label><input type="checkbox" name="acceptHotel" required data-es="Acepto las condiciones" data-en="I accept the conditions"> Acepto las condiciones</label>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
 </div>
 
 <!-- ================= STEP 6 ================= -->
 <div class="form-step">
-<h2 data-es="Capacidad Física y Salud" data-en="Physical Ability & Health">Capacidad Física y Salud</h2>
+<h2 data-es="Salud / Transporte" data-en="Health / Transportation">Salud / Transporte</h2>
 <div class="score-bar"><div class="score-fill" id="score6"></div></div>
-<label data-es="Capacidad para levantar peso / estar de pie largas horas" data-en="Ability to lift weight / stand long hours">Capacidad para levantar peso / estar de pie largas horas</label>
-<select name="physicalAbility" required>
-<option></option>
+<label data-es="¿Tiene alergias?" data-en="Do you have allergies?">¿Tiene alergias?</label>
+<input name="allergies" placeholder="Ej: Ninguna" data-es="¿Tiene alergias?" data-en="Do you have allergies?">
+<label data-es="Vacunas recientes" data-en="Recent Vaccinations">Vacunas recientes</label>
+<input name="vaccines" placeholder="Ej: Influenza 2025" data-es="Vacunas recientes" data-en="Recent Vaccinations">
+<label data-es="Necesita transporte especial?" data-en="Need special transportation?">Necesita transporte especial?</label>
+<select name="specialTransport" data-es="Necesita transporte especial?" data-en="Need special transportation?">
+<option value=""></option>
 <option data-es="Sí" data-en="Yes">Sí</option>
 <option data-es="No" data-en="No">No</option>
 </select>
-<label data-es="Limitaciones médicas" data-en="Medical Limitations">Limitaciones médicas</label><textarea rows="2" name="medicalLimits"></textarea>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
+</div>
 </div>
 
 <!-- ================= STEP 7 ================= -->
 <div class="form-step">
-<h2 data-es="Transporte y Disponibilidad" data-en="Transportation & Availability">Transporte y Disponibilidad</h2>
+<h2 data-es="Documentación I-9" data-en="I-9 Documentation">Documentación I-9</h2>
 <div class="score-bar"><div class="score-fill" id="score7"></div></div>
-<label data-es="Transporte propio" data-en="Own Transportation">Transporte propio</label>
-<select name="transportation" required>
-<option></option>
-<option data-es="Sí" data-en="Yes">Sí</option>
-<option data-es="No" data-en="No">No</option>
+<label data-es="Tipo de estatus" data-en="Status Type">Tipo de estatus</label>
+<select name="citizenship" required data-es="Tipo de estatus" data-en="Status Type">
+<option value=""></option>
+<option data-es="Ciudadano" data-en="Citizen">Ciudadano</option>
+<option data-es="Residente" data-en="Resident">Residente</option>
+<option data-es="Otro" data-en="Other">Otro</option>
 </select>
-<label data-es="Disponibilidad horas extra / fines de semana" data-en="Overtime / Weekend Availability">Disponibilidad horas extra / fines de semana</label>
-<select name="extraHours" required>
-<option></option>
-<option data-es="Sí" data-en="Yes">Sí</option>
-<option data-es="No" data-en="No">No</option>
-</select>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
+<label data-es="Formas de identificación (I-9 verificación en HR)" data-en="ID Forms (I-9 HR Verification)">Formas de identificación (I-9 verificación en HR)</label>
+<input name="idForms" placeholder="Traer 2 formas de ID" required data-es="Formas de identificación (I-9 verificación en HR)" data-en="ID Forms (I-9 HR Verification)">
+<p data-es="En la oficina de Recursos Humanos se verificará su I-9 con 2 formas de identificación" data-en="HR office will verify your I-9 with 2 forms of ID">En la oficina de Recursos Humanos se verificará su I-9 con 2 formas de identificación</p>
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
+</div>
 </div>
 
 <!-- ================= STEP 8 ================= -->
 <div class="form-step">
-<h2 data-es="Documentación Legal" data-en="Legal Documentation">Documentación Legal</h2>
+<h2 data-es="Referencias" data-en="References">Referencias</h2>
 <div class="score-bar"><div class="score-fill" id="score8"></div></div>
-<label data-es="Ciudadano / Residente" data-en="Citizen / Resident">Ciudadano / Residente</label>
-<select name="citizenship" required>
-<option></option>
-<option data-es="Ciudadano" data-en="Citizen">Ciudadano</option>
-<option data-es="Residente" data-en="Resident">Residente</option>
-</select>
-<p data-es="Aviso: En HR se verificará Formulario I‑9 con dos ID." data-en="Notice: HR will verify Form I‑9 with two IDs.">
-Aviso: En HR se verificará Formulario I‑9 con dos ID.
-</p>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
+<label data-es="Nombre de la referencia" data-en="Reference Name">Nombre de la referencia</label>
+<input name="refName" placeholder="Nombre completo" required data-es="Nombre de la referencia" data-en="Reference Name">
+<label data-es="Relación" data-en="Relationship">Relación</label>
+<input name="refRelation" placeholder="Ej: Supervisor anterior" required data-es="Relación" data-en="Relationship">
+<label data-es="Teléfono" data-en="Phone">Teléfono</label>
+<input name="refPhone" placeholder="Teléfono de la referencia" required data-es="Teléfono" data-en="Phone">
+<label data-es="Email" data-en="Email">Email</label>
+<input name="refEmail" placeholder="Email de la referencia" required data-es="Email" data-en="Email">
+<label data-es="Tiempo trabajando juntos" data-en="Time Worked Together">Tiempo trabajando juntos</label>
+<input name="refTime" placeholder="Ej: 2 años" required data-es="Tiempo trabajando juntos" data-en="Time Worked Together">
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Continuar" data-en="Next">Continuar</button>
+</div>
 </div>
 
 <!-- ================= STEP 9 ================= -->
 <div class="form-step">
-<h2 data-es="Referencias y Contrato" data-en="References & Contract">Referencias y Contrato</h2>
+<h2 data-es="Firma final" data-en="Final Signature">Firma final</h2>
 <div class="score-bar"><div class="score-fill" id="score9"></div></div>
-<label data-es="Referencias personales" data-en="Personal References">Referencias personales</label><textarea rows="3" name="personalRefs"></textarea>
-<label data-es="Referencias laborales" data-en="Work References">Referencias laborales</label><textarea rows="3" name="workRefs"></textarea>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Continuar</button></div>
+<label data-es="Nombre completo" data-en="Full Name">Nombre completo</label>
+<input name="signName" placeholder="Nombre completo" required data-es="Nombre completo" data-en="Full Name">
+<label data-es="Fecha" data-en="Date">Fecha</label>
+<input type="date" name="signDate" required data-es="Fecha" data-en="Date">
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Enviar" data-en="Submit">Enviar</button>
+</div>
 </div>
 
 <!-- ================= STEP 10 ================= -->
 <div class="form-step">
-<h2 data-es="Firma y Certificación" data-en="Signature & Certification">Firma y Certificación</h2>
+<h2 data-es="Términos y Política" data-en="Policy & Terms">Términos y Política</h2>
 <div class="score-bar"><div class="score-fill" id="score10"></div></div>
-<label data-es="Comentarios adicionales" data-en="Additional Notes">Comentarios adicionales</label><textarea rows="3" name="notes"></textarea>
-<label data-es="Firma digital" data-en="Digital Signature">Firma digital</label><input type="text" name="signature" required>
-<label><input type="checkbox" name="agree" required data-es="Certifico que toda la información es verdadera" data-en="I certify all information is true"> Certifico que toda la información es verdadera</label>
-<div class="btns"><button type="button" class="prev">Atrás</button><button type="submit">Enviar Aplicación</button></div>
+<div class="policy-box" data-es="Lea los términos y condiciones. Al aceptar, confirma que toda la información es correcta y que entiende las políticas de la empresa." data-en="Read the terms and conditions. By accepting, you confirm all information is correct and understand company policies.">
+Lea los términos y condiciones. Al aceptar, confirma que toda la información es correcta y que entiende las políticas de la empresa.
+</div>
+<label data-es="Acepto los términos y condiciones" data-en="I accept the terms and conditions">
+<input type="checkbox" name="acceptPolicy" required data-es="Acepto los términos y condiciones" data-en="I accept the terms and conditions"> Acepto los términos y condiciones
+</label>
+<div class="btns">
+<button type="button" class="prev" data-es="Atrás" data-en="Back">Atrás</button>
+<button type="button" class="next" data-es="Finalizar" data-en="Finish">Finalizar</button>
+</div>
 </div>
 
 </form>
-
 <div class="footer">
-<span>SunPower Corporation – Todos los derechos reservados</span>
-<span>Contacto HR: hr@sunpowercorp.com</span>
+<span data-es="© 2026 SunPower Corporation. Todos los derechos reservados." data-en="© 2026 SunPower Corporation. All rights reserved.">© 2026 SunPower Corporation. Todos los derechos reservados.</span>
 </div>
 </div>
 </div>
 
-<div class="confetti-msg" id="confettiMsg">¡Solicitud enviada! 🎉<br>Espere los próximos pasos</div>
+<div class="confetti-msg" id="confettiMsg" data-es="¡Solicitud enviada! 🎉 Espere los próximos pasos" data-en="Application submitted! 🎉 Please await next steps">¡Solicitud enviada! 🎉 Espere los próximos pasos</div>
 
+<!-- ================= SCRIPTS ================= -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
-// ----------------- WIZARD -----------------
-const steps = document.querySelectorAll('.form-step');
-const progress = document.getElementById('progress');
-let stepIndex = 0;
-
-function showStep(){
-  steps.forEach((s,i)=>{s.classList.remove('active'); if(i===stepIndex)s.classList.add('active');});
-  progress.style.width = ((stepIndex+1)/steps.length*100)+'%';
-  updateScore(stepIndex);
+const steps=document.querySelectorAll('.form-step');
+const progress=document.getElementById('progress');
+const scores=[...Array(10)].map((_,i)=>document.getElementById('score'+(i+1)));
+let currentStep=0;
+function showStep(n){steps.forEach(s=>s.classList.remove('active'));steps[n].classList.add('active');progress.style.width=(n/steps.length*100)+'%';if(scores[n])scores[n].style.width='100%';}
+document.querySelectorAll('.next').forEach(btn=>btn.addEventListener('click',()=>{
+  let inputs=steps[currentStep].querySelectorAll('input,select,textarea');
+  for(let i=0;i<inputs.length;i++){if(inputs[i].hasAttribute('required') && !inputs[i].value){alert(document.documentElement.lang==='en'?'Please fill all required fields':'Por favor complete todos los campos requeridos');return;}}
+  if(currentStep<steps.length-1){currentStep++;showStep(currentStep);}else{submitForm();}
+}));
+document.querySelectorAll('.prev').forEach(btn=>btn.addEventListener('click',()=>{if(currentStep>0){currentStep--;showStep(currentStep);}}));
+function submitForm(){
+  document.getElementById('confettiMsg').style.display='block';
+  confetti({particleCount:150,spread:70,origin:{y:0.6}});
+  setTimeout(()=>document.getElementById('confettiMsg').style.display='none',4000);
 }
+showStep(currentStep);
+const langSelect=document.getElementById('langSelect');
+langSelect.addEventListener('change',()=>{
+  let lang=langSelect.value; document.documentElement.lang=lang;
+  document.querySelectorAll('[data-es]').forEach(el=>{
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=el.getAttribute('data-'+lang);}else{el.textContent=el.getAttribute('data-'+lang);}
+  });
+});
+</script>
 
-function updateScore(index){
-  const step = steps[index];
-  const scoreBar = step.querySelector('.score-fill');
-  const requiredFields = step.querySelectorAll('[required]');
-  let filled=0;
-  requiredFields.forEach(f=>{
-    if((f.type==='checkbox' && f.checked) || (f.type!=='checkbox
+</body>
+</html>
