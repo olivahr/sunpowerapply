@@ -6,25 +6,22 @@ html, body {
   font-family: 'Inter', Arial, sans-serif;
   background: #f0f3f7;
   scroll-behavior: smooth;
+  overflow-y: auto; /* permitir scroll general si hace falta */
   overflow-x: hidden;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-input, select, textarea {
-  font-size: 16px;
-  outline: none;
-}
+input, select, textarea { font-size: 16px; outline: none; }
 
 /* ================= LANG SELECT ================= */
 .lang-container {
-  width: 100%;
   display: flex;
-  justify-content: center; /* centra horizontal */
-  padding-top: 15px;
-  position: fixed; /* siempre arriba */
+  justify-content: center;
+  position: fixed;
+  top: 10px;
+  width: 100%;
+  padding: 10px 0;
   z-index: 1000;
 }
 
@@ -46,7 +43,7 @@ input, select, textarea {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 80px 10px 20px 10px;
+  padding: 80px 10px 20px 10px; /* deja espacio para lang select */
 }
 
 /* ================= FORM WRAPPER ================= */
@@ -58,91 +55,37 @@ input, select, textarea {
   box-shadow: 0 20px 60px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 40px;
-  overflow: hidden; /* no scroll infinito dentro del contenedor */
+  overflow-y: auto;
+  max-height: 90vh;
   position: relative;
 }
 
-/* ================= PROGRESS BAR ================= */
-.progress-bar {
-  height: 20px;
-  background: #ddd;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.progress {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg,#1f8f4a,#45c16c);
-  border-radius: 10px;
-  transition: width .6s ease-in-out;
-}
-
-.score-bar {
-  position: relative;
-  height: 20px;
-  background: #eee;
-  border-radius: 10px;
-  margin: 15px 0;
-  overflow: hidden;
-}
-
-.score-fill {
-  height: 100%;
-  width: 0%;
-  border-radius: 10px;
-  transition: width .4s ease-in-out;
-  text-align: center;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 20px;
-}
-
-/* ================= FORM STEP ================= */
+/* ================= FORM STEPS ================= */
 .form-step {
-  min-height: 75vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-bottom: 40px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 0;
   opacity: 0;
   transform: translateX(50px);
   transition: all 0.6s ease;
 }
 
 .form-step.active {
-  display: flex;
   opacity: 1;
   transform: translateX(0);
+  display: flex;
+  flex-direction: column;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #1f8f4a;
-  font-weight: 700;
-  font-size: 28px;
-}
-
-.step-desc {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 15px;
-}
+/* ================= HEADINGS ================= */
+h2 { text-align: center; margin-bottom: 20px; color: #1f8f4a; font-weight: 700; font-size: 28px; }
+.step-desc { font-size: 14px; color: #555; margin-bottom: 15px; }
 
 /* ================= LABELS & INPUTS ================= */
-label {
-  display: block;
-  margin-top: 14px;
-  font-weight: 500;
-  color: #333;
-  font-size: 16px;
-}
-
+label { display: block; margin-top: 14px; font-weight: 500; color: #333; font-size: 16px; }
 input, select, textarea {
   width: 100%;
   padding: 16px;
@@ -153,26 +96,15 @@ input, select, textarea {
   transition: .3s;
   background: #f7f9fc;
 }
-
 input:focus, select:focus, textarea:focus {
   border-color: #1f8f4a;
   box-shadow: 0 0 12px rgba(31,143,74,0.25);
   background: #fff;
 }
-
-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
+textarea { resize: vertical; min-height: 80px; }
 
 /* ================= BUTTONS ================= */
-.btns {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 25px;
-  gap: 15px;
-}
-
+.btns { display: flex; justify-content: flex-end; margin-top: 25px; gap: 15px; }
 button {
   padding: 16px 32px;
   border: none;
@@ -185,37 +117,11 @@ button {
   transition: all 0.3s;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-}
-
-button:active {
-  transform: translateY(0);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
+button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.3); }
+button:active { transform: translateY(0); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
 @media(max-width:900px){
-  .btns {
-    flex-direction: column;
-  }
-  button {
-    width: 100%;
-  }
-}
-
-/* ================= FOOTER ================= */
-.footer {
-  margin-top: 50px;
-  text-align: center;
-  font-size: 13px;
-  color: #666;
-}
-
-.footer span {
-  display: block;
-  margin-top: 6px;
+  .btns { flex-direction: column; }
+  button { width: 100%; }
 }
 
 /* ================= CONFETTI MSG ================= */
@@ -226,15 +132,4 @@ button:active {
   color: #1f8f4a;
   margin-top: 30px;
   font-weight: 700;
-}
-
-/* ================= SCROLL & LIMIT ================= */
-/* Para que el scroll solo vaya dentro de las preguntas y no infinito */
-body {
-  overflow-y: hidden; /* evita scroll general */
-}
-
-.form-wrapper {
-  overflow-y: auto; /* scroll solo dentro del contenedor de la forma */
-  max-height: 90vh; /* limita altura visible */
 }
