@@ -1,52 +1,65 @@
-// ================= SCRIPT.JS =================
-
+<script>
+// ======== Variables principales ========
 const steps = document.querySelectorAll('.form-step');
 const nextBtns = document.querySelectorAll('.next');
 const prevBtns = document.querySelectorAll('.prev');
 const progress = document.getElementById('progress');
 let currentStep = 0;
 
-// Función para actualizar barra de progreso y score por step
+// ======== Inicialización ========
+// Solo mostrar el primer step
+steps.forEach((step, index) => {
+  if(index === 0){
+    step.classList.add('active');
+  } else {
+    step.classList.remove('active');
+  }
+});
+// Inicializar barra de progreso
+updateProgress();
+
+// ======== Función para actualizar barra de progreso ========
 function updateProgress(){
   const percent = ((currentStep+1)/steps.length)*100;
   progress.style.width = percent+'%';
+  
+  // Score fill solo en el step actual
   steps.forEach((step, index) => {
-    const scoreBar = step.querySelector('.score-fill');
-    if(scoreBar){
-      scoreBar.style.width = (index <= currentStep ? '100%' : '0%');
+    const scoreFill = step.querySelector('.score-fill');
+    if(scoreFill){
+      scoreFill.style.width = (index <= currentStep ? '100%' : '0%');
     }
   });
 }
 
-// Avanzar al siguiente step
-nextBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
+// ======== Botones Siguiente ========
+nextBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
     if(validateStep(currentStep)){
       steps[currentStep].classList.remove('active');
       currentStep++;
-      if(currentStep >= steps.length){
-        currentStep = steps.length -1;
-      }
+      // Evitar pasar del último step
+      if(currentStep >= steps.length) currentStep = steps.length - 1;
       steps[currentStep].classList.add('active');
       updateProgress();
-      scrollToStep();
+      
+      // Si es el último step, no hacer nada más, confeti solo al submit
     }
   });
 });
 
-// Retroceder al step anterior
-prevBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
+// ======== Botones Anterior ========
+prevBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
     steps[currentStep].classList.remove('active');
     currentStep--;
     if(currentStep < 0) currentStep = 0;
     steps[currentStep].classList.add('active');
     updateProgress();
-    scrollToStep();
   });
 });
 
-// Validar inputs del step actual
+// ======== Validación por Step ========
 function validateStep(stepIndex){
   const step = steps[stepIndex];
   const inputs = step.querySelectorAll('input, select, textarea');
@@ -59,53 +72,53 @@ function validateStep(stepIndex){
   return true;
 }
 
-// Cambio de idioma ES/EN
+// ======== Cambio de idioma ========
 const langSelect = document.getElementById('langSelect');
-langSelect.addEventListener('change', ()=>{
-  const lang = langSelect.value;
-  document.querySelectorAll('[data-es]').forEach(el=>{
-    if(el.tagName==='INPUT' || el.tagName==='TEXTAREA'){ 
-      el.placeholder = el.getAttribute(`data-${lang}`);
-    } else {
-      el.textContent = el.getAttribute(`data-${lang}`);
-    }
+if(langSelect){
+  langSelect.addEventListener('change', ()=>{
+    const lang = langSelect.value;
+    document.querySelectorAll('[data-es]').forEach(el=>{
+      if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA'){ 
+        el.placeholder = el.getAttribute(`data-${lang}`);
+      } else {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      }
+    });
   });
-});
-
-// Confeti y mensaje al enviar formulario (final de cada parte)
-document.getElementById('app').addEventListener('submit', function(e){
-  e.preventDefault();
-  // Mostrar confeti y mensaje
-  const confettiMsg = document.querySelector('.confetti-msg');
-  if(confettiMsg){
-    confettiMsg.style.display = 'block';
-  }
-
-  // Deshabilitar inputs y botones para evitar más cambios
-  this.querySelectorAll('input, select, textarea, button').forEach(el=>{
-    el.disabled = true;
-  });
-
-  // Opcional: auto-ocultar confeti después de unos segundos
-  setTimeout(()=>{
-    if(confettiMsg){
-      confettiMsg.style.display = 'none';
-    }
-  }, 6000);
-
-  alert('✅ ¡Solicitud enviada correctamente! Espere las instrucciones siguientes.');
-});
-
-// Función para scroll al contenedor activo (evita scroll infinito)
-function scrollToStep(){
-  const container = document.querySelector('.container');
-  const step = steps[currentStep];
-  if(container && step){
-    const top = step.offsetTop - container.offsetTop;
-    container.scrollTo({top: top, behavior: 'smooth'});
-  }
 }
 
-// Inicialización
-updateProgress();
-scrollToStep();
+// ======== Mensaje final y confeti solo al enviar ========
+document.getElementById('app').addEventListener('submit', function(e){
+  e.preventDefault();
+  
+  // Mostrar confeti y mensaje
+  const confettiMsg = document.getElementById('confettiMsg');
+  if(confettiMsg){
+    confettiMsg.style.display = 'block';
+    // Ocultar mensaje después de 6s
+    setTimeout(()=>{confettiMsg.style.display='none';},6000);
+  }
+  
+  // Alert opcional
+  alert('✅ Solicitud enviada correctamente. Gracias por completar el formulario.');
+  
+  // Aquí puedes agregar lógica para enviar datos a backend si aplica
+});
+
+// ======== Ajustes de scroll ========
+// Cada step tiene scroll propio
+steps.forEach(step => {
+  step.style.maxHeight = '80vh';
+  step.style.overflowY = 'auto';
+});
+
+// ======== ES/EN centrado ========
+// Asegúrate que tu contenedor de idiomas tenga id="langContainer"
+const langContainer = document.getElementById('langContainer');
+if(langContainer){
+  langContainer.style.display = 'flex';
+  langContainer.style.justifyContent = 'center';
+  langContainer.style.alignItems = 'center';
+  langContainer.style.margin = '20px 0';
+}
+</script>
