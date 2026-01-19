@@ -1,232 +1,179 @@
-/* ===========================
-   RESET BÁSICO
-=========================== */
+/* ================= Global ================= */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-body, html {
-  height: 100%;
-  width: 100%;
-  background-color: #f5f7fa;
-  overflow-x: hidden;
+body {
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .app-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
+  width: 100%;
+  max-width: 700px;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  padding: 20px 30px;
+  overflow: hidden; /* Limita el scroll al contenido de la app */
 }
 
+.lang-select {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+/* ================= Form Wrapper ================= */
 .form-wrapper {
-  position: relative;
-  overflow: hidden; /* Evita scroll infinito */
+  width: 100%;
 }
 
 form {
   width: 100%;
 }
 
-h2 {
-  color: #111;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.step-desc {
-  font-size: 0.95rem;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-label {
-  display: block;
-  margin: 12px 0 6px;
-  font-weight: 500;
-  color: #333;
-}
-
-input[type="text"],
-input[type="tel"],
-input[type="time"],
-select,
-textarea {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  font-size: 0.95rem;
-  transition: border 0.3s;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: #2b7cff;
-  outline: none;
-}
-
-textarea {
-  min-height: 60px;
-  resize: vertical;
-}
-
-/* ===========================
-   BOTONES
-=========================== */
-.btns {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-button {
-  padding: 10px 25px;
-  border: none;
-  border-radius: 6px;
-  background-color: #2b7cff;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background-color: #1a5cd8;
-}
-
-button.prev {
-  background-color: #aaa;
-}
-
-button.prev:hover {
-  background-color: #888;
-}
-
-/* ===========================
-   PASOS DEL FORMULARIO
-=========================== */
-.form-step {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.form-step.active {
-  display: block;
-  opacity: 1;
-}
-
-/* ===========================
-   BARRA DE PROGRESO
-=========================== */
+/* ================= Progress Bar ================= */
 .progress-bar {
   width: 100%;
-  height: 8px;
-  background: #eee;
-  border-radius: 6px;
-  margin-bottom: 25px;
+  height: 10px;
+  background: #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
   overflow: hidden;
 }
 
 .progress {
   height: 100%;
-  width: 0;
-  background: #2b7cff;
-  transition: width 0.4s ease;
-  border-radius: 6px;
+  width: 0%;
+  background: #4caf50;
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
 }
 
 .score-bar {
   width: 100%;
   height: 6px;
-  background: #ddd;
-  border-radius: 6px;
-  margin-bottom: 15px;
+  background: #eee;
+  margin: 10px 0 20px 0;
+  border-radius: 3px;
   overflow: hidden;
 }
 
 .score-fill {
   height: 100%;
-  width: 0;
-  background: #2b7cff;
-  border-radius: 6px;
-  transition: width 0.4s ease;
+  width: 0%;
+  background: #2196f3;
+  transition: width 0.3s ease-in-out;
 }
 
-/* ===========================
-   SELECTOR DE IDIOMA
-=========================== */
-.lang-select {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 6px 12px;
-  border-radius: 6px;
+/* ================= Form Steps ================= */
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.step-desc {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px 0;
+  font-weight: bold;
+  color: #444;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
-  background: #fff;
-  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
-/* ===========================
-   MENSAJE DE CONFETI
-=========================== */
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* ================= Buttons ================= */
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #1976d2;
+}
+
+/* ================= Footer ================= */
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ================= Confetti Message ================= */
 .confetti-msg {
   display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.95);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2b7cff;
   text-align: center;
-  padding: 20px;
-  border-radius: 12px;
-  z-index: 999;
-}
-
-.confetti-msg button {
   margin-top: 20px;
-  padding: 10px 25px;
-  background-color: #2b7cff;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 15px;
+  background: #e8f5e9;
+  border: 1px solid #4caf50;
+  border-radius: 5px;
+  color: #2e7d32;
+  font-weight: bold;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.confetti-msg button:hover {
-  background-color: #1a5cd8;
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
-/* ===========================
-   RESPONSIVE
-=========================== */
-@media (max-width: 768px) {
-  .btns {
-    flex-direction: column-reverse;
-    gap: 12px;
+/* ================= Responsive ================= */
+@media(max-width: 768px){
+  .app-container {
+    padding: 15px 20px;
   }
 
   button {
-    width: 100%;
-  }
-
-  .lang-select {
-    top: 10px;
-    right: 10px;
+    padding: 8px 15px;
+    font-size: 13px;
   }
 }
