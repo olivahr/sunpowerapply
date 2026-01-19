@@ -2,332 +2,163 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Aplicación Solar Full App</title>
+<title>Aplicación Corporativa – Paneles Solares</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* FONDO Y BODY */
-  body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, #e0f3ff, #f0f4f7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  /* CONTENEDOR CENTRAL */
-  .app-container {
-    width: 90%;
-    max-width: 900px;
-    height: 95%;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* BARRA DE PROGRESO */
-  .progress-bar {
-    width: 100%;
-    height: 14px;
-    background: #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 30px;
-  }
-  .progress {
-    width: 0%;
-    height: 100%;
-    background: #1f8f4a;
-    border-radius: 10px;
-    transition: width 0.5s ease;
-  }
-
-  /* PASOS DEL WIZARD */
-  .form-step {
-    position: absolute;
-    width: 100%;
-    top: 70px;
-    left: 0;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.5s ease;
-  }
-  .form-step.active {
-    opacity: 1;
-    transform: translateX(0);
-    position: relative;
-  }
-  .form-step.prev {
-    transform: translateX(-100%);
-  }
-
-  h2 { text-align: center; color: #1f8f4a; font-weight: 700; margin-bottom: 25px; }
-  label { display: block; margin-top: 12px; font-weight: 600; color: #333; }
-  input, select, textarea {
-    width: 100%;
-    padding: 14px;
-    margin-top: 5px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    box-sizing: border-box;
-  }
-  textarea { resize: vertical; }
-
-  /* BOTONES */
-  .btn-group { display: flex; justify-content: space-between; margin-top: 25px; }
-  button {
-    padding: 15px;
-    background: #1f8f4a;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 48%;
-  }
-  button:hover { background: #166b38; }
-  @media(max-width:700px){ .btn-group{ flex-direction: column; } button{ width: 100%; margin-bottom: 10px; } }
-
-  /* ERRORES */
-  .error { color: red; font-size: 0.85em; display: none; margin-top: 2px; }
+/* === RESET Y FONTS === */
+html,body{margin:0;height:100%;font-family:'Inter',Arial,sans-serif;background:#f2f4f7;}
+.app-container{
+  width:100%;height:100%;max-width:800px;margin:auto;background:#fff;
+  padding:40px;box-sizing:border-box;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.1);display:flex;flex-direction:column;
+}
+.progress-bar{height:12px;background:#e0e0e0;border-radius:6px;margin-bottom:25px;overflow:hidden;}
+.progress{height:100%;width:0%;background:linear-gradient(90deg,#1f8f4a,#45c16c);border-radius:6px;transition:.5s;}
+.form-step{display:none;flex:1;overflow-y:auto;opacity:0;transform:translateY(20px);transition:opacity .5s, transform .5s;}
+.form-step.active{display:block;opacity:1;transform:translateY(0);}
+h2{color:#1f8f4a;text-align:center;margin-bottom:25px;font-weight:600;}
+label{display:block;margin-top:18px;font-weight:500;color:#333;}
+input,select,textarea{
+  width:100%;padding:14px;margin-top:6px;border:1px solid #ccc;border-radius:12px;
+  font-size:15px;transition:0.3s;outline:none;background:#fafafa;
+}
+input:focus, select:focus, textarea:focus{
+  border-color:#1f8f4a;box-shadow:0 0 8px rgba(31,143,74,0.2);background:#fff;
+}
+textarea{resize:vertical;}
+.btns{display:flex;justify-content:space-between;margin-top:30px;}
+button{
+  padding:14px 22px;border:none;border-radius:12px;
+  background:linear-gradient(135deg,#1f8f4a,#45c16c);color:#fff;font-size:16px;font-weight:500;
+  cursor:pointer;transition:0.3s;box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+button:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,0.2);}
+button:active{transform:translateY(0);box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+@media(max-width:700px){.btns{flex-direction:column}button{width:100%;margin-bottom:12px;}}
+.policy-box{
+  border:1px solid #ccc;background:#f9f9f9;padding:20px;border-radius:14px;max-height:240px;
+  overflow-y:auto;margin-top:12px;font-size:14px;box-shadow:inset 0 1px 4px rgba(0,0,0,0.05);
+}
+input[type="checkbox"]{width:auto;margin-right:8px;}
 </style>
 </head>
 <body>
 
 <div class="app-container">
-  <div class="progress-bar"><div class="progress" id="progress"></div></div>
-  <form id="solarApp">
+<div class="progress-bar"><div class="progress" id="progress"></div></div>
+<form id="app">
 
-    <!-- STEP 1 -->
-    <div class="form-step active">
-      <h2>Información Personal</h2>
-      <label>Nombre Completo</label>
-      <input type="text" name="fullName" required>
-      <span class="error">Debes completar este campo</span>
+<!-- STEP 1: Información Personal -->
+<div class="form-step active">
+<h2>Información Personal</h2>
+<label>Nombre completo</label><input name="fullName" required>
+<label>Fecha de nacimiento</label><input type="date" name="dob" required>
+<label>Email</label><input type="email" name="email" required>
+<label>Teléfono</label><input name="phone" required>
+<label>Dirección completa</label><input name="address" required>
+<div class="btns"><span></span><button type="button" class="next">Siguiente</button></div>
+</div>
 
-      <label>Fecha de Nacimiento</label>
-      <input type="date" name="dob" required>
-      <span class="error">Debes indicar tu fecha de nacimiento (18+)</span>
+<!-- STEP 2: Posición y Experiencia -->
+<div class="form-step">
+<h2>Posición y Experiencia</h2>
+<label>Puesto</label>
+<select name="position" required>
+<option value="">Selecciona</option>
+<option>Instalador Solar</option><option>Electricista</option>
+<option>Técnico de Techo</option><option>Labor</option><option>Supervisor</option>
+</select>
+<label>Experiencia en paneles solares</label>
+<select name="experience" required><option></option><option>Sí</option><option>No</option></select>
+<label>Años de experiencia</label><input type="number" min="0" name="yearsExperience" required>
+<label>Otras habilidades relevantes</label><textarea rows="3" name="skills"></textarea>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+</div>
 
-      <label>Email</label>
-      <input type="email" name="email" required>
-      <span class="error">Debes ingresar un email válido</span>
+<!-- STEP 3: Alojamiento Corporativo -->
+<div class="form-step">
+<h2>Alojamiento Corporativo</h2>
+<label>Tipo de alojamiento</label>
+<select name="roomType" required>
+<option></option>
+<option>Habitación compartida</option>
+<option>Habitación privada</option>
+</select>
+<div class="policy-box">
+<strong>Condiciones del Alojamiento:</strong><br><br>
+• Exclusivo para empleados activos.<br>
+• Primera semana debe pagarse antes de llegar.<br>
+• <strong>Habitación compartida:</strong> no requiere depósito; reglas deben cumplirse.<br>
+• <strong>Habitación privada:</strong> requiere depósito reembolsable; se perderá solo por daños o incumplimiento de reglas.<br>
+• No fumar, no visitas, no ruidos excesivos.<br>
+• Limpieza y cuidado del espacio obligatorio.<br>
+• Pagos y depósitos según normas del hotel corporativo.
+</div>
+<label><input type="checkbox" name="acceptHotel" required> Acepto las condiciones del alojamiento y política de pagos</label>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+</div>
 
-      <label>Teléfono</label>
-      <input type="tel" name="phone" required>
-      <span class="error">Debes ingresar tu número de teléfono</span>
+<!-- STEP 4: Capacidad Física y Disponibilidad -->
+<div class="form-step">
+<h2>Capacidad Física y Disponibilidad</h2>
+<label>Capacidad para levantar peso / subir a techos / estar de pie largas horas</label>
+<select name="physicalAbility" required><option></option><option>Sí</option><option>No</option></select>
+<label>Disponibilidad de tiempo</label>
+<select name="availability" required><option></option><option>Tiempo completo</option><option>Medio tiempo</option></select>
+<label>Contrato de 9 meses</label>
+<select name="contract" required><option></option><option>Sí</option><option>No</option></select>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+</div>
 
-      <label>Dirección Completa</label>
-      <input type="text" name="address" required>
-      <span class="error">Debes ingresar tu dirección</span>
+<!-- STEP 5: Documentación Legal y Transporte -->
+<div class="form-step">
+<h2>Documentación Legal y Transporte</h2>
+<label>Ciudadano o Residente</label>
+<select name="citizenship" required><option></option><option>Ciudadano</option><option>Residente</option></select>
+<label>Transporte propio</label>
+<select name="transportation" required><option></option><option>Sí</option><option>No</option></select>
+<p><strong>Aviso:</strong> En la oficina de Recursos Humanos se verificará en persona el Formulario I‑9 con dos formas de identificación.</p>
+<label>ID / Pasaporte</label><input type="file" name="idDocument" required>
+<label>Licencias / Certificaciones (si aplica)</label><input type="file" name="certifications">
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="button" class="next">Siguiente</button></div>
+</div>
 
-      <div class="btn-group">
-        <div></div>
-        <button type="button" class="next-btn">Siguiente →</button>
-      </div>
-    </div>
+<!-- STEP 6: Firma y Certificación -->
+<div class="form-step">
+<h2>Firma y Certificación</h2>
+<label>Comentarios adicionales</label><textarea rows="3" name="notes"></textarea>
+<label>Firma digital (nombre completo)</label><input type="text" name="signature" required>
+<label><input type="checkbox" name="agree" required> Certifico que toda la información es verdadera</label>
+<div class="btns"><button type="button" class="prev">Atrás</button><button type="submit">Enviar Aplicación</button></div>
+</div>
 
-    <!-- STEP 2 -->
-    <div class="form-step">
-      <h2>Posición y Experiencia</h2>
-      <label>Puesto al que aplicas</label>
-      <select name="position" required>
-        <option value="">Selecciona</option>
-        <option>Instalador Solar</option>
-        <option>Electricista</option>
-        <option>Técnico de Techo</option>
-        <option>Ayudante / Labor</option>
-        <option>Supervisor</option>
-      </select>
-      <span class="error">Debes seleccionar un puesto</span>
-
-      <label>Experiencia en paneles solares</label>
-      <select name="experience" required>
-        <option value="">Selecciona</option>
-        <option>Sí</option>
-        <option>No</option>
-      </select>
-      <span class="error">Debes seleccionar una opción</span>
-
-      <label>Años de experiencia</label>
-      <input type="number" name="yearsExperience" min="0" required>
-      <span class="error">Debes indicar tus años de experiencia</span>
-
-      <div class="btn-group">
-        <button type="button" class="prev-btn">← Atrás</button>
-        <button type="button" class="next-btn">Siguiente →</button>
-      </div>
-    </div>
-
-    <!-- STEP 3 -->
-    <div class="form-step">
-      <h2>Disponibilidad y Contrato</h2>
-      <label>¿Puedes cumplir un contrato de 9 meses?</label>
-      <select name="contract" required>
-        <option value="">Selecciona</option>
-        <option>Sí</option>
-        <option>No</option>
-      </select>
-      <span class="error">Debes seleccionar sí o no</span>
-
-      <label>¿Puedes estar de pie durante turnos largos y subir a techos?</label>
-      <select name="standing" required>
-        <option value="">Selecciona</option>
-        <option>Sí</option>
-        <option>No</option>
-      </select>
-      <span class="error">Debes seleccionar sí o no</span>
-
-      <label>Disponibilidad de tiempo</label>
-      <select name="availability" required>
-        <option value="">Selecciona</option>
-        <option>Tiempo completo</option>
-        <option>Medio tiempo</option>
-        <option>Contrato temporal</option>
-      </select>
-      <span class="error">Debes seleccionar tu disponibilidad</span>
-
-      <div class="btn-group">
-        <button type="button" class="prev-btn">← Atrás</button>
-        <button type="button" class="next-btn">Siguiente →</button>
-      </div>
-    </div>
-
-    <!-- STEP 4 -->
-    <div class="form-step">
-      <h2>Legalidad y Transporte</h2>
-      <label>¿Autorizado para trabajar en EE. UU.?</label>
-      <select name="workAuth" required>
-        <option value="">Selecciona</option>
-        <option>Sí</option>
-        <option>No</option>
-      </select>
-      <span class="error">Debes seleccionar sí o no</span>
-
-      <label>¿Tienes transporte propio?</label>
-      <select name="transportation" required>
-        <option value="">Selecciona</option>
-        <option>Sí</option>
-        <option>No</option>
-      </select>
-      <span class="error">Debes seleccionar sí o no</span>
-
-      <div class="btn-group">
-        <button type="button" class="prev-btn">← Atrás</button>
-        <button type="button" class="next-btn">Siguiente →</button>
-      </div>
-    </div>
-
-    <!-- STEP 5 -->
-    <div class="form-step">
-      <h2>Documentos Requeridos</h2>
-      <label>Documento de identificación (ID / Pasaporte, máximo 2MB)</label>
-      <input type="file" name="idDocument" accept="image/*,.pdf" required>
-      <span class="error">Debes subir tu documento (máx 2MB)</span>
-
-      <label>Certificaciones / Licencias (si aplica, máximo 2MB)</label>
-      <input type="file" name="certifications" accept="image/*,.pdf">
-
-      <div class="btn-group">
-        <button type="button" class="prev-btn">← Atrás</button>
-        <button type="button" class="next-btn">Siguiente →</button>
-      </div>
-    </div>
-
-    <!-- STEP 6 -->
-    <div class="form-step">
-      <h2>Información Adicional y Firma</h2>
-      <label>Notas / Comentarios (opcional)</label>
-      <textarea name="notes" rows="4"></textarea>
-
-      <label>Firma Digital (escribe tu nombre completo)</label>
-      <input type="text" name="signature" required>
-      <span class="error">Debes firmar con tu nombre</span>
-
-      <label>
-        <input type="checkbox" name="agree" required>
-        Certifico que toda la información es verdadera
-      </label>
-      <span class="error">Debes aceptar</span>
-
-      <div class="btn-group">
-        <button type="button" class="prev-btn">← Atrás</button>
-        <button type="submit">Enviar Aplicación</button>
-      </div>
-    </div>
-
-  </form>
+</form>
 </div>
 
 <script>
-const form = document.getElementById('solarApp');
-const steps = document.querySelectorAll('.form-step');
-const progress = document.getElementById('progress');
-let currentStep = 0;
-
-function showStep(step){
-  steps.forEach((s,i)=>{
-    s.classList.remove('prev');
-    s.classList.remove('active');
-    if(i<step) s.classList.add('prev');
-    if(i===step) s.classList.add('active');
-  });
-  progress.style.width = ((step+1)/steps.length)*100 + '%';
+const steps=document.querySelectorAll('.form-step');
+const progress=document.getElementById('progress');
+let step=0;
+function showStep(){
+steps.forEach((s,i)=>s.classList.toggle('active',i===step));
+progress.style.width=((step+1)/steps.length*100)+'%';
 }
-
-function validateStep(step){
-  let valid = true;
-  const fields = steps[step].querySelectorAll('input, select, textarea');
-  fields.forEach(field=>{
-    const error = field.nextElementSibling;
-    if(field.hasAttribute('required') && !field.value){ valid=false; if(error) error.style.display='block'; }
-    else if(error) error.style.display='none';
-
-    if(field.name==='dob' && field.value){
-      const dob = new Date(field.value);
-      const age = (new Date()-dob)/(1000*60*60*24*365.25);
-      if(age<18){ valid=false; error.textContent="Debes ser mayor de 18 años"; error.style.display='block'; }
-      else if(error) error.style.display='none';
-    }
-
-    if(field.type==='file' && field.files.length>0){
-      if(field.files[0].size>2*1024*1024){ valid=false; error.textContent="Archivo demasiado grande (máx 2MB)"; error.style.display='block'; }
-    }
-  });
-  return valid;
+document.querySelectorAll('.next').forEach(b=>b.onclick=()=>{if(validateStep()){step++; showStep();}});
+document.querySelectorAll('.prev').forEach(b=>b.onclick=()=>{step--; showStep();});
+function validateStep(){
+let ok=true;
+steps[step].querySelectorAll('[required]').forEach(f=>{
+if(f.type==='checkbox' && !f.checked) ok=false;
+else if(f.type!=='checkbox' && !f.value) ok=false;
+});
+if(!ok) alert('Completa y acepta todos los campos antes de continuar');
+return ok;
 }
-
-document.querySelectorAll('.next-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    if(validateStep(currentStep)){ currentStep++; showStep(currentStep); }
-    else alert('Por favor completa correctamente todos los campos antes de continuar.');
-  });
+document.getElementById('app').addEventListener('submit',e=>{
+e.preventDefault();
+if(validateStep()){alert('Aplicación enviada con éxito. HR procesará tus datos y alojamiento.');document.getElementById('app').reset(); step=0; showStep();}
+else{alert('Completa todos los campos');}
 });
-
-document.querySelectorAll('.prev-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{ currentStep--; showStep(currentStep); });
-});
-
-form.addEventListener('submit', e=>{
-  e.preventDefault();
-  if(validateStep(currentStep)){
-    alert('Aplicación completada con éxito. Todos los campos fueron llenados correctamente.');
-    form.reset();
-    currentStep=0; showStep(currentStep);
-  } else alert('Por favor completa todos los campos obligatorios.');
-});
-
-showStep(currentStep);
+showStep();
 </script>
 
 </body>
